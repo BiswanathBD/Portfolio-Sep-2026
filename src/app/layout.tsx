@@ -18,6 +18,8 @@ const hindSiliguri = Hind_Siliguri({
 });
 
 export const metadata: Metadata = {
+  // আপনার বর্তমান Vercel ইউআরএল সেট করা হয়েছে
+  metadataBase: new URL("https://biswanath.vercel.app"),
   title: {
     default: "Biswanath Sarker | MERN Stack Developer",
     template: "%s | Biswanath Sarker",
@@ -30,7 +32,6 @@ export const metadata: Metadata = {
     "MERN Stack Developer",
     "Full Stack Developer",
     "Frontend Developer",
-    "Backend Developer",
     "React Developer",
     "Next.js Developer",
     "TypeScript",
@@ -41,34 +42,60 @@ export const metadata: Metadata = {
     { name: "Biswanath Sarker", url: "https://github.com/BiswanathBD" },
   ],
   creator: "Biswanath Sarker",
-  metadataBase: new URL("https://biswanath.dev"),
+  alternates: {
+    canonical: "https://biswanath.vercel.app",
+  },
+
+  // FIXME: আপনার public/ ফোল্ডারে এই আইকন ফাইলগুলো (.ico, .png) যুক্ত করতে হবে
+  icons: {
+    icon: "/favicon.ico", // TODO: আসল ফেভিকন যুক্ত করুন
+    shortcut: "/favicon-16x16.png", // TODO: কাস্টম শর্টকাট আইকন যুক্ত করুন
+    apple: "/apple-touch-icon.png", // TODO: অ্যাপল ডিভাইসের জন্য আইকন যুক্ত করুন
+  },
+
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://biswanath.dev",
+    url: "https://biswanath.vercel.app",
     title: "Biswanath Sarker | MERN Stack Developer",
     description:
       "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
     siteName: "Biswanath Sarker Portfolio",
+
+    // FIXME: সোশ্যাল শেয়ারিংয়ের ছবি। public/og-image.png নামের একটি ছবি তৈরি করে নিবেন
     images: [
       {
-        url: "/og-image.png",
+        url: "https://biswanath.vercel.app/og-image.png", // TODO: আসল OpenGraph ইমেজ ইউআরএল বা আপেক্ষিক পথ দিন
         width: 1200,
         height: 630,
-        alt: "Biswanath Sarker Portfolio",
+        alt: "Biswanath Sarker Portfolio Overview",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Biswanath Sarker | MERN Stack Developer",
     description:
       "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
-    images: ["/og-image.png"],
+
+    // FIXME: টুইটার শেয়ারের ছবি। og-image এর একই ইমেজ ব্যবহার করতে পারেন
+    images: ["https://biswanath.vercel.app/og-image.png"], // TODO: আসল টুইটার প্রিভিউ ইমেজ দিন
+
+    // TODO: আপনার টুইটার হ্যান্ডেল থাকলে নিচে কমেন্ট আউট তুলে যুক্ত করুন
+    // creator: "@your_twitter_username",
   },
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -82,10 +109,12 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${hindSiliguri.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body className="min-h-screen flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
+        <main className="grow flex justify-center overflow-x-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
+          {children}
+        </main>
         <Navbar />
-        {children}
       </body>
     </html>
   );

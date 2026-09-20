@@ -161,7 +161,7 @@ const CustomCursor = () => {
       {" "}
       <div
         ref={cursorDotRef}
-        className="pointer-events-none fixed top-0 left-0 z-9999 h-4 w-4 rounded-full bg-linear-to-r from-primary to-secondary mix-blend-difference opacity-0"
+        className="pointer-events-none fixed top-0 left-0 z-9999 h-4 w-4 rounded-full bg-linear-to-r from-primary to-accent mix-blend-difference opacity-0"
         aria-hidden="true"
       />
       <div

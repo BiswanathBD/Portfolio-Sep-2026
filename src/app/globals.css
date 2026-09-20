@@ -5,8 +5,8 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
   --color-card-bg: var(--card-bg);
   --color-border-color: var(--border-color);
 
@@ -14,17 +14,17 @@
 }
 
 :root {
-  --background: #0f0518;
+  --background: #0e0c10;
   --foreground: #f3f4f6;
 
-  --primary: #7d5fff;
+  --primary: #ac5fff;
   --primary-foreground: #ffffff;
 
-  --secondary: #f916d3;
-  --secondary-foreground: #ffffff;
+  --accent: #f91693;
+  --accent-foreground: #ffffff;
 
-  --card-bg: #170926;
-  --border-color: #ffffff;
+  --card-bg: #ffffff10;
+  --border-color: #ffffff20;
 }
 
 /* Base Styles */

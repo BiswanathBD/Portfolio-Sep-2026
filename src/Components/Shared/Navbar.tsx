@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Home,
   User,
@@ -9,11 +9,11 @@ import {
   Code2,
   FolderGit2,
   Mail,
-  Menu,
-  X,
   LucideIcon,
+  ChevronRight,
 } from "lucide-react";
 import Logo from "./Logo";
+import { MotionWrapper } from "../MotionWrapper";
 
 interface NavItem {
   name: string;
@@ -41,61 +41,16 @@ const navItems: NavItem[] = [
   { name: "Contact", href: "#contact", section: "contact", icon: Mail },
 ];
 
-const desktopNavItemVariants: Variants = {
-  hidden: { opacity: 0, y: -10 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.3,
-      delay: 0.2 + i * 0.05,
-      ease: "easeOut",
-    },
-  }),
-};
-
-const mobileMenuVariants: Variants = {
-  hidden: { opacity: 0, y: -10, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.3, ease: "easeOut" },
-  },
-  exit: {
-    opacity: 0,
-    y: -10,
-    scale: 0.98,
-    transition: { duration: 0.2, ease: "easeIn" },
-  },
-};
-
-const menuItemVariants: Variants = {
-  hidden: { x: -15, opacity: 0 },
-  visible: (i: number) => ({
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.25,
-      delay: i * 0.05,
-      ease: "easeOut",
-    },
-  }),
-};
-
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-
       const sections = navItems.map((item) => item.section);
-      const scrollPos = window.scrollY + 120;
+      const scrollPos = window.scrollY + 200;
 
-      if (scrollPos < 200) {
+      if (window.scrollY < 200) {
         setActiveSection("home");
         return;
       }
@@ -118,176 +73,122 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (section: string) => {
-    setActiveSection(section);
-  };
-
   return (
-    <motion.nav
-      aria-label="Main Navigation"
-      className="fixed top-0 left-0 right-0 w-full py-3.5 z-40 container mx-auto px-4 md:px-8 lg:px-16 xl:px-24 transition-all duration-300"
-    >
-      <header
-        className={`flex justify-between items-center transition-all duration-500 rounded-2xl border ${
-          isScrolled
-            ? "bg-card-bg/80 border-border-color backdrop-blur-xl px-4 py-2.5 shadow-lg shadow-black/5"
-            : "bg-transparent border-transparent px-2 py-2"
-        }`}
+    <MotionWrapper animationType="fadeLeft" className="h-screen z-50">
+      <motion.aside
+        animate={{ width: isExpanded ? 220 : 68 }}
+        transition={{ type: "spring", stiffness: 350, damping: 28 }}
+        className="relative h-full bg-background backdrop-blur-xs flex flex-col justify-between py-6 transition-colors duration-300 select-none"
       >
-        <Logo />
-
-        {/* Desktop Navigation Menu */}
-        <ol className="hidden md:flex items-center gap-1.5 font-medium text-sm list-none m-0 p-0">
-          {navItems.map((item, index) => {
-            const isActive = activeSection === item.section;
-            const Icon = item.icon;
-
-            return (
-              <motion.li
-                key={item.name}
-                custom={index}
-                variants={desktopNavItemVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <a
-                  href={item.href}
-                  onClick={() => handleNavClick(item.section)}
-                  className={`relative px-3 py-1.5 rounded-xl flex items-center gap-2 transition-colors duration-200 cursor-pointer ${
-                    isActive
-                      ? "text-primary font-semibold"
-                      : "text-foreground/70 hover:text-primary"
-                  }`}
-                >
-                  {/* Active Indicator Backdrop */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute inset-0 bg-primary/10 border border-primary/20 rounded-xl -z-10"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-
-                  <motion.div
-                    whileHover={{ rotate: [0, -10, 10, 0] }}
-                    transition={{ duration: 0.4 }}
+        <div className="inset-y-0 w-px absolute left-0 bg-linear-to-b from-transparent via-accent/20 to-transparent z-2" />
+        <div className="flex flex-col h-full">
+          {/* Header Section Collapse/Expand Button */}
+          <div className="flex items-center justify-between mb-8 h-10 px-4 relative">
+            <div className="flex-1 flex items-center min-w-0">
+              <AnimatePresence mode="wait">
+                {isExpanded && (
+                  <MotionWrapper
+                    animationType="springUp"
+                    key="logo"
+                    className="shrink-0"
                   >
-                    <Icon
-                      className="w-4 h-4 shrink-0"
-                      aria-hidden="true"
-                    />
-                  </motion.div>
-
-                  <AnimatePresence mode="wait">
-                    {isActive ? (
-                      <motion.span
-                        key="active-label"
-                        className="text-sm whitespace-nowrap"
-                        initial={{ opacity: 0, width: 0 }}
-                        animate={{ opacity: 1, width: "auto" }}
-                        exit={{ opacity: 0, width: 0 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                      >
-                        {item.name}
-                      </motion.span>
-                    ) : (
-                      <span className="text-sm font-medium whitespace-nowrap opacity-80 hover:opacity-100">
-                        {item.name}
-                      </span>
-                    )}
-                  </AnimatePresence>
-                </a>
-              </motion.li>
-            );
-          })}
-        </ol>
-
-        {/* Mobile Toggle Button */}
-        <motion.button
-          type="button"
-          aria-expanded={isMenuOpen}
-          aria-label={
-            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
-          }
-          className="md:hidden text-foreground bg-card-bg border border-border-color backdrop-blur-md rounded-xl p-2.5 flex justify-center items-center shadow-md cursor-pointer"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <motion.div
-            animate={{ rotate: isMenuOpen ? 90 : 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            {isMenuOpen ? (
-              <X className="w-5 h-5" aria-hidden="true" />
-            ) : (
-              <Menu className="w-5 h-5" aria-hidden="true" />
-            )}
-          </motion.div>
-        </motion.button>
-      </header>
-
-      {/* Mobile Menu Section */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.aside
-            aria-label="Mobile Navigation"
-            className="absolute top-full left-0 right-0 md:hidden px-4 mt-2 z-50"
-            variants={mobileMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <div className="bg-card-bg/95 border border-border-color backdrop-blur-2xl rounded-2xl p-4 shadow-2xl">
-              <ul className="flex flex-col space-y-1 font-medium list-none m-0 p-0">
-                {navItems.map((item, index) => {
-                  const isActive = activeSection === item.section;
-                  const Icon = item.icon;
-
-                  return (
-                    <motion.li
-                      key={item.name}
-                      custom={index}
-                      variants={menuItemVariants}
-                      initial="hidden"
-                      animate="visible"
-                    >
-                      <a
-                        href={item.href}
-                        onClick={() => {
-                          handleNavClick(item.section);
-                          setIsMenuOpen(false);
-                        }}
-                        className={`flex items-center gap-3 p-2.5 rounded-xl transition-all cursor-pointer ${
-                          isActive
-                            ? "bg-primary/10 text-primary font-semibold"
-                            : "text-foreground/70 hover:text-primary hover:bg-primary/5"
-                        }`}
-                      >
-                        <div
-                          className={`w-8 h-8 rounded-lg border flex items-center justify-center transition-colors ${
-                            isActive
-                              ? "bg-primary/15 border-primary/30 text-primary"
-                              : "bg-border-color/20 border-border-color text-foreground/70"
-                          }`}
-                        >
-                          <Icon className="w-4 h-4" aria-hidden="true" />
-                        </div>
-                        <span className="text-sm">{item.name}</span>
-                      </a>
-                    </motion.li>
-                  );
-                })}
-              </ul>
+                    <Logo size="xs" />
+                  </MotionWrapper>
+                )}
+              </AnimatePresence>
             </div>
-          </motion.aside>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+
+            <button
+              type="button"
+              onClick={() => setIsExpanded(!isExpanded)}
+              aria-label={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
+              className="text-accent hover:scale-110 transition-transform cursor-pointer flex items-center justify-between shrink-0 z-10"
+            >
+              <motion.div
+                animate={{ rotate: isExpanded ? 0 : 180 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="flex items-center justify-center"
+              >
+                <ChevronRight size={32} strokeWidth={1} />
+              </motion.div>
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex-1 flex flex-col justify-center">
+            <ul className="flex flex-col gap-2 p-0 m-0 list-none">
+              {navItems.map((item, index) => {
+                const isActive = activeSection === item.section;
+                const Icon = item.icon;
+
+                return (
+                  <li
+                    key={item.name}
+                    onClick={() => setIsExpanded(false)}
+                    className="relative"
+                  >
+                    <a
+                      href={item.href}
+                      onClick={() => setActiveSection(item.section)}
+                      className={`relative flex items-center h-12 px-3 rounded-xl transition-all duration-200 group cursor-pointer ${
+                        isActive
+                          ? "text-white font-medium"
+                          : "text-foreground/60 hover:text-foreground/90"
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="glowActiveNav"
+                          className="absolute -right-1 inset-0 rounded-l-2xl bg-linear-to-r from-accent/20 via-accent/10 to-transparent border border-accent/10 overflow-hidden"
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 32,
+                          }}
+                        >
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-accent rounded-r-full shadow-[0_0_12px_var(--color-accent)]" />
+                        </motion.div>
+                      )}
+
+                      {/* Icon Container */}
+                      <div className="flex items-center justify-center shrink-0 z-10 pl-3">
+                        <Icon
+                          className={`w-5 h-5 transition-transform duration-300 group-hover:scale-105 ${
+                            isActive ? "text-primary" : "text-foreground/70"
+                          }`}
+                        />
+                      </div>
+
+                      {/* Animated Label with staggerChild */}
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <MotionWrapper
+                            animationType="staggerChild"
+                            delay={index * 0.04}
+                            className="z-10"
+                          >
+                            <span className="ml-3 text-sm font-medium whitespace-nowrap overflow-hidden">
+                              {item.name}
+                            </span>
+                          </MotionWrapper>
+                        )}
+                      </AnimatePresence>
+
+                      {/* Tooltip for Collapsed Mode */}
+                      {!isExpanded && (
+                        <div className="absolute left-full ml-3 px-3 py-1.5 rounded-lg bg-[#170926] border border-white/10 text-foreground text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 shadow-xl z-50">
+                          {item.name}
+                        </div>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+      </motion.aside>
+    </MotionWrapper>
   );
 };
 
