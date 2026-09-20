@@ -109,9 +109,9 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${hindSiliguri.variable} antialiased`}
     >
-      <body className="min-h-screen flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body className="h-screen overflow-hidden flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
-        <main className="grow flex justify-center overflow-x-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
+        <main className="h-screen grow flex justify-center overflow-y-scroll overflow-x-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
           {children}
         </main>
         <Navbar />

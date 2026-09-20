@@ -11,6 +11,8 @@ import {
   Mail,
   LucideIcon,
   ChevronRight,
+  Menu,
+  X,
 } from "lucide-react";
 import Logo from "./Logo";
 import { MotionWrapper } from "../MotionWrapper";
@@ -43,11 +45,11 @@ const navItems: NavItem[] = [
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navItems.map((item) => item.section);
       const scrollPos = window.scrollY + 200;
 
       if (window.scrollY < 200) {
@@ -55,11 +57,11 @@ const Navbar = () => {
         return;
       }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
+      for (let i = navItems.length - 1; i >= 0; i--) {
+        const section = navItems[i].section;
         if (section === "home") continue;
 
-        const element = document.querySelector(`#${section}`) as HTMLElement;
+        const element = document.getElementById(section);
         if (element && scrollPos >= element.offsetTop) {
           setActiveSection(section);
           break;
@@ -67,21 +69,54 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    section: string,
+  ) => {
+    setActiveSection(section);
+
+    if (window.innerWidth < 640) {
+      setIsOpen(false);
+    }
+
+    if (section === "home") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <MotionWrapper animationType="fadeLeft" className="h-screen z-50">
+      {/* mobile screen hamburger */}
+      <div
+        onClick={() => {
+          setIsOpen(true);
+          setIsExpanded(true);
+        }}
+        className="absolute flex justify-center items-center top-6 right-4 size-12 rounded-xl border border-primary/40 bg-linear-to-br from-primary/10 to-accent/10 sm:hidden cursor-pointer z-50"
+      >
+        <Menu />
+      </div>
+
+      {/* menubar */}
       <motion.aside
+        id="navbar"
         animate={{ width: isExpanded ? 220 : 68 }}
         transition={{ type: "spring", stiffness: 350, damping: 28 }}
-        className="relative h-full bg-background backdrop-blur-xs flex flex-col justify-between py-6 transition-colors duration-300 select-none"
+        className={`relative h-screen bg-background backdrop-blur-xs flex flex-col justify-between py-6 transition-colors duration-300 select-none ${
+          isOpen ? "flex fixed inset-y-0 left-0 z-50" : "hidden sm:flex"
+        }`}
       >
+        {/* line */}
         <div className="inset-y-0 w-px absolute left-0 bg-linear-to-b from-transparent via-accent/20 to-transparent z-2" />
-        <div className="flex flex-col h-full">
+
+        <div className="flex flex-col h-screen">
           {/* Header Section Collapse/Expand Button */}
           <div className="flex items-center justify-between mb-8 h-10 px-4 relative">
             <div className="flex-1 flex items-center min-w-0">
@@ -98,11 +133,12 @@ const Navbar = () => {
               </AnimatePresence>
             </div>
 
+            {/* Desktop Expand / Collapse Toggle */}
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
               aria-label={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
-              className="text-accent hover:scale-110 transition-transform cursor-pointer flex items-center justify-between shrink-0 z-10"
+              className="hidden text-accent hover:scale-110 transition-transform cursor-pointer sm:flex items-center justify-between shrink-0 z-10"
             >
               <motion.div
                 animate={{ rotate: isExpanded ? 0 : 180 }}
@@ -111,6 +147,19 @@ const Navbar = () => {
               >
                 <ChevronRight size={32} strokeWidth={1} />
               </motion.div>
+            </button>
+
+            {/* Mobile Menu Close Toggle */}
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                setIsExpanded(false);
+              }}
+              aria-label="Close Mobile Sidebar"
+              className="flex text-accent hover:scale-110 transition-transform cursor-pointer sm:hidden items-center justify-center shrink-0 z-10"
+            >
+              <X size={32} strokeWidth={1} />
             </button>
           </div>
 
@@ -124,12 +173,16 @@ const Navbar = () => {
                 return (
                   <li
                     key={item.name}
-                    onClick={() => setIsExpanded(false)}
+                    onClick={() => {
+                      if (window.innerWidth >= 640) {
+                        setIsExpanded(false);
+                      }
+                    }}
                     className="relative"
                   >
                     <a
                       href={item.href}
-                      onClick={() => setActiveSection(item.section)}
+                      onClick={(e) => handleNavClick(e, item.section)}
                       className={`relative flex items-center h-12 px-3 rounded-xl transition-all duration-200 group cursor-pointer ${
                         isActive
                           ? "text-white font-medium"
