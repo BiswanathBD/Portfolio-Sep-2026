@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <>
       <Header />
-      <section className="relative py-8 md:py-12 lg:py-16">
+      <section className="relative mt-32 sm:mt-16 lg:mt-0 py-8 md:py-12 lg:py-16">
         <Container>
           <div className="flex flex-col-reverse lg:flex-row gap-12 lg:gap-8 items-center relative">
             {/* Left Side Content Component */}

@@ -40,7 +40,12 @@ const navItems: NavItem[] = [
     section: "projects",
     icon: FolderGit2,
   },
-  { name: "Contact", href: "#contact", section: "contact", icon: Mail },
+  {
+    name: "Contact",
+    href: "#contact",
+    section: "contact",
+    icon: Mail,
+  },
 ];
 
 const Navbar = () => {
@@ -59,9 +64,11 @@ const Navbar = () => {
 
       for (let i = navItems.length - 1; i >= 0; i--) {
         const section = navItems[i].section;
+
         if (section === "home") continue;
 
         const element = document.getElementById(section);
+
         if (element && scrollPos >= element.offsetTop) {
           setActiveSection(section);
           break;
@@ -92,34 +99,54 @@ const Navbar = () => {
   };
 
   return (
-    <MotionWrapper animationType="fadeLeft" className="h-screen z-50">
+    <MotionWrapper
+      animationType="fadeLeft"
+      className="fixed inset-y-0 right-0 z-50 h-screen sm:relative sm:inset-auto sm:right-auto"
+    >
       {/* mobile screen hamburger */}
-      <div
+      <button
+        type="button"
         onClick={() => {
           setIsOpen(true);
           setIsExpanded(true);
         }}
-        className="absolute flex justify-center items-center top-6 right-4 size-12 rounded-xl border border-primary/40 bg-linear-to-br from-primary/10 to-accent/10 sm:hidden cursor-pointer z-50"
+        aria-label="Open navigation menu"
+        aria-expanded={isOpen}
+        aria-controls="navbar"
+        className="fixed top-6 right-4 z-50 flex size-12 cursor-pointer items-center justify-center rounded-xl border border-primary/40 bg-linear-to-br from-primary/10 to-accent/10 sm:hidden"
       >
-        <Menu />
-      </div>
+        {" "}
+        <Menu aria-hidden="true" />{" "}
+      </button>
 
       {/* menubar */}
       <motion.aside
         id="navbar"
+        aria-label="Main navigation"
         animate={{ width: isExpanded ? 220 : 68 }}
-        transition={{ type: "spring", stiffness: 350, damping: 28 }}
-        className={`relative h-screen bg-background backdrop-blur-xs flex flex-col justify-between py-6 transition-colors duration-300 select-none ${
-          isOpen ? "flex fixed inset-y-0 left-0 z-50" : "hidden sm:flex"
+        transition={{
+          width: {
+            type: "spring",
+            stiffness: 350,
+            damping: 28,
+          },
+        }}
+        className={`relative flex h-screen flex-col justify-between bg-background py-6 backdrop-blur-xs select-none transition-transform duration-300 ease-out sm:relative sm:translate-x-0 ${
+          isOpen
+            ? "fixed inset-y-0 right-0 z-50 translate-x-0"
+            : "fixed inset-y-0 right-0 z-50 translate-x-full sm:relative sm:inset-y-auto sm:right-auto sm:z-auto sm:translate-x-0 sm:flex"
         }`}
       >
         {/* line */}
-        <div className="inset-y-0 w-px absolute left-0 bg-linear-to-b from-transparent via-accent/20 to-transparent z-2" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 left-0 z-2 w-px bg-linear-to-b from-transparent via-accent/20 to-transparent"
+        />
 
-        <div className="flex flex-col h-screen">
+        <div className="flex h-screen flex-col">
           {/* Header Section Collapse/Expand Button */}
-          <div className="flex items-center justify-between mb-8 h-10 px-4 relative">
-            <div className="flex-1 flex items-center min-w-0">
+          <header className="relative mb-8 flex h-10 items-center justify-between px-4">
+            <div className="flex min-w-0 flex-1 items-center">
               <AnimatePresence mode="wait">
                 {isExpanded && (
                   <MotionWrapper
@@ -137,12 +164,18 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setIsExpanded(!isExpanded)}
-              aria-label={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
-              className="hidden text-accent hover:scale-110 transition-transform cursor-pointer sm:flex items-center justify-between shrink-0 z-10"
+              aria-label={
+                isExpanded ? "Collapse navigation" : "Expand navigation"
+              }
+              className="z-10 hidden shrink-0 cursor-pointer items-center justify-between text-accent transition-transform hover:scale-110 sm:flex"
             >
               <motion.div
                 animate={{ rotate: isExpanded ? 0 : 180 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20,
+                }}
                 className="flex items-center justify-center"
               >
                 <ChevronRight size={32} strokeWidth={1} />
@@ -156,16 +189,19 @@ const Navbar = () => {
                 setIsOpen(false);
                 setIsExpanded(false);
               }}
-              aria-label="Close Mobile Sidebar"
-              className="flex text-accent hover:scale-110 transition-transform cursor-pointer sm:hidden items-center justify-center shrink-0 z-10"
+              aria-label="Close navigation"
+              className="z-10 flex shrink-0 cursor-pointer items-center justify-center text-accent transition-transform hover:scale-110 sm:hidden"
             >
               <X size={32} strokeWidth={1} />
             </button>
-          </div>
+          </header>
 
           {/* Navigation Links */}
-          <nav className="flex-1 flex flex-col justify-center">
-            <ul className="flex flex-col gap-2 p-0 m-0 list-none">
+          <nav
+            aria-label="Primary navigation"
+            className="flex flex-1 flex-col justify-center"
+          >
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {navItems.map((item, index) => {
                 const isActive = activeSection === item.section;
                 const Icon = item.icon;
@@ -183,36 +219,38 @@ const Navbar = () => {
                     <a
                       href={item.href}
                       onClick={(e) => handleNavClick(e, item.section)}
-                      className={`relative flex items-center h-12 px-3 rounded-xl transition-all duration-200 group cursor-pointer ${
+                      aria-current={isActive ? "page" : undefined}
+                      className={`group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-all duration-200 ${
                         isActive
-                          ? "text-white font-medium"
+                          ? "font-medium text-white"
                           : "text-foreground/60 hover:text-foreground/90"
                       }`}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="glowActiveNav"
-                          className="absolute -right-1 inset-0 rounded-l-2xl bg-linear-to-r from-accent/20 via-accent/10 to-transparent border border-accent/10 overflow-hidden"
+                          className="absolute inset-0 -right-1 overflow-hidden rounded-l-2xl border border-accent/10 bg-linear-to-r from-accent/20 via-accent/10 to-transparent"
                           transition={{
                             type: "spring",
                             stiffness: 400,
                             damping: 32,
                           }}
                         >
-                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-accent rounded-r-full shadow-[0_0_12px_var(--color-accent)]" />
+                          <div className="absolute left-0 top-1/2 h-6 w-1.5 -translate-y-1/2 rounded-r-full bg-accent shadow-[0_0_12px_var(--color-accent)]" />
                         </motion.div>
                       )}
 
                       {/* Icon Container */}
-                      <div className="flex items-center justify-center shrink-0 z-10 pl-3">
+                      <div className="z-10 flex shrink-0 items-center justify-center pl-3">
                         <Icon
-                          className={`w-5 h-5 transition-transform duration-300 group-hover:scale-105 ${
+                          aria-hidden="true"
+                          className={`h-5 w-5 transition-transform duration-300 group-hover:scale-105 ${
                             isActive ? "text-primary" : "text-foreground/70"
                           }`}
                         />
                       </div>
 
-                      {/* Animated Label with staggerChild */}
+                      {/* Animated Label */}
                       <AnimatePresence>
                         {isExpanded && (
                           <MotionWrapper
@@ -220,7 +258,7 @@ const Navbar = () => {
                             delay={index * 0.04}
                             className="z-10"
                           >
-                            <span className="ml-3 text-sm font-medium whitespace-nowrap overflow-hidden">
+                            <span className="ml-3 overflow-hidden whitespace-nowrap text-sm font-medium">
                               {item.name}
                             </span>
                           </MotionWrapper>
@@ -229,7 +267,7 @@ const Navbar = () => {
 
                       {/* Tooltip for Collapsed Mode */}
                       {!isExpanded && (
-                        <div className="absolute left-full ml-3 px-3 py-1.5 rounded-lg bg-[#170926] border border-white/10 text-foreground text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 shadow-xl z-50">
+                        <div className="pointer-events-none absolute left-full z-50 ml-3 whitespace-nowrap rounded-lg border border-white/10 bg-[#170926] px-3 py-1.5 text-xs font-medium text-foreground opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100">
                           {item.name}
                         </div>
                       )}
