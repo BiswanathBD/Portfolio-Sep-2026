@@ -3,6 +3,7 @@ import { Hind_Siliguri, Nunito } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/Components/CustomCursor";
 import Navbar from "@/Components/Shared/Navbar";
+import GlobalBackground from "@/Components/GlobalBackground";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -111,6 +112,8 @@ export default function RootLayout({
     >
       <body className="h-screen overflow-hidden flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
+        {/* Global Background Component */}
+        <GlobalBackground />
         <main className="h-screen grow flex justify-center overflow-y-scroll overflow-x-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
           {children}
         </main>

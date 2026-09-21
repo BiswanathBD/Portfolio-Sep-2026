@@ -131,7 +131,7 @@ const Navbar = () => {
             damping: 28,
           },
         }}
-        className={`relative flex h-screen flex-col justify-between bg-background py-6 backdrop-blur-xs select-none transition-transform duration-300 ease-out sm:relative sm:translate-x-0 ${
+        className={`relative flex h-screen flex-col bg-background/20 py-6 select-none transition-transform duration-300 ease-out sm:relative sm:translate-x-0 ${
           isOpen
             ? "fixed inset-y-0 right-0 z-50 translate-x-0"
             : "fixed inset-y-0 right-0 z-50 translate-x-full sm:relative sm:inset-y-auto sm:right-auto sm:z-auto sm:translate-x-0 sm:flex"
@@ -141,6 +141,11 @@ const Navbar = () => {
         <div
           aria-hidden="true"
           className="absolute inset-y-0 left-0 z-2 w-px bg-linear-to-b from-transparent via-accent/20 to-transparent"
+        />
+        {/* line glow */}
+        <div
+          aria-hidden="true"
+          className="absolute h-1/2 top-1/2 -translate-y-1/2 left-0 z-2 w-0.5 bg-linear-to-b from-transparent via-accent to-transparent blur-xl"
         />
 
         <div className="flex h-screen flex-col">

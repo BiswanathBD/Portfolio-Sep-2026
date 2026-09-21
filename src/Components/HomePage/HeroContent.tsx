@@ -17,13 +17,19 @@ interface HeroContentProps {
 const renderSocialIcon = (iconName: SocialLink["iconName"]) => {
   switch (iconName) {
     case "github":
-      return <FaGithub className="w-4 h-4 group-hover:scale-110" />;
+      return (
+        <FaGithub className="w-4 h-4 group-hover:scale-110 transition-transform" />
+      );
 
     case "linkedin":
-      return <FaLinkedin className="w-4 h-4 group-hover:scale-110" />;
+      return (
+        <FaLinkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+      );
 
     case "mail":
-      return <IoMail className="w-4 h-4 group-hover:scale-110" />;
+      return (
+        <IoMail className="w-4 h-4 group-hover:scale-110 transition-transform" />
+      );
 
     default:
       return null;
@@ -46,52 +52,61 @@ const HeroContent = ({ data }: HeroContentProps) => {
   const bottomLineDelay = lastIconEnd + 0.2;
 
   return (
-    <div className="flex-1 flex flex-col-reverse sm:flex-row items-center gap-6 sm:gap-0">
+    <div className="flex-1 flex items-center gap-6 sm:gap-8">
+      {/* social links */}
       <nav
         aria-label="social links"
-        className="flex sm:flex-col items-center gap-5 px-2"
+        className="flex flex-col items-center gap-5 px-2"
       >
-        <div className="hidden sm:block h-16 w-px overflow-hidden">
+        <div className="relative h-16 w-px overflow-hidden">
           <MotionWrapper
             animationType="heightIncrease"
-            className="h-full"
+            className="h-full w-full"
             transition={{
               duration: topLineDuration,
               delay: topLineDelay,
               ease: "easeInOut",
             }}
           >
-            <span className="block h-full w-px bg-accent/10" />
+            <span className="block h-full w-full bg-linear-to-t from-accent" />
           </MotionWrapper>
         </div>
+        {data.socialLinks.map((social, idx) => {
+          const brandColor = social.color || "var(--primary)";
 
-        {data.socialLinks.map((social, idx) => (
-          <MotionWrapper
-            key={social.label}
-            animationType="fadeDown"
-            transition={{
-              duration: iconDuration,
-              delay: iconStartDelay + idx * iconStagger,
-              ease: [0.34, 1.56, 0.64, 1],
-            }}
-          >
-            <a
-              aria-label={social.label}
-              className="group w-8 h-8 bg-linear-to-r from-primary/10 to-accent/10 rounded-full border border-primary/20 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 hover:scale-120 transition-all duration-500 shadow-xs"
-              href={social.href}
-              target={"_blank"}
-              rel={
-                social.href.startsWith("mailto:")
-                  ? undefined
-                  : "noopener noreferrer"
-              }
+          return (
+            <MotionWrapper
+              key={social.label}
+              animationType="fadeDown"
+              transition={{
+                duration: iconDuration,
+                delay: iconStartDelay + idx * iconStagger,
+                ease: [0.34, 1.56, 0.64, 1],
+              }}
             >
-              {renderSocialIcon(social.iconName)}
-            </a>
-          </MotionWrapper>
-        ))}
+              <a
+                aria-label={social.label}
+                className="group w-8 h-8 bg-linear-to-r from-primary/10 to-accent/10 rounded-full border border-primary/20 flex items-center justify-center text-foreground hover:scale-110 transition-all duration-300 shadow-xs hover:border-(--brand-color) hover:text-(--brand-color) hover:shadow-[0_0_20px_var(--brand-color)]"
+                style={
+                  {
+                    "--brand-color": brandColor,
+                  } as React.CSSProperties
+                }
+                href={social.href}
+                target={"_blank"}
+                rel={
+                  social.href.startsWith("mailto:")
+                    ? undefined
+                    : "noopener noreferrer"
+                }
+              >
+                {renderSocialIcon(social.iconName)}
+              </a>
+            </MotionWrapper>
+          );
+        })}
 
-        <div className="hidden sm:block h-16 w-px overflow-hidden">
+        <div className="h-16 w-px overflow-hidden">
           <MotionWrapper
             animationType="heightIncrease"
             className="h-full"
@@ -101,17 +116,17 @@ const HeroContent = ({ data }: HeroContentProps) => {
               ease: "easeInOut",
             }}
           >
-            <span className="block h-full w-px bg-accent/10" />
+            <span className="block h-full w-full bg-linear-to-b from-accent" />
           </MotionWrapper>
         </div>
       </nav>
 
-      <main className="space-y-5 text-center md:text-left md:ml-10 order-2 md:order-1">
+      <main className="space-y-2 max-w-sm sm:max-w-sm md:max-w-lg lg:w-full">
         <MotionWrapper animationType="fadeRight" delay={0.2} duration={0.7}>
           <header>
-            <motion.h1 className="font-sans text-xl md:text-3xl tracking-tight text-accent font-bold">
+            <motion.h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-4xl tracking-tight text-accent font-bold">
               <motion.span
-                className="inline-block text-3xl md:text-4xl"
+                className="inline-block text-2xl sm:text-4xl mr-1"
                 style={{ transformOrigin: "70% 70%" }}
                 animate={{
                   rotate: [0, 20, -10, 20, -5, 15, 0],
@@ -124,42 +139,66 @@ const HeroContent = ({ data }: HeroContentProps) => {
                 }}
               >
                 👋🏼
-              </motion.span>{" "}
+              </motion.span>
               {data.greeting} <br />
-              <span className="text-4xl sm:text-6xl md:text-7xl text-foreground font-extrabold tracking-tight">
+              <span className="text-4xl sm:text-5xl md:text-7xl lg:text-5xl xl:text-7xl text-foreground font-extrabold tracking-tight mt-2">
                 {data.name}
               </span>
             </motion.h1>
           </header>
         </MotionWrapper>
 
+        {/* Dynamic Rotating Gradient Role */}
         <MotionWrapper animationType="fadeRight" delay={0.4} duration={0.7}>
-          <h2 className="font-sans font-semibold text-2xl sm:text-3xl md:text-4xl">
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-primary to-accent">
+          <h2 className="font-sans font-semibold text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-4xl">
+            <motion.span
+              className="bg-clip-text text-transparent bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto]"
+              animate={{
+                backgroundPosition: ["0% center", "200% center"],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
               {data.role}
-            </span>
+            </motion.span>
           </h2>
         </MotionWrapper>
 
         <MotionWrapper animationType="fadeRight" delay={0.6} duration={0.7}>
-          <p className="text-foreground/70 text-base md:text-lg max-w-lg mx-auto md:mx-0 leading-relaxed">
+          <p className="text-foreground/70 text-base sm:text-lg md:text-xl lg:text-base xl:text-xl leading-relaxed">
             {data.description}
           </p>
         </MotionWrapper>
 
         <MotionWrapper animationType="fadeUp" delay={0.8} duration={0.7}>
-          <div className="flex flex-col sm:flex-row items-center gap-4 mt-8 justify-center md:justify-start">
+          <div className="flex items-center gap-4 mt-8">
             <MotionWrapper animationType="button">
-              <a
-                className="group relative px-6 py-3 bg-linear-to-r from-primary/10 to-accent/10 rounded-2xl border border-primary/30 text-foreground font-medium transition-all overflow-hidden flex items-center gap-2 hover:border-primary/60"
-                href={data.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Download Resume</span>
+              <div className="relative p-px rounded-2xl overflow-hidden flex items-center justify-center group">
+                {/* Rotating border glow */}
+                <MotionWrapper animationType="fade" delay={1} duration={1}>
+                  <MotionWrapper
+                    animationType="rotate"
+                    duration={5}
+                    className="absolute inset-[-250%] bg-[conic-gradient(from_0deg,transparent_0_180deg,var(--primary)_330deg,var(--accent)_360deg)] opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none"
+                  />
+                </MotionWrapper>
 
-                <Download className="w-4 h-4 text-primary group-hover:translate-y-0.5 transition-transform" />
-              </a>
+                {/* Main Resume Link Button */}
+                <a
+                  className="relative flex items-center gap-2 hover:gap-3 px-6 py-3 rounded-[calc(1rem-1px)] overflow-hidden bg-background/90 backdrop-blur-md bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20 text-accent font-medium z-10 transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  href={data.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Download Biswanath's Resume"
+                >
+                  <span>Download Resume</span>
+
+                  <Download className="w-4 h-4 text-primary group-hover:scale-110 transition-all duration-500" />
+                </a>
+              </div>
             </MotionWrapper>
           </div>
         </MotionWrapper>

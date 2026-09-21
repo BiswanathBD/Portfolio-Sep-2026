@@ -15,11 +15,13 @@ type AnimationType =
   | "heightIncrease"
   | "widthIncrease"
   | "springUp"
-  | "staggerChild";
+  | "staggerChild"
+  | "rotate";
 
 type AnimationConfig = {
   initial?: Record<string, number | string>;
   whileInView?: Record<string, number | string | number[]>;
+  animate?: Record<string, number | string | number[]>;
   exit?: Record<string, number | string>;
   transition?: Transition;
   whileHover?: Record<string, number | string>;
@@ -49,6 +51,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   hoverScale = 1.02,
   once = true,
   transition,
+  onClick,
 }) => {
   const getAnimationConfig = (type: AnimationType): AnimationConfig => {
     const defaultTransition: Transition = {
@@ -163,10 +166,20 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
 
       widthIncrease: {
         initial: { width: 0 },
-        whileInView: { width: "auto" },
+        whileInView: { width: "100%" },
         exit: { width: 0 },
         transition: transition ?? defaultTransition,
         viewport: { once },
+      },
+
+      rotate: {
+        animate: { rotate: [0, 360] },
+        transition: transition ?? {
+          duration,
+          delay,
+          repeat: Infinity,
+          ease: "linear",
+        },
       },
     };
 
@@ -176,7 +189,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   const config = getAnimationConfig(animationType);
 
   return (
-    <motion.div className={className} {...config}>
+    <motion.div className={className} onClick={onClick} {...config}>
       {children}
     </motion.div>
   );

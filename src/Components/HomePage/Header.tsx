@@ -3,7 +3,7 @@ import Logo from "../Shared/Logo";
 
 export default function Header() {
   return (
-    <Container className="py-6 sm:py-8 fixed sm:relative">
+    <Container className="pt-6 sm:pt-8 fixed sm:relative w-full z-50">
       <Logo />
     </Container>
   );

@@ -2,6 +2,7 @@ export interface SocialLink {
   href: string;
   label: string;
   iconName: "github" | "linkedin" | "mail";
+  color?: string;
 }
 
 export interface SkillItem {
@@ -40,16 +41,19 @@ export const heroData: HeroData = {
       href: "https://github.com/BiswanathBD",
       label: "GitHub",
       iconName: "github",
+      color: "#ffffff",
     },
     {
       href: "https://www.linkedin.com/in/biswanath-sarker-bd/",
       label: "LinkedIn",
       iconName: "linkedin",
+      color: "#0A66C2",
     },
     {
       href: "mailto:biswanath.sarker.bd@gmail.com",
       label: "Email",
       iconName: "mail",
+      color: "#EA4335",
     },
   ],
 

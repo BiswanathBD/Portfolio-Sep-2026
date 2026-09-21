@@ -23,7 +23,9 @@ const CustomCursor = () => {
       ".custom-cursor-disabled, [data-cursor-disabled='true']";
 
     const interactiveSelector =
-      "a, button, [role='button'], input, textarea, select";
+      "a, button, [role='button'], input, textarea, select, label";
+
+    let isVisible = false;
 
     const setCursorOpacity = (opacity: number) => {
       gsap.to(cursorElements, {
@@ -34,33 +36,33 @@ const CustomCursor = () => {
     };
 
     const resetCursor = () => {
+      if (!isVisible) return;
       gsap.to(cursorElements, {
         scale: 1,
         opacity: 1,
+        duration: 0.25,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+    };
+
+    // fade out cursor on hover
+    const fadeOutCursor = () => {
+      gsap.to(cursorElements, {
+        scale: 2.5,
+        opacity: 0.1,
         duration: 0.3,
         ease: "power2.out",
         overwrite: "auto",
       });
     };
 
-    const expandCursor = () => {
-      gsap.to(cursorDot, {
-        scale: 1.8,
-        duration: 0.3,
-        ease: "back.out(1.7)",
-        overwrite: "auto",
-      });
-
-      gsap.to(cursorCircle, {
-        scale: 2,
-        opacity: 0.5,
-        duration: 0.3,
-        ease: "back.out(1.7)",
-        overwrite: "auto",
-      });
-    };
-
     const moveCursor = (event: MouseEvent) => {
+      if (!isVisible) {
+        isVisible = true;
+        setCursorOpacity(1);
+      }
+
       const target = event.target;
 
       if (!(target instanceof Element)) return;
@@ -72,7 +74,11 @@ const CustomCursor = () => {
         return;
       }
 
-      setCursorOpacity(1);
+      const interactiveElement = target.closest(interactiveSelector);
+
+      if (!interactiveElement && isVisible) {
+        setCursorOpacity(1);
+      }
 
       gsap.to(cursorDot, {
         x: event.clientX - 8,
@@ -106,7 +112,7 @@ const CustomCursor = () => {
       const interactiveElement = target.closest(interactiveSelector);
 
       if (interactiveElement) {
-        expandCursor();
+        fadeOutCursor();
       }
     };
 
@@ -115,10 +121,6 @@ const CustomCursor = () => {
 
       if (!(target instanceof Element)) return;
 
-      const disabledElement = target.closest(disabledSelector);
-
-      if (disabledElement) return;
-
       const interactiveElement = target.closest(interactiveSelector);
 
       if (interactiveElement) {
@@ -126,30 +128,38 @@ const CustomCursor = () => {
       }
     };
 
-    const handleBodyLeave = () => {
+    // hide when leaving window
+    const handleMouseLeave = () => {
+      isVisible = false;
       setCursorOpacity(0);
     };
 
-    const handleBodyEnter = () => {
+    // show when entering window
+    const handleMouseEnter = () => {
+      isVisible = true;
       setCursorOpacity(1);
     };
 
     window.addEventListener("mousemove", moveCursor);
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
-    document.body.addEventListener("mouseover", handleMouseOver);
-    document.body.addEventListener("mouseout", handleMouseOut);
-
-    document.body.addEventListener("mouseleave", handleBodyLeave);
-    document.body.addEventListener("mouseenter", handleBodyEnter);
+    document.documentElement.addEventListener("mouseleave", handleMouseLeave);
+    document.documentElement.addEventListener("mouseenter", handleMouseEnter);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
 
-      document.body.removeEventListener("mouseover", handleMouseOver);
-      document.body.removeEventListener("mouseout", handleMouseOut);
-
-      document.body.removeEventListener("mouseleave", handleBodyLeave);
-      document.body.removeEventListener("mouseenter", handleBodyEnter);
+      document.documentElement.removeEventListener(
+        "mouseleave",
+        handleMouseLeave,
+      );
+      document.documentElement.removeEventListener(
+        "mouseenter",
+        handleMouseEnter,
+      );
 
       gsap.killTweensOf(cursorDot);
       gsap.killTweensOf(cursorCircle);
@@ -157,8 +167,7 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <>
-      {" "}
+    <div className="hidden md:block">
       <div
         ref={cursorDotRef}
         className="pointer-events-none fixed top-0 left-0 z-9999 h-4 w-4 rounded-full bg-linear-to-r from-primary to-accent mix-blend-difference opacity-0"
@@ -166,10 +175,10 @@ const CustomCursor = () => {
       />
       <div
         ref={cursorCircleRef}
-        className="pointer-events-none fixed top-0 left-0 z-9998 h-8 w-8 rounded-full border border-primary/30"
+        className="pointer-events-none fixed top-0 left-0 z-9998 h-8 w-8 rounded-full border border-primary/30 opacity-0"
         aria-hidden="true"
       />
-    </>
+    </div>
   );
 };
 

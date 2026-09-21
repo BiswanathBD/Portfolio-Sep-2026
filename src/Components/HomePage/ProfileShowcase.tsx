@@ -25,8 +25,24 @@ const ProfileShowcase = ({
 }: ProfileShowcaseProps) => {
   const getDeterministicSize = (circleIdx: number, skillIdx: number) => {
     const base = 28;
-    const offset = ((circleIdx * 3 + skillIdx * 7) % 5) * 4;
+    const offset = ((circleIdx * 2 + skillIdx * 8) % 4) * 2;
     return `${base + offset}px`;
+  };
+
+  // Helper to generate deterministic pseudo-random spin speeds and directions
+  const getIconSpinConfig = (circleIdx: number, skillIdx: number) => {
+    const seed = circleIdx * 13 + skillIdx * 17;
+    const isClockwise = seed % 2 === 0;
+    // Speed varies between 8s and 20s
+    const duration = 8 + (seed % 13);
+    const rotationDegrees = isClockwise ? 360 : -360;
+
+    return { duration, rotationDegrees };
+  };
+
+  const getInitialRotation = (circleIdx: number) => {
+    const offsets = [0, 55, 85, 25];
+    return offsets[circleIdx % offsets.length];
   };
 
   return (
@@ -65,7 +81,12 @@ const ProfileShowcase = ({
 
           const circleSizeClass = circleSize[circleIdx] || "w-[100%]";
           const isClockwise = circleIdx % 2 === 0;
-          const targetRotation = isClockwise ? 360 : -360;
+
+          const initialAngle = getInitialRotation(circleIdx);
+          const targetRotation = isClockwise
+            ? initialAngle + 360
+            : initialAngle - 360;
+
           const zIndexClass = `z-[${10 - circleIdx}]`;
 
           return (
@@ -78,7 +99,7 @@ const ProfileShowcase = ({
               {/* Rotating Ring Container */}
               <motion.div
                 className={`absolute ${circleSizeClass} aspect-square rounded-full border border-border-color/40 pointer-events-none`}
-                initial={{ rotate: 0 }}
+                initial={{ rotate: initialAngle }}
                 animate={{ rotate: targetRotation }}
                 transition={{
                   duration: 40 + circleIdx * 10,
@@ -95,11 +116,12 @@ const ProfileShowcase = ({
                     circleIdx,
                     skillIdx,
                   );
+                  const iconSpin = getIconSpinConfig(circleIdx, skillIdx);
 
                   return (
                     <motion.div
                       key={skill.name || skillIdx}
-                      className={`absolute p-1.5 aspect-square rounded-full border border-border-color bg-linear-to-br from-card-bg to-accent/20 backdrop-blur-md pointer-events-auto flex items-center justify-center shadow-[0_0_12px_var(--card-bg)] -translate-x-1/2 -translate-y-1/2
+                      className={`absolute p-1.5 aspect-square rounded-full border border-border-color bg-linear-to-br from-card-bg to-accent/20 backdrop-blur-md scale-60 sm:scale-70 md:scale-100 lg:scale-50 xl:scale-100 pointer-events-auto flex items-center justify-center shadow-[0_0_12px_var(--card-bg)] -translate-x-1/2 -translate-y-1/2
                         ${skillIdx === 0 && "top-0 left-1/2"} 
                         ${skillIdx === 1 && "top-1/2 left-full"} 
                         ${skillIdx === 2 && "top-full left-1/2"} 
@@ -125,14 +147,19 @@ const ProfileShowcase = ({
                         boxShadow: "0px 0px 20px var(--accent)",
                       }}
                     >
-                      {/* Counter-rotation on icon so skills remain upright */}
+                      {/* random rotating icons */}
                       {skill.icon && (
                         <motion.div
                           className="relative w-full h-full flex items-center justify-center"
                           initial={{ rotate: 0 }}
-                          animate={{ rotate: -targetRotation }}
+                          animate={{
+                            rotate: [
+                              0,
+                              -targetRotation + iconSpin.rotationDegrees,
+                            ],
+                          }}
                           transition={{
-                            duration: 40 + circleIdx * 10,
+                            duration: iconSpin.duration,
                             repeat: Infinity,
                             ease: "linear",
                           }}

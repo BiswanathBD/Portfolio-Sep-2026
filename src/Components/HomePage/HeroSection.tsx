@@ -6,12 +6,12 @@ import Header from "./Header";
 
 const Hero = () => {
   return (
-    <>
+    <section className="min-h-screen flex flex-col">
       <Header />
-      <section className="relative mt-32 sm:mt-16 lg:mt-0 py-8 md:py-12 lg:py-16">
-        <Container>
-          <div className="flex flex-col-reverse lg:flex-row gap-12 lg:gap-8 items-center relative">
-            {/* Left Side Content Component */}
+      <section className="relative py-6 lg:py-0 grow grid items-center mt-24 sm:mt-12 lg:-mt-12">
+        <Container className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative h-full">
+          {/* Left Side Content Component */}
+          <aside className="mt-[8vw] lg:mt-0 order-2 lg:order-1 mx-auto">
             <HeroContent
               data={{
                 greeting: heroData.greeting,
@@ -22,18 +22,18 @@ const Hero = () => {
                 socialLinks: heroData.socialLinks,
               }}
             />
+          </aside>
 
-            {/* Profile Showcase Component (Right Side) */}
-            <div className="flex-1 w-full flex justify-center">
-              <ProfileShowcase
-                profileImage={heroData.profileImage}
-                skillSets={heroData.skills}
-              />
-            </div>
-          </div>
+          {/* Profile Showcase Component (Right Side) */}
+          <aside className="mx-auto w-10/12 order-1 lg:order-2">
+            <ProfileShowcase
+              profileImage={heroData.profileImage}
+              skillSets={heroData.skills}
+            />
+          </aside>
         </Container>
       </section>
-    </>
+    </section>
   );
 };
 
