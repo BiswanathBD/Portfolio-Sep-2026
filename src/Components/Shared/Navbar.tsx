@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Logo from "./Logo";
 import { MotionWrapper } from "../MotionWrapper";
+import ScrollToTop from "../ScrollToTop";
 
 interface NavItem {
   name: string;
@@ -123,7 +124,7 @@ const Navbar = () => {
       <motion.aside
         id="navbar"
         aria-label="Main navigation"
-        animate={{ width: isExpanded ? 220 : 68 }}
+        animate={{ width: isExpanded ? 220 : 60 }}
         transition={{
           width: {
             type: "spring",
@@ -131,7 +132,7 @@ const Navbar = () => {
             damping: 28,
           },
         }}
-        className={`relative flex h-screen flex-col bg-background/20 py-6 select-none transition-transform duration-300 ease-out sm:relative sm:translate-x-0 ${
+        className={`relative flex h-screen flex-col bg-background/95 sm:bg-background/20 sm:backdrop-blur-[1px] py-6 select-none transition-transform duration-300 ease-out sm:relative sm:translate-x-0 ${
           isOpen
             ? "fixed inset-y-0 right-0 z-50 translate-x-0"
             : "fixed inset-y-0 right-0 z-50 translate-x-full sm:relative sm:inset-y-auto sm:right-auto sm:z-auto sm:translate-x-0 sm:flex"
@@ -148,9 +149,9 @@ const Navbar = () => {
           className="absolute h-1/2 top-1/2 -translate-y-1/2 left-0 z-2 w-0.5 bg-linear-to-b from-transparent via-accent to-transparent blur-xl"
         />
 
-        <div className="flex h-screen flex-col">
+        <div className="flex flex-col h-full sm:justify-between">
           {/* Header Section Collapse/Expand Button */}
-          <header className="relative mb-8 flex h-10 items-center justify-between px-4">
+          <header className="relative mb-8 flex h-14 items-center justify-between px-4">
             <div className="flex min-w-0 flex-1 items-center">
               <AnimatePresence mode="wait">
                 {isExpanded && (
@@ -202,10 +203,7 @@ const Navbar = () => {
           </header>
 
           {/* Navigation Links */}
-          <nav
-            aria-label="Primary navigation"
-            className="flex flex-1 flex-col justify-center"
-          >
+          <nav aria-label="Primary navigation" className="flex flex-col">
             <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {navItems.map((item, index) => {
                 const isActive = activeSection === item.section;
@@ -246,7 +244,7 @@ const Navbar = () => {
                       )}
 
                       {/* Icon Container */}
-                      <div className="z-10 flex shrink-0 items-center justify-center pl-3">
+                      <div className="z-10 flex shrink-0 items-center justify-center pl-2">
                         <Icon
                           aria-hidden="true"
                           className={`h-5 w-5 transition-transform duration-300 group-hover:scale-105 ${
@@ -282,6 +280,11 @@ const Navbar = () => {
               })}
             </ul>
           </nav>
+
+          {/* Go To Top Button Container */}
+          <div className="flex items-center justify-center pb-2">
+            {/* <ScrollToTop /> */}
+          </div>
         </div>
       </motion.aside>
     </MotionWrapper>

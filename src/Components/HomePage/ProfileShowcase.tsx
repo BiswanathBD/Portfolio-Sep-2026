@@ -98,7 +98,7 @@ const ProfileShowcase = ({
             >
               {/* Rotating Ring Container */}
               <motion.div
-                className={`absolute ${circleSizeClass} aspect-square rounded-full border border-border-color/40 pointer-events-none`}
+                className={`absolute ${circleSizeClass} aspect-square rounded-full border border-border-color/50 pointer-events-none`}
                 initial={{ rotate: initialAngle }}
                 animate={{ rotate: targetRotation }}
                 transition={{
@@ -121,7 +121,7 @@ const ProfileShowcase = ({
                   return (
                     <motion.div
                       key={skill.name || skillIdx}
-                      className={`absolute p-1.5 aspect-square rounded-full border border-border-color bg-linear-to-br from-card-bg to-accent/20 backdrop-blur-md scale-60 sm:scale-70 md:scale-100 lg:scale-50 xl:scale-100 pointer-events-auto flex items-center justify-center shadow-[0_0_12px_var(--card-bg)] -translate-x-1/2 -translate-y-1/2
+                      className={`absolute p-1.5 aspect-square rounded-full border border-primary/60 bg-linear-to-br from-border-color to-accent/15 shadow-[0_0_10px_var(--border-color)] scale-60 sm:scale-70 md:scale-100 lg:scale-50 xl:scale-100 flex items-center justify-center -translate-x-1/2 -translate-y-1/2
                         ${skillIdx === 0 && "top-0 left-1/2"} 
                         ${skillIdx === 1 && "top-1/2 left-full"} 
                         ${skillIdx === 2 && "top-full left-1/2"} 
@@ -134,7 +134,7 @@ const ProfileShowcase = ({
                       }}
                       title={skill.name}
                       animate={{
-                        scale: [0.95, 1.05, 0.95],
+                        scale: [0.9, 1.1, 0.9],
                       }}
                       transition={{
                         duration: 3 + skillIdx * 0.5,
@@ -171,7 +171,7 @@ const ProfileShowcase = ({
                             fill
                             unoptimized
                             sizes="40px"
-                            className="object-contain drop-shadow-[0_0_6px_var(--card-bg)] pointer-events-none"
+                            className="object-contain pointer-events-none"
                           />
                         </motion.div>
                       )}

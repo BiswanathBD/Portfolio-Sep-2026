@@ -49,8 +49,8 @@ const CustomCursor = () => {
     // fade out cursor on hover
     const fadeOutCursor = () => {
       gsap.to(cursorElements, {
-        scale: 2.5,
-        opacity: 0.1,
+        scale: 4,
+        opacity: 0,
         duration: 0.3,
         ease: "power2.out",
         overwrite: "auto",

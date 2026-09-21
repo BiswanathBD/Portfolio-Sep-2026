@@ -28,7 +28,7 @@ export interface HeroData {
 
 export const heroData: HeroData = {
   greeting: "Hi, I'm",
-  name: "Biswanath",
+  name: "Biswanath Sarker",
   role: "MERN Stack Web Developer",
   description:
     "Crafting modern, responsive, and user-friendly web applications with passion and precision.",

@@ -33,7 +33,8 @@ const Logo: React.FC<LogoProps> = ({
   const showText = variant === "both" || variant === "text-only";
 
   return (
-    <Link href={"/"}
+    <Link
+      href={"/"}
       className="inline-flex w-max items-center justify-center origin-left"
       style={{ transform: `scale(${scale})` }}
     >
@@ -46,6 +47,8 @@ const Logo: React.FC<LogoProps> = ({
         {showIcon && (
           <motion.div
             className="relative w-12 h-12 shrink-0"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.1, rotate: [0, -2, 2, 0] }}
             transition={{ duration: 0.5 }}
           >

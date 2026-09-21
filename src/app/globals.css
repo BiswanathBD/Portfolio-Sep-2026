@@ -9,6 +9,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-card-bg: var(--card-bg);
   --color-border-color: var(--border-color);
+  --color-shadow-color: var(--shadow-color);
 
   --font-sans: var(--font-nunito), Arial, Helvetica, sans-serif;
 }
@@ -17,14 +18,15 @@
   --background: #0e0c10;
   --foreground: #f3f4f6;
 
-  --primary: #ac5fff;
+  --primary: #864dcb;
   --primary-foreground: #ffffff;
 
-  --accent: #f91693;
+  --accent: #fd4b8c;
   --accent-foreground: #ffffff;
 
   --card-bg: #ffffff10;
   --border-color: #ffffff20;
+  --shadow-color: #ffffff40;
 }
 
 /* Base Styles */

@@ -141,8 +141,15 @@ const HeroContent = ({ data }: HeroContentProps) => {
                 👋🏼
               </motion.span>
               {data.greeting} <br />
-              <span className="text-4xl sm:text-5xl md:text-7xl lg:text-5xl xl:text-7xl text-foreground font-extrabold tracking-tight mt-2">
-                {data.name}
+              <span className="flex flex-col text-4xl sm:text-5xl md:text-7xl lg:text-5xl xl:text-7xl text-foreground font-extrabold tracking-tight mt-2">
+                <span
+                  className={`${data.name.split(" ")[1] && " text-3xl sm:text-4xl md:text-6xl lg:text-4xl xl:text-6xl"}`}
+                >
+                  {data.name.split(" ")[0]}
+                </span>
+                {data.name.split(" ")[1] && (
+                  <span>{data.name.split(" ")[1]}</span>
+                )}
               </span>
             </motion.h1>
           </header>
@@ -196,7 +203,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
                 >
                   <span>Download Resume</span>
 
-                  <Download className="w-4 h-4 text-primary group-hover:scale-110 transition-all duration-500" />
+                  <Download className="w-4 h-4 text-foreground group-hover:scale-110 transition-all duration-500" />
                 </a>
               </div>
             </MotionWrapper>
