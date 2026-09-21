@@ -57,12 +57,18 @@ export const AboutMeContent: React.FC<AboutContentProps> = ({
 }) => {
   return (
     <motion.div
-      className="space-y-8 order-1 md:order-2"
+      className="space-y-8 order-1 md:order-2 relative"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
     >
+      {/* Background Glow */}
+      <div
+        className="absolute bottom-0 left-1/4 w-1/2 aspect-square bg-accent/10 rounded-full blur-[100px] pointer-events-none -z-10"
+        aria-hidden="true"
+      />
+
       {/* Name */}
       <motion.div variants={fadeInRight} className="relative inline-block">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 blur-xl rounded-2xl" />

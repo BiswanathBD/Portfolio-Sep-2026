@@ -21,11 +21,11 @@ const Hero = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <header className="min-h-screen flex flex-col">
+      <section id="home" className="min-h-screen flex flex-col">
         <Header />
 
         <section
-          className="relative py-6 lg:py-0 grow grid items-center mt-24 sm:mt-12 lg:-mt-12"
+          className="relative py-6 lg:py-0 grow grid items-center mt-32 sm:mt-12 lg:-mt-12"
           aria-label="Hero Section"
         >
           <Container className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative h-full">
@@ -55,7 +55,7 @@ const Hero = () => {
             </aside>
           </Container>
         </section>
-      </header>
+      </section>
     </>
   );
 };

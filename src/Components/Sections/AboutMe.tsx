@@ -31,12 +31,6 @@ const AboutMe: React.FC = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
 
-      {/* Background Glow */}
-      <div
-        className="absolute top-10 right-10 w-80 h-80 bg-accent/10 rounded-full blur-[100px] pointer-events-none -z-10"
-        aria-hidden="true"
-      />
-
       {/* Extracted Header Component */}
       <SectionHeader
         id="about-heading"
