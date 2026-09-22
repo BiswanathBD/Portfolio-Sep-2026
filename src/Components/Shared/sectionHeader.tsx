@@ -1,87 +1,77 @@
 "use client";
 
 import React from "react";
-import { motion, Variants } from "framer-motion";
+import { MotionWrapper } from "../MotionWrapper";
 
 export interface SectionHeaderProps {
   id?: string;
   titlePrefix: string;
   titleHighlight: string;
+  subtitle?: string;
   className?: string;
 }
-
-const fadeInUp: Variants = {
-  hidden: { y: 30, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
   id = "section-heading",
   titlePrefix,
   titleHighlight,
+  subtitle,
   className = "",
 }) => {
   return (
-    <motion.div
-      className={`text-center mb-8 md:mb-16 relative ${className}`}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={fadeInUp}
-    >
-
-      <div className="relative inline-block">
-        <div className="relative">
-          <h2
-            id={id}
-            className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-2 relative z-10 tracking-tight"
-          >
-            {titlePrefix}{" "}
-            <span className="relative inline-block">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] animate-gradient">
+    <div className={`w-full mb-8 md:mb-16 ${className}`}>
+      <div className="flex items-stretch gap-4 md:gap-6">
+        {/* Content Container */}
+        <div className="flex-1 flex flex-col justify-center">
+          {/* Main Title */}
+          <MotionWrapper animationType="fadeUp" delay={0.1} duration={0.5}>
+            <h2
+              id={id}
+              className="text-center font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground tracking-tight leading-tight"
+            >
+              {titlePrefix}{" "}
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto] animate-gradient">
                 {titleHighlight}
               </span>
-            </span>
-          </h2>
+            </h2>
+          </MotionWrapper>
 
-          {/* Decorative Corner Brackets */}
-          <div className="absolute -top-2 -left-4 w-6 h-6 border-l-2 border-t-2 border-primary/40 rounded-tl-xl animate-pulse" />
-          <div className="absolute -top-2 -right-4 w-6 h-6 border-r-2 border-t-2 border-accent/40 rounded-tr-xl animate-pulse" />
-          <div className="absolute -bottom-2 -left-4 w-6 h-6 border-l-2 border-b-2 border-accent/40 rounded-bl-xl animate-pulse" />
-          <div className="absolute -bottom-2 -right-4 w-6 h-6 border-r-2 border-b-2 border-primary/40 rounded-br-xl animate-pulse" />
+          {/* Subtitle + Expanding Line Container */}
+          {subtitle && (
+            <div className="flex items-center gap-4 w-full">
+              {/* Remaining Space Filler Line (Grows using widthIncrease) */}
+              <div className="flex-1 overflow-hidden flex items-center">
+                <MotionWrapper
+                  animationType="widthIncrease"
+                  delay={0.4}
+                  duration={0.8}
+                  className="h-px bg-linear-to-r from-border-color/20 to-primary/20"
+                />
+              </div>
+              {/* Subtitle Text */}
+              <MotionWrapper
+                animationType="fadeUp"
+                delay={0.25}
+                duration={0.5}
+              >
+                <p className="text-sm sm:text-base md:text-lg text-primary whitespace-nowrap font-normal">
+                  {subtitle}
+                </p>
+              </MotionWrapper>
 
-          {/* Floating Dots */}
-          <motion.div
-            className="absolute -top-2 left-1/4 w-2 h-2 bg-primary rounded-full"
-            animate={{
-              y: [-5, 5, -5],
-              opacity: [0.3, 1, 0.3],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute -bottom-2 right-1/4 w-2 h-2 bg-accent rounded-full"
-            animate={{
-              y: [5, -5, 5],
-              opacity: [0.3, 1, 0.3],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1.5,
-            }}
-          />
+              {/* Remaining Space Filler Line (Grows using widthIncrease) */}
+              <div className="flex-1 overflow-hidden flex items-center">
+                <MotionWrapper
+                  animationType="widthIncrease"
+                  delay={0.4}
+                  duration={0.8}
+                  className="h-px bg-linear-to-l from-border-color/20 to-primary/20"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };

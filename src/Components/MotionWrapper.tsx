@@ -16,7 +16,8 @@ type AnimationType =
   | "widthIncrease"
   | "springUp"
   | "staggerChild"
-  | "rotate";
+  | "rotate"
+  | "rotateScaleUp";
 
 type AnimationConfig = {
   initial?: Record<string, number | string>;
@@ -180,6 +181,14 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
           repeat: Infinity,
           ease: "linear",
         },
+      },
+
+      rotateScaleUp: {
+        initial: { opacity: 0, scale: 0, rotate: -180 },
+        whileInView: { opacity: 1, scale: 1, rotate: 0 },
+        exit: { opacity: 0, scale: 0, rotate: -180 },
+        transition: transition ?? defaultTransition,
+        viewport: { once },
       },
     };
 

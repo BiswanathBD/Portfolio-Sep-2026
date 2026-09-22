@@ -26,6 +26,8 @@ const CustomCursor = () => {
       "a, button, [role='button'], input, textarea, select, label";
 
     let isVisible = false;
+    let isHoveringInteractive = false;
+    let returnTimer: gsap.core.Tween | null = null;
 
     const setCursorOpacity = (opacity: number) => {
       gsap.to(cursorElements, {
@@ -35,19 +37,29 @@ const CustomCursor = () => {
       });
     };
 
+    // smooth scale back to normal cursor after delay
     const resetCursor = () => {
       if (!isVisible) return;
-      gsap.to(cursorElements, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.25,
-        ease: "power2.out",
-        overwrite: "auto",
+      returnTimer = gsap.delayedCall(0.1, () => {
+        if (!isHoveringInteractive) {
+          gsap.to(cursorElements, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.45,
+            ease: "power2.inOut",
+            overwrite: "auto",
+          });
+        }
       });
     };
 
     // fade out cursor on hover
     const fadeOutCursor = () => {
+      if (returnTimer) {
+        returnTimer.kill();
+        returnTimer = null;
+      }
+
       gsap.to(cursorElements, {
         scale: 4,
         opacity: 0,
@@ -60,7 +72,9 @@ const CustomCursor = () => {
     const moveCursor = (event: MouseEvent) => {
       if (!isVisible) {
         isVisible = true;
-        setCursorOpacity(1);
+        if (!isHoveringInteractive) {
+          setCursorOpacity(1);
+        }
       }
 
       const target = event.target;
@@ -72,12 +86,6 @@ const CustomCursor = () => {
       if (disabledElement) {
         setCursorOpacity(0);
         return;
-      }
-
-      const interactiveElement = target.closest(interactiveSelector);
-
-      if (!interactiveElement && isVisible) {
-        setCursorOpacity(1);
       }
 
       gsap.to(cursorDot, {
@@ -112,6 +120,7 @@ const CustomCursor = () => {
       const interactiveElement = target.closest(interactiveSelector);
 
       if (interactiveElement) {
+        isHoveringInteractive = true;
         fadeOutCursor();
       }
     };
@@ -124,6 +133,7 @@ const CustomCursor = () => {
       const interactiveElement = target.closest(interactiveSelector);
 
       if (interactiveElement) {
+        isHoveringInteractive = false;
         resetCursor();
       }
     };
@@ -131,13 +141,16 @@ const CustomCursor = () => {
     // hide when leaving window
     const handleMouseLeave = () => {
       isVisible = false;
+      if (returnTimer) returnTimer.kill();
       setCursorOpacity(0);
     };
 
     // show when entering window
     const handleMouseEnter = () => {
       isVisible = true;
-      setCursorOpacity(1);
+      if (!isHoveringInteractive) {
+        setCursorOpacity(1);
+      }
     };
 
     window.addEventListener("mousemove", moveCursor);
@@ -160,6 +173,8 @@ const CustomCursor = () => {
         "mouseenter",
         handleMouseEnter,
       );
+
+      if (returnTimer) returnTimer.kill();
 
       gsap.killTweensOf(cursorDot);
       gsap.killTweensOf(cursorCircle);

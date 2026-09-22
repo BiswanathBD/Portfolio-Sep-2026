@@ -4,6 +4,7 @@ import "./globals.css";
 import CustomCursor from "@/Components/CustomCursor";
 import Navbar from "@/Components/Shared/Navbar";
 import GlobalBackground from "@/Components/GlobalBackground";
+import SmoothScroll from "@/utils/SmoothScroll";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -19,7 +20,6 @@ const hindSiliguri = Hind_Siliguri({
 });
 
 export const metadata: Metadata = {
-  // আপনার বর্তমান Vercel ইউআরএল সেট করা হয়েছে
   metadataBase: new URL("https://biswanath.vercel.app"),
   title: {
     default: "Biswanath Sarker | MERN Stack Developer",
@@ -46,14 +46,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://biswanath.vercel.app",
   },
-
-  // FIXME: আপনার public/ ফোল্ডারে এই আইকন ফাইলগুলো (.ico, .png) যুক্ত করতে হবে
   icons: {
-    icon: "/favicon.ico", // TODO: আসল ফেভিকন যুক্ত করুন
-    shortcut: "/favicon-16x16.png", // TODO: কাস্টম শর্টকাট আইকন যুক্ত করুন
-    apple: "/apple-touch-icon.png", // TODO: অ্যাপল ডিভাইসের জন্য আইকন যুক্ত করুন
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
-
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -62,31 +59,22 @@ export const metadata: Metadata = {
     description:
       "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
     siteName: "Biswanath Sarker Portfolio",
-
-    // FIXME: সোশ্যাল শেয়ারিংয়ের ছবি। public/og-image.png নামের একটি ছবি তৈরি করে নিবেন
     images: [
       {
-        url: "https://biswanath.vercel.app/og-image.png", // TODO: আসল OpenGraph ইমেজ ইউআরএল বা আপেক্ষিক পথ দিন
+        url: "https://biswanath.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "Biswanath Sarker Portfolio Overview",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Biswanath Sarker | MERN Stack Developer",
     description:
       "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
-
-    // FIXME: টুইটার শেয়ারের ছবি। og-image এর একই ইমেজ ব্যবহার করতে পারেন
-    images: ["https://biswanath.vercel.app/og-image.png"], // TODO: আসল টুইটার প্রিভিউ ইমেজ দিন
-
-    // TODO: আপনার টুইটার হ্যান্ডেল থাকলে নিচে কমেন্ট আউট তুলে যুক্ত করুন
-    // creator: "@your_twitter_username",
+    images: ["https://biswanath.vercel.app/og-image.png"],
   },
-
   robots: {
     index: true,
     follow: true,
@@ -114,9 +102,8 @@ export default function RootLayout({
         <CustomCursor />
         {/* Global Background Component */}
         <GlobalBackground />
-        <main className="h-screen grow flex justify-center overflow-y-scroll overflow-x-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
-          {children}
-        </main>
+
+        <SmoothScroll>{children}</SmoothScroll>
         <Navbar />
       </body>
     </html>

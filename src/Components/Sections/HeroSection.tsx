@@ -21,7 +21,7 @@ const Hero = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section id="home" className="min-h-screen flex flex-col">
+      <section className="section min-h-screen flex flex-col">
         <Header />
 
         <section

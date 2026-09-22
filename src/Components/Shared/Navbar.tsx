@@ -16,8 +16,9 @@ import {
 } from "lucide-react";
 import Logo from "./Logo";
 import { MotionWrapper } from "../MotionWrapper";
-import ScrollToTop from "../ScrollToTop";
 import Container from "../Container";
+import { lenisInstance } from "@/utils/SmoothScroll";
+import { SectionNavigator } from "../SectionNavigator";
 
 interface NavItem {
   name: string;
@@ -76,11 +77,12 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
+  // Lenis Scroll Event & Section Tracking Integration
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY + 200;
+    const updateActiveSection = () => {
+      const scrollPos = (lenisInstance?.scroll ?? window.scrollY) + 200;
 
-      if (window.scrollY < 200) {
+      if ((lenisInstance?.scroll ?? window.scrollY) < 200) {
         setActiveSection("home");
         return;
       }
@@ -99,25 +101,52 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    if (lenisInstance) {
+      lenisInstance.on("scroll", updateActiveSection);
+    }
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    updateActiveSection();
+
+    return () => {
+      if (lenisInstance) {
+        lenisInstance.off("scroll", updateActiveSection);
+      }
+      window.removeEventListener("scroll", updateActiveSection);
+    };
   }, []);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     section: string,
   ) => {
+    e.preventDefault();
     setActiveSection(section);
 
     if (window.innerWidth < 640) {
       setIsOpen(false);
     }
 
+    const scrollOptions = {
+      duration: 2.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    };
+
     if (section === "home") {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (lenisInstance) {
+        lenisInstance.scrollTo(0, scrollOptions);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } else {
+      const element = document.getElementById(section);
+      if (element) {
+        if (lenisInstance) {
+          lenisInstance.scrollTo(element, { offset: 0, ...scrollOptions });
+        } else {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     }
   };
 
@@ -155,7 +184,7 @@ const Navbar = () => {
           ref={navbarRef}
           id="navbar"
           aria-label="Main navigation"
-          animate={{ width: isExpanded ? 220 : 60 }}
+          animate={{ width: isExpanded ? 220 : 64 }}
           transition={{
             width: {
               type: "spring",
@@ -254,9 +283,9 @@ const Navbar = () => {
                         href={item.href}
                         onClick={(e) => handleNavClick(e, item.section)}
                         aria-current={isActive ? "page" : undefined}
-                        className={`group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-all duration-200 ${
+                        className={`group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-all duration-300 ${
                           isActive
-                            ? "font-medium text-white"
+                            ? "font-medium text-foreground"
                             : "text-foreground/60 hover:text-foreground/90"
                         }`}
                       >
@@ -278,7 +307,7 @@ const Navbar = () => {
                         <div className="z-10 flex shrink-0 items-center justify-center pl-2">
                           <Icon
                             aria-hidden="true"
-                            className={`h-5 w-5 transition-transform duration-300 group-hover:scale-105 ${
+                            className={`h-5 w-5 transition-all duration-300 group-hover:scale-110 group-hover:text-accent group-hover:translate-x-1 ${
                               isActive ? "text-primary" : "text-foreground/70"
                             }`}
                           />
@@ -292,7 +321,7 @@ const Navbar = () => {
                               delay={index * 0.04}
                               className="z-10"
                             >
-                              <span className="ml-3 overflow-hidden whitespace-nowrap text-sm font-medium">
+                              <span className="ml-3 overflow-hidden whitespace-nowrap text-sm font-medium transition-all duration-300 group-hover:text-accent group-hover:rotate-4 group-hover:ml-3.5">
                                 {item.name}
                               </span>
                             </MotionWrapper>
@@ -301,7 +330,7 @@ const Navbar = () => {
 
                         {/* Tooltip for Collapsed Mode */}
                         {!isExpanded && (
-                          <div className="pointer-events-none absolute left-full z-50 ml-3 whitespace-nowrap rounded-lg border border-white/10 bg-[#170926] px-3 py-1.5 text-xs font-medium text-foreground opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100">
+                          <div className="pointer-events-none absolute left-full z-50 ml-3 whitespace-nowrap px-3 py-1.5 text-xs font-medium text-foreground opacity-0 shadow-xl transition-all duration-300 ">
                             {item.name}
                           </div>
                         )}
@@ -312,9 +341,13 @@ const Navbar = () => {
               </ul>
             </nav>
 
-            {/* Go To Top Button Container */}
-            <div className="flex items-center justify-center pb-2">
-              {/* <ScrollToTop /> */}
+            {/* Next and Previous Arrow Integration */}
+            <div className="hidden sm:flex items-center justify-center pb-2 pt-4">
+              <SectionNavigator
+                navItems={navItems}
+                activeSection={activeSection}
+                isExpanded={isExpanded}
+              />
             </div>
           </div>
         </motion.aside>
