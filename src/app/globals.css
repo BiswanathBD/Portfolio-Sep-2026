@@ -88,28 +88,3 @@ html {
   border-radius: 4px;
 }
 
-/* scroll animations */
-@keyframes scaleInOut {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-    filter: blur(8px);
-  }
-  30%,
-  60% {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.5);
-    filter: blur(8px);
-  }
-}
-
-.section {
-  animation: scaleInOut linear both;
-  animation-timeline: view();
-  animation-range: entry 0% exit 100%;
-}
