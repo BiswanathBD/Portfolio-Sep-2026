@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ChevronUp, ChevronDown, ChevronsUp, LucideIcon } from "lucide-react";
-import { lenisInstance } from "@/utils/SmoothScroll";
 
 interface NavItem {
   name: string;
@@ -33,29 +32,16 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
 
   const isAtBottom = currentIndex === navItems.length - 1;
 
-  // Smooth Scroll Helper
+  // Direct Scroll Helper (Instant Scroll)
   const scrollToSection = (sectionId: string) => {
-    const scrollOptions = {
-      duration: 2.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    };
-
     if (sectionId === "home") {
-      if (lenisInstance) {
-        lenisInstance.scrollTo(0, scrollOptions);
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      window.scrollTo({ top: 0, behavior: "instant" });
       return;
     }
 
     const element = document.getElementById(sectionId);
     if (element) {
-      if (lenisInstance) {
-        lenisInstance.scrollTo(element, { offset: 0, ...scrollOptions });
-      } else {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      element.scrollIntoView({ behavior: "instant" });
     }
   };
 

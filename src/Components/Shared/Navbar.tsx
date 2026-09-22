@@ -17,7 +17,6 @@ import {
 import Logo from "./Logo";
 import { MotionWrapper } from "../MotionWrapper";
 import Container from "../Container";
-import { lenisInstance } from "@/utils/SmoothScroll";
 import { SectionNavigator } from "../SectionNavigator";
 
 interface NavItem {
@@ -77,12 +76,12 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  // Lenis Scroll Event & Section Tracking Integration
+  // Section Tracking Integration
   useEffect(() => {
     const updateActiveSection = () => {
-      const scrollPos = (lenisInstance?.scroll ?? window.scrollY) + 200;
+      const scrollPos = window.scrollY + 200;
 
-      if ((lenisInstance?.scroll ?? window.scrollY) < 200) {
+      if (window.scrollY < 200) {
         setActiveSection("home");
         return;
       }
@@ -101,17 +100,10 @@ const Navbar = () => {
       }
     };
 
-    if (lenisInstance) {
-      lenisInstance.on("scroll", updateActiveSection);
-    }
-
     window.addEventListener("scroll", updateActiveSection, { passive: true });
     updateActiveSection();
 
     return () => {
-      if (lenisInstance) {
-        lenisInstance.off("scroll", updateActiveSection);
-      }
       window.removeEventListener("scroll", updateActiveSection);
     };
   }, []);
@@ -127,36 +119,21 @@ const Navbar = () => {
       setIsOpen(false);
     }
 
-    const scrollOptions = {
-      duration: 2.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    };
-
     if (section === "home") {
-      if (lenisInstance) {
-        lenisInstance.scrollTo(0, scrollOptions);
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       const element = document.getElementById(section);
       if (element) {
-        if (lenisInstance) {
-          lenisInstance.scrollTo(element, { offset: 0, ...scrollOptions });
-        } else {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        element.scrollIntoView({ behavior: "smooth" });
       }
     }
   };
 
   return (
     <>
-      {/* mobile header */}
-      <Container
-        className={`fixed w-full top-4 sm:hidden ${isOpen ? "z-40" : "z-60"}`}
-      >
-        <header className="flex items-center justify-between py-2 px-3 rounded-2xl border border-border-color/60 bg-linear-to-br from-card-bg to-primary/10 backdrop-blur-sm shadow-2xl">
+      {/* Fixed Mobile Header Container */}
+      <header className="fixed top-4 inset-x-0 z-40 px-4 sm:hidden">
+        <div className="mx-auto flex max-w-lg items-center justify-between rounded-2xl border border-border-color/60 bg-linear-to-br from-card-bg to-primary/10 px-3 py-2 backdrop-blur-md shadow-2xl">
           <Logo size="sm" />
           <button
             type="button"
@@ -171,8 +148,8 @@ const Navbar = () => {
           >
             <Menu aria-hidden="true" />
           </button>
-        </header>
-      </Container>
+        </div>
+      </header>
 
       {/* sm+ nav */}
       <MotionWrapper

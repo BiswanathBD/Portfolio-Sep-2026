@@ -40,7 +40,7 @@ export default function SectionWrapper({
           ease: "none",
           scrollTrigger: {
             trigger: el,
-            scroller: scroller || undefined, // কাস্টম র্যাপার স্ক্রলার সিঙ্ক
+            scroller: scroller || undefined,
             start: "top bottom",
             end: "top center",
             scrub: true,
