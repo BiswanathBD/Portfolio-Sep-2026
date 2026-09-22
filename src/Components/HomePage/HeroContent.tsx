@@ -52,7 +52,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
   const bottomLineDelay = lastIconEnd + 0.2;
 
   return (
-    <div className="flex-1 flex items-center gap-6 sm:gap-8">
+    <aside className="flex-1 mt-8 flex items-center gap-6 sm:gap-8">
       {/* social links */}
       <nav
         aria-label="social links"
@@ -210,7 +210,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
           </div>
         </MotionWrapper>
       </main>
-    </div>
+    </aside>
   );
 };
 

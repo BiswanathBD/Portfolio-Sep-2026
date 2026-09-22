@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { aboutData } from "@/data/aboutMe";
 import { SectionHeader } from "../Shared/sectionHeader";
@@ -19,8 +17,8 @@ const AboutMe: React.FC = () => {
   };
 
   return (
-    <Container id="about" aria-labelledby="about-heading" className="section">
-      <section className="relative text-foreground">
+    <Container id="about" aria-labelledby="about-heading">
+      <section className="relative text-foreground py-6 lg:yp-12 xl:py-24">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

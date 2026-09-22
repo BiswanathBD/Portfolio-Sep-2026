@@ -46,7 +46,7 @@ const ProfileShowcase = ({
   };
 
   return (
-    <section className="relative w-full flex justify-center items-center py-6">
+    <section className="relative w-full flex justify-center items-center">
       <div className="relative z-20 flex items-center justify-center w-[52%]">
         {/* bg glow */}
         <MotionWrapper

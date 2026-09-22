@@ -4,7 +4,7 @@ import Header from "../HomePage/Header";
 import HeroContent from "../HomePage/HeroContent";
 import ProfileShowcase from "../HomePage/ProfileShowcase";
 
-const Hero = () => {
+const HeroSection = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -21,11 +21,11 @@ const Hero = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="section min-h-screen flex flex-col">
+      <section className="min-h-screen flex flex-col justify-center">
         <Header />
 
-        <section
-          className="relative py-6 lg:py-0 grow grid items-center mt-32 sm:mt-12 lg:-mt-12"
+        <div
+          className="relative py-6 lg:py-0 grow grid items-center mb-6 lg:mb-12 xl:mb-24 mt-44 sm:mt-22 lg:mt-0"
           aria-label="Hero Section"
         >
           <Container className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative h-full">
@@ -45,7 +45,7 @@ const Hero = () => {
 
             {/* Profile Showcase Component (Right Side) */}
             <aside
-              className="mx-auto w-10/12 sm:w-11/12 md:w-9/12 lg:w-full order-1 lg:order-2"
+              className="mx-auto w-11/12 lg:w-full order-1 lg:order-2"
               aria-label="Profile Showcase and Skills"
             >
               <ProfileShowcase
@@ -54,10 +54,10 @@ const Hero = () => {
               />
             </aside>
           </Container>
-        </section>
+        </div>
       </section>
     </>
   );
 };
 
-export default Hero;
+export default HeroSection;
