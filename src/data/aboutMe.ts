@@ -25,17 +25,11 @@ export interface AboutContentProps {
 }
 
 export interface AboutData {
-  titlePrefix: string;
-  titleHighlight: string;
-  subtitle: string;
   imageProps: AboutImageProps;
   contentProps: AboutContentProps;
 }
 
 export const aboutData: AboutData = {
-  titlePrefix: "About",
-  titleHighlight: "Me",
-  subtitle: "Get to know my journey, passions, and technical skill set.",
   imageProps: {
     imageSrc: "/assets/aboutMeImg.png",
     imageAlt: "Biswanath Sarker - MERN Stack Developer",

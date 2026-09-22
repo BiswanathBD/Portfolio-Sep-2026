@@ -1,8 +1,13 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export let lenisInstance: Lenis | null = null;
 
 interface SmoothScrollProps {
@@ -10,51 +15,36 @@ interface SmoothScrollProps {
 }
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    if (!wrapperRef.current || !contentRef.current) return;
+    const mainElement = document.querySelector("main");
 
     const lenis = new Lenis({
-      wrapper: wrapperRef.current,
-      content: contentRef.current,
-
-      /* --- Smooth Scroll Controls --- */
-      duration: 1.5,
+      wrapper: mainElement || window,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 2.0,
+      touchMultiplier: 1.5,
     });
 
     lenisInstance = lenis;
-    let animationFrameId: number;
+    lenis.on("scroll", ScrollTrigger.update);
 
-    function raf(time: number) {
-      lenis.raf(time);
-      animationFrameId = requestAnimationFrame(raf);
-    }
+    const updateTicker = (time: number) => {
+      lenis.raf(time * 1000);
+    };
 
-    animationFrameId = requestAnimationFrame(raf);
+    gsap.ticker.add(updateTicker);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      gsap.ticker.remove(updateTicker);
       lenis.destroy();
       lenisInstance = null;
     };
   }, []);
 
-  return (
-    <main
-      ref={wrapperRef}
-      className="h-screen grow flex justify-center overflow-y-scroll overflow-x-hidden scrollbar-none [&::-webkit-scrollbar]:hidden snap-y snap-mandatory"
-    >
-      <div ref={contentRef} className="w-full flex flex-col items-center">
-        {children}
-      </div>
-    </main>
-  );
+  return <>{children}</>;
 }

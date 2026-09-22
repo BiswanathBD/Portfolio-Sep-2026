@@ -100,7 +100,6 @@ export default function RootLayout({
     >
       <body className="h-screen overflow-hidden flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
-        {/* Global Background Component */}
         <GlobalBackground />
 
         <SmoothScroll>{children}</SmoothScroll>
