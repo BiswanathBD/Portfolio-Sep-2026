@@ -100,7 +100,7 @@ export default function RootLayout({
       <body className="flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
         <GlobalBackground />
-        <main className="w-full sm:flex-1 space-y-12 sm:space-y-24 lg:space-y-32">
+        <main className="w-full sm:flex-1 space-y-6 lg:space-y-12">
           {children}
         </main>
         <header className="hidden sm:block">
