@@ -102,7 +102,7 @@ export default function RootLayout({
         <CustomCursor />
         <GlobalBackground />
         <SmoothScroll />
-        <main className="flex-1 overflow-x-hidden scrollbar-none space-y-6 lg:space-y-12 mb-12 lg:mb-24">
+        <main className="flex-1 overflow-x-hidden scrollbar-none">
           {children}
         </main>
         <header className="hidden sm:block">
