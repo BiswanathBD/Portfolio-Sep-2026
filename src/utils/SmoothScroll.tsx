@@ -13,7 +13,7 @@ export default function SmoothScroll() {
       duration: 1.5,
       smoothWheel: true,
       syncTouch: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.5,
       touchMultiplier: 1,
     });
 
