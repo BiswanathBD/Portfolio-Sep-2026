@@ -51,7 +51,7 @@ const ProfileShowcase = ({
         {/* bg glow */}
         <MotionWrapper
           animationType="scale"
-          delay={1}
+          delay={0.5}
           duration={1}
           className="absolute inset-0 bg-primary/60 rounded-full blur-[100px] z-0 pointer-events-none"
         />
@@ -59,6 +59,7 @@ const ProfileShowcase = ({
         {/* Profile Image Wrapper */}
         <MotionWrapper
           animationType="scale"
+          transitionType="spring"
           className="relative z-10 group w-full aspect-square rounded-full border-2 border-primary/50 overflow-hidden bg-background flex items-center justify-center shadow-[0_0_50px_rgba(var(--primary-rgb),0.3)]"
         >
           {profileImage && (
@@ -93,6 +94,7 @@ const ProfileShowcase = ({
             <MotionWrapper
               key={circleKey}
               animationType="scale"
+              transitionType="spring"
               delay={0.2 + circleIdx * 0.15}
               className={`absolute inset-0 flex items-center justify-center pointer-events-none ${zIndexClass}`}
             >

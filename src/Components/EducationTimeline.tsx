@@ -19,7 +19,6 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
     HTMLElement | undefined
   >(undefined);
 
-  // SmoothScroll বা overflow-y-auto কন্টেইনার ডিটেক্ট করা
   useEffect(() => {
     if (typeof window !== "undefined") {
       const detectedScroller =
@@ -104,7 +103,7 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
           {/* Framer Motion Driven Dynamic Glowing Line */}
           <motion.div
             style={{ scaleY, transformOrigin: "top" }}
-            className="hidden md:block absolute md:left-32 top-6 bottom-6 w-0.5 bg-accent rounded-full z-10 pointer-events-none shadow-[0_0_12px_var(--color-primary,var(--primary))] drop-shadow-[0_0_8px_var(--color-primary,var(--primary))]"
+            className="hidden md:block absolute md:left-32 top-6 bottom-6 w-0.5 bg-accent rounded-full z-10 pointer-events-none shadow-[0_0_12px_var(--shadow-color)]"
           />
 
           {/* Timeline Cards Stack */}

@@ -37,11 +37,11 @@ const renderSocialIcon = (iconName: SocialLink["iconName"]) => {
 };
 
 const HeroContent = ({ data }: HeroContentProps) => {
-  const topLineDuration = 0.7;
-  const topLineDelay = 0.2;
+  const topLineDuration = 0.3;
+  const topLineDelay = 0;
 
   const iconStartDelay = topLineDelay + topLineDuration + 0.15;
-  const iconDuration = 0.4;
+  const iconDuration = 0.3;
   const iconStagger = 0.18;
 
   const lastIconEnd =
@@ -49,7 +49,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
     Math.max(data.socialLinks.length - 1, 0) * iconStagger +
     iconDuration;
 
-  const bottomLineDelay = lastIconEnd + 0.2;
+  const bottomLineDelay = lastIconEnd + 0;
 
   return (
     <aside className="flex-1 mt-8 flex items-center gap-6 sm:gap-8">
@@ -122,7 +122,11 @@ const HeroContent = ({ data }: HeroContentProps) => {
       </nav>
 
       <section className="space-y-2 max-w-sm sm:max-w-sm md:max-w-lg lg:w-full">
-        <MotionWrapper animationType="fadeRight" delay={0.2} duration={0.7}>
+        <MotionWrapper
+          animationType="fadeRight"
+          delay={0.2}
+          transitionType="spring"
+        >
           <header>
             <motion.h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-4xl tracking-tight text-accent font-bold">
               <motion.span
@@ -156,7 +160,11 @@ const HeroContent = ({ data }: HeroContentProps) => {
         </MotionWrapper>
 
         {/* Dynamic Rotating Gradient Role */}
-        <MotionWrapper animationType="fadeRight" delay={0.4} duration={0.7}>
+        <MotionWrapper
+          animationType="fadeRight"
+          delay={0.4}
+          transitionType="spring"
+        >
           <h2 className="font-sans font-semibold text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-4xl">
             <motion.span
               className="bg-clip-text text-transparent bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto]"
@@ -174,13 +182,17 @@ const HeroContent = ({ data }: HeroContentProps) => {
           </h2>
         </MotionWrapper>
 
-        <MotionWrapper animationType="fadeRight" delay={0.6} duration={0.7}>
+        <MotionWrapper
+          animationType="fadeRight"
+          delay={0.6}
+          transitionType="spring"
+        >
           <p className="text-foreground/70 text-base sm:text-lg md:text-xl lg:text-base xl:text-xl leading-relaxed">
             {data.description}
           </p>
         </MotionWrapper>
 
-        <MotionWrapper animationType="fadeUp" delay={0.8} duration={0.7}>
+        <MotionWrapper animationType="fadeUp" delay={0.8}  transitionType="spring">
           <div className="flex items-center gap-4 mt-8">
             <MotionWrapper animationType="button">
               <div className="relative p-px rounded-2xl overflow-hidden flex items-center justify-center group">

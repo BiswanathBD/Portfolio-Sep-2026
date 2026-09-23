@@ -43,7 +43,7 @@ export const SkillGrid: React.FC<SkillGridProps> = ({
   };
 
   return (
-    <MotionWrapper animationType="fadeUp" delay={delay}>
+    <MotionWrapper animationType="fade" delay={delay}>
       <div
         role="button"
         className="relative grid w-full grid-cols-2 overflow-visible"
@@ -161,20 +161,25 @@ export const SkillGrid: React.FC<SkillGridProps> = ({
           />
         </div>
 
-        {skills.map((item) => (
-          <SkillCard key={item.id} item={item} />
+        {skills.map((item, idx) => (
+          <SkillCard key={item.id} item={item} idx={idx} />
         ))}
       </div>
     </MotionWrapper>
   );
 };
 
-function SkillCard({ item }: { item: SkillItem }) {
+function SkillCard({ item, idx }: { item: SkillItem; idx: number }) {
   const IconComponent = skillIconMap[item.id] || Code2;
   const isPrimary = item.colorType === "primary";
 
   return (
-    <div className="group relative z-0 flex gap-2 p-4 cursor-none">
+    <MotionWrapper
+      animationType="fadeUp"
+      transitionType="spring"
+      delay={0.3 + idx * 0.1}
+      className="group relative z-0 flex gap-2 p-4 cursor-none"
+    >
       {/* Icon Wrapper with Micro-interaction */}
       <div
         className={`flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-all duration-300 group-hover:scale-110`}
@@ -199,6 +204,6 @@ function SkillCard({ item }: { item: SkillItem }) {
           {item.description}
         </p>
       </div>
-    </div>
+    </MotionWrapper>
   );
 }

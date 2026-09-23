@@ -61,7 +61,7 @@ export default function SectionWrapper({
         })
         .to(content, {
           opacity: 0,
-          scale: 0.6,
+          scale: 0.8,
           filter: "blur(8px)",
           ease: "none",
           duration: 0.5,
@@ -75,7 +75,6 @@ export default function SectionWrapper({
 
   return (
     <section ref={sectionRef} id={id} className={`w-full ${className}`}>
-      
       <div ref={contentRef} className="w-full will-change-transform">
         {children}
       </div>

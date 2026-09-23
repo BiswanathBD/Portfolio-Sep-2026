@@ -39,8 +39,8 @@ export const Education = () => {
       {/* section */}
       <section className="relative">
         <Container>
-          <div className="pointer-events-none absolute -left-20 top-1/4 -z-10 size-96 rounded-full bg-primary/10 blur-[120px]" />
-          <div className="pointer-events-none absolute bottom-10 right-0 -z-10 size-80 rounded-full bg-accent/10 blur-[100px]" />
+          <div className="pointer-events-none absolute -left-20 top-1/4 -z-10 size-96 rounded-full bg-accent/10 blur-[120px]" />
+          <div className="pointer-events-none absolute bottom-10 right-0 -z-10 size-80 rounded-full bg-primary/10 blur-[100px]" />
 
           <EducationTimeline data={educationData} />
         </Container>

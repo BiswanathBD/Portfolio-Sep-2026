@@ -12,7 +12,11 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
   return (
     <aside className="flex flex-col space-y-4">
       {/* Name Title */}
-      <MotionWrapper animationType="fadeUp" delay={0.15}>
+      <MotionWrapper
+        animationType="fadeRight"
+        transitionType="spring"
+        delay={0.15}
+      >
         <h3 className="font-sans font-bold text-3xl sm:text-4xl text-foreground">
           {namePrefix}{" "}
           <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto] animate-linear">
@@ -27,6 +31,7 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
         <MotionWrapper
           animationType="heightIncrease"
           delay={0.2}
+          duration={1}
           className="absolute left-0 top-0 bottom-0 w-px origin-top overflow-hidden"
         >
           <div className="h-full w-full bg-accent/40" />
@@ -36,6 +41,7 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
           <MotionWrapper
             key={index}
             animationType="fadeRight"
+            transitionType="spring"
             delay={0.25 + index * 0.15}
           >
             <p className="text-muted-foreground leading-relaxed text-base sm:text-lg font-normal">

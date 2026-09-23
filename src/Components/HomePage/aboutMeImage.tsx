@@ -22,6 +22,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
       {/* Outer Scale Animation via MotionWrapper */}
       <MotionWrapper
         animationType="scale"
+         transitionType="spring"
         delay={0.2}
         className="relative w-full flex justify-center"
       >

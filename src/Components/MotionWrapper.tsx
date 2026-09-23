@@ -19,6 +19,8 @@ type AnimationType =
   | "rotate"
   | "rotateScaleUp";
 
+type TransitionType = "tween" | "spring" | "inertia";
+
 type AnimationConfig = {
   initial?: Record<string, number | string>;
   whileInView?: Record<string, number | string | number[]>;
@@ -34,9 +36,9 @@ type MotionWrapperProps = {
   children?: React.ReactNode;
   className?: string;
   animationType?: AnimationType;
+  transitionType?: TransitionType;
   delay?: number;
   duration?: number;
-  custom?: number;
   hoverScale?: number;
   once?: boolean;
   transition?: Transition;
@@ -47,6 +49,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   children,
   className,
   animationType = "fade",
+  transitionType = "tween",
   delay = 0,
   duration = 0.5,
   hoverScale = 1.02,
@@ -54,19 +57,41 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   transition,
   onClick,
 }) => {
-  const getAnimationConfig = (type: AnimationType): AnimationConfig => {
-    const defaultTransition: Transition = {
-      duration,
-      delay,
-      ease: "easeOut",
+  const getDefaultTransition = (type: TransitionType): Transition => {
+    const transitions: Record<TransitionType, Transition> = {
+      tween: {
+        type: "tween",
+        duration,
+        delay,
+        ease: "easeOut",
+      },
+
+      spring: {
+        type: "spring",
+        stiffness: 200,
+        damping: 10,
+        delay,
+      },
+
+      inertia: {
+        type: "inertia",
+        duration,
+        delay,
+      },
     };
 
+    return transitions[type];
+  };
+
+  const defaultTransition = transition ?? getDefaultTransition(transitionType);
+
+  const getAnimationConfig = (type: AnimationType): AnimationConfig => {
     const configs: Record<AnimationType, AnimationConfig> = {
       fade: {
         initial: { opacity: 0 },
         whileInView: { opacity: 1 },
         exit: { opacity: 0 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -74,7 +99,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { opacity: 0, x: 20 },
         whileInView: { opacity: 1, x: 0 },
         exit: { opacity: 0, x: 20 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -82,7 +107,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { opacity: 0, x: -20 },
         whileInView: { opacity: 1, x: 0 },
         exit: { opacity: 0, x: -20 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -90,7 +115,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },
         exit: { opacity: 0, y: 20 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -98,7 +123,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { opacity: 0, y: -20 },
         whileInView: { opacity: 1, y: 0 },
         exit: { opacity: 0, y: -20 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -106,7 +131,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { opacity: 0, scale: 0.9 },
         whileInView: { opacity: 1, scale: 1 },
         exit: { opacity: 0, scale: 0.9 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -117,6 +142,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         whileHover: { scale: hoverScale },
         whileTap: { scale: 0.9 },
         transition: transition ?? {
+          type: "tween",
           duration: 0.2,
           ease: "easeOut",
         },
@@ -124,26 +150,49 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
       },
 
       springUp: {
-        initial: { opacity: 0, y: 15, scale: 0.95 },
-        whileInView: { opacity: 1, y: 0, scale: 1 },
-        exit: { opacity: 0, y: 15, scale: 0.95 },
+        initial: {
+          opacity: 0,
+          y: 15,
+          scale: 0.95,
+        },
+        whileInView: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+        },
+        exit: {
+          opacity: 0,
+          y: 15,
+          scale: 0.95,
+        },
         transition: transition ?? {
           type: "spring",
           stiffness: 350,
           damping: 25,
+          mass: 1,
           delay,
         },
         viewport: { once },
       },
 
       staggerChild: {
-        initial: { opacity: 0, x: -10 },
-        whileInView: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: -10 },
+        initial: {
+          opacity: 0,
+          x: -10,
+        },
+        whileInView: {
+          opacity: 1,
+          x: 0,
+        },
+        exit: {
+          opacity: 0,
+          x: -10,
+        },
         transition: transition ?? {
           type: "spring",
           stiffness: 300,
           damping: 24,
+          mass: 1,
           delay,
         },
         viewport: { once },
@@ -153,7 +202,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { width: 0 },
         whileInView: { width: 40 },
         exit: { width: 0 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -161,7 +210,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { height: 0 },
         whileInView: { height: "100%" },
         exit: { height: 0 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
@@ -169,13 +218,16 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         initial: { width: 0 },
         whileInView: { width: "100%" },
         exit: { width: 0 },
-        transition: transition ?? defaultTransition,
+        transition: defaultTransition,
         viewport: { once },
       },
 
       rotate: {
-        animate: { rotate: [0, 360] },
+        animate: {
+          rotate: [0, 360],
+        },
         transition: transition ?? {
+          type: "tween",
           duration,
           delay,
           repeat: Infinity,
@@ -184,10 +236,22 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
       },
 
       rotateScaleUp: {
-        initial: { opacity: 0, scale: 0, rotate: -180 },
-        whileInView: { opacity: 1, scale: 1, rotate: 0 },
-        exit: { opacity: 0, scale: 0, rotate: -180 },
-        transition: transition ?? defaultTransition,
+        initial: {
+          opacity: 0,
+          scale: 0,
+          rotate: -180,
+        },
+        whileInView: {
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+        },
+        exit: {
+          opacity: 0,
+          scale: 0,
+          rotate: -180,
+        },
+        transition: defaultTransition,
         viewport: { once },
       },
     };

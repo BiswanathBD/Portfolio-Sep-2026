@@ -96,13 +96,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} ${hindSiliguri.variable} antialiased scrollbar-none`}
+      className={`${nunito.variable} ${hindSiliguri.variable} antialiased w-screen overflow-hidden scrollbar-none`}
     >
-      <body className="flex overflow-x-hidden justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body className="flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
         <GlobalBackground />
         <SmoothScroll />
-        <main className="flex-1 space-y-6 lg:space-y-12 mb-12 lg:mb-24">
+        <main className="flex-1 overflow-x-hidden scrollbar-none space-y-6 lg:space-y-12 mb-12 lg:mb-24">
           {children}
         </main>
         <header className="hidden sm:block">
