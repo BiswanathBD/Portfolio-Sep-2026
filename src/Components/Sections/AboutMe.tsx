@@ -24,7 +24,7 @@ const AboutMe: React.FC = () => {
       />
 
       {/* section */}
-      <section className="text-foreground w-full py-4 lg:py-8">
+      <section className="text-foreground w-full py-2 lg:py-4">
         <Container>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 items-center mt-20">
             <AboutMeImage
