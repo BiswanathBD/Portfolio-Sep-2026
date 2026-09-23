@@ -4,6 +4,7 @@ import "./globals.css";
 import CustomCursor from "@/Components/CustomCursor";
 import GlobalBackground from "@/Components/GlobalBackground";
 import SideNavbar from "@/Components/Shared/SideNavbar";
+import SmoothScroll from "@/utils/SmoothScroll";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -100,7 +101,8 @@ export default function RootLayout({
       <body className="flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
         <GlobalBackground />
-        <main className="w-full sm:flex-1 space-y-6 lg:space-y-12">
+        <SmoothScroll />
+        <main className="flex-1 space-y-6 lg:space-y-12">
           {children}
         </main>
         <header className="hidden sm:block">

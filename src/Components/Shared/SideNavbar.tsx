@@ -144,7 +144,7 @@ const SideNavbar = () => {
           damping: 28,
         },
       }}
-      className="sticky top-0 flex h-screen shrink-0 flex-col bg-background/95 py-6 select-none backdrop-blur-sm sm:bg-background/20 sm:backdrop-blur-[1px]"
+      className="sticky top-0 flex h-screen overflow-y-scroll scrollbar-none shrink-0 flex-col bg-background/95 py-6 select-none backdrop-blur-sm sm:bg-background/20 sm:backdrop-blur-[1px]"
     >
       {/* line */}
       <div
