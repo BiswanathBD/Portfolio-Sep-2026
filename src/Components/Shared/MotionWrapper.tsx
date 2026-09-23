@@ -51,9 +51,9 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   animationType = "fade",
   transitionType = "tween",
   delay = 0,
-  duration = 0.5,
+  duration = 1,
   hoverScale = 1.02,
-  once = true,
+  once = false,
   transition,
   onClick,
 }) => {
@@ -68,8 +68,8 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
 
       spring: {
         type: "spring",
-        stiffness: 200,
-        damping: 10,
+        stiffness: 120,
+        damping: 12,
         delay,
       },
 

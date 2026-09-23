@@ -5,7 +5,7 @@ import { Download } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 import { HeroData, SocialLink } from "@/data/heroData";
-import { MotionWrapper } from "../MotionWrapper";
+import { MotionWrapper } from "../Shared/MotionWrapper";
 
 interface HeroContentProps {
   data: Pick<
@@ -37,11 +37,11 @@ const renderSocialIcon = (iconName: SocialLink["iconName"]) => {
 };
 
 const HeroContent = ({ data }: HeroContentProps) => {
-  const topLineDuration = 0.3;
+  const topLineDuration = 0.4;
   const topLineDelay = 0;
 
   const iconStartDelay = topLineDelay + topLineDuration + 0.15;
-  const iconDuration = 0.3;
+  const iconDuration = 0.4;
   const iconStagger = 0.18;
 
   const lastIconEnd =
@@ -192,7 +192,11 @@ const HeroContent = ({ data }: HeroContentProps) => {
           </p>
         </MotionWrapper>
 
-        <MotionWrapper animationType="fadeUp" delay={0.8}  transitionType="spring">
+        <MotionWrapper
+          animationType="fadeUp"
+          delay={0.8}
+          transitionType="spring"
+        >
           <div className="flex items-center gap-4 mt-8">
             <MotionWrapper animationType="button">
               <div className="relative p-px rounded-2xl overflow-hidden flex items-center justify-center group">

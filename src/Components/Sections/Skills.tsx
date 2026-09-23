@@ -1,7 +1,7 @@
 import { skillCategories, statsData } from "@/data/skillsData";
 import { SkillCard } from "../SkillCard";
 import { StatsGrid } from "../StatsGrid";
-import Container from "../Container";
+import Container from "../Shared/Container";
 
 const Skills = () => {
   // SEO Schema markup for Skills / Occupation

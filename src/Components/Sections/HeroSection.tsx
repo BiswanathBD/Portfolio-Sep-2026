@@ -1,5 +1,5 @@
 import { heroData } from "@/data/heroData";
-import Container from "../Container";
+import Container from "../Shared/Container";
 import Header from "../HomePage/Header";
 import HeroContent from "../HomePage/HeroContent";
 import ProfileShowcase from "../HomePage/ProfileShowcase";

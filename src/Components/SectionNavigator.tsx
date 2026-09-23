@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ChevronUp, ChevronDown, ChevronsUp, LucideIcon } from "lucide-react";
-import { MotionWrapper } from "./MotionWrapper";
+import { MotionWrapper } from "./Shared/MotionWrapper";
 
 interface NavItem {
   name: string;
@@ -135,10 +135,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   };
 
   return (
-    <MotionWrapper
-      animationType="scale"
-      transition={{ delay: 0.8, type: "spring", stiffness: 400, damping: 10 }}
-    >
+    <MotionWrapper animationType="scale" transitionType="spring" delay={1.2}>
       <motion.div
         variants={containerVariants}
         initial="hidden"

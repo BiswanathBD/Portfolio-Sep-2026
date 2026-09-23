@@ -2,7 +2,7 @@
 
 import React from "react";
 import { AboutContentProps } from "@/data/aboutMe";
-import { MotionWrapper } from "../MotionWrapper";
+import { MotionWrapper } from "../Shared/MotionWrapper";
 
 export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
   namePrefix,
@@ -15,7 +15,7 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
       <MotionWrapper
         animationType="fadeRight"
         transitionType="spring"
-        delay={0.15}
+        delay={0.5}
       >
         <h3 className="font-sans font-bold text-3xl sm:text-4xl text-foreground">
           {namePrefix}{" "}
@@ -30,8 +30,8 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
         {/* Animated Left Line */}
         <MotionWrapper
           animationType="heightIncrease"
-          delay={0.2}
-          duration={1}
+          delay={0.5}
+          duration={1.2}
           className="absolute left-0 top-0 bottom-0 w-px origin-top overflow-hidden"
         >
           <div className="h-full w-full bg-accent/40" />
@@ -42,7 +42,7 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
             key={index}
             animationType="fadeRight"
             transitionType="spring"
-            delay={0.25 + index * 0.15}
+            delay={0.5 + index * 0.15}
           >
             <p className="text-muted-foreground leading-relaxed text-base sm:text-lg font-normal">
               {paraChunks.map((chunk, chunkIndex) => {

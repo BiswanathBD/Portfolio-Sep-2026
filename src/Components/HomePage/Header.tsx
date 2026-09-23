@@ -1,4 +1,4 @@
-import Container from "../Container";
+import Container from "../Shared/Container";
 import Logo from "../Shared/Logo";
 
 export default function Header() {

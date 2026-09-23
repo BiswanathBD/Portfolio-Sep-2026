@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Code2, Palette, Brain, Database, LucideIcon } from "lucide-react";
 import { SkillItem } from "@/data/aboutMe";
-import { MotionWrapper } from "../MotionWrapper";
+import { MotionWrapper } from "../Shared/MotionWrapper";
 
 const skillIconMap: Record<string, LucideIcon> = {
   mern: Code2,
@@ -24,7 +24,7 @@ interface MousePosition {
 
 export const SkillGrid: React.FC<SkillGridProps> = ({
   skills,
-  delay = 0.25,
+  delay = 0.5,
 }) => {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
     x: 0,

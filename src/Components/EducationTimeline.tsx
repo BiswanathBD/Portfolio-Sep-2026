@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { EducationItem, continuousLearningText } from "@/data/educationData";
 import { EducationCard } from "./EducationCard";
-import { MotionWrapper } from "./MotionWrapper";
+import { MotionWrapper } from "./Shared/MotionWrapper";
 import { GraduationCap, CheckCircle2, ArrowUpRight } from "lucide-react";
 
 interface EducationTimelineProps {
@@ -49,7 +49,7 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
     <div className="w-full">
       {/* Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
-        {/* Left Column: Heading & Sticky Info Block */}
+        {/* Heading & Info */}
         <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
           <MotionWrapper animationType="fadeRight" delay={0.1}>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-4">
@@ -92,21 +92,21 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
           </MotionWrapper>
         </div>
 
-        {/* Right Column: Scroll-Driven Dynamic Line & Cards */}
+        {/* Scroll-Driven Dynamic Line & Cards */}
         <div
           ref={containerRef}
           className="lg:col-span-7 relative w-full pl-6 md:pl-10"
         >
           {/* Base Background Track Line */}
-          <div className="hidden md:block absolute left-7 md:left-32 top-6 bottom-6 w-0.5 bg-primary/20 rounded-full" />
+          <div className="absolute left-0 md:left-32 top-6 bottom-6 w-0.5 bg-primary/20 rounded-full" />
 
           {/* Framer Motion Driven Dynamic Glowing Line */}
           <motion.div
             style={{ scaleY, transformOrigin: "top" }}
-            className="hidden md:block absolute md:left-32 top-6 bottom-6 w-0.5 bg-accent rounded-full z-10 pointer-events-none shadow-[0_0_12px_var(--shadow-color)]"
+            className="absolute left-0 md:left-32 top-6 bottom-6 w-0.5 bg-accent rounded-full z-10 pointer-events-none shadow-[0_0_12px_var(--shadow-color)]"
           />
 
-          {/* Timeline Cards Stack */}
+          {/* Timeline Cards */}
           <div className="relative z-20 space-y-10 md:space-y-12">
             {data.map((edu, index) => (
               <EducationCard key={edu.id} edu={edu} index={index} />

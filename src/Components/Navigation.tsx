@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, delay, motion } from "framer-motion";
-import { MotionWrapper } from "../MotionWrapper";
+import { MotionWrapper } from "./Shared/MotionWrapper";
 import { navItems } from "@/data/navData";
 
 interface NavigationProps {
@@ -29,12 +29,8 @@ const Navigation = ({
             <MotionWrapper
               key={item.section}
               animationType="fadeLeft"
-              transition={{
-                delay: 0.5 + index * 0.1,
-                type: "spring",
-                stiffness: 300,
-                damping: 15,
-              }}
+              transitionType="spring"
+              delay={0.5 + index * 0.15}
             >
               <li className="relative">
                 <a

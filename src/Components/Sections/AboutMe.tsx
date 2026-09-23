@@ -1,6 +1,6 @@
 import React from "react";
 import { aboutData } from "@/data/aboutMe";
-import Container from "../Container";
+import Container from "../Shared/Container";
 import { AboutMeImage } from "../HomePage/aboutMeImage";
 import { AboutMeContent } from "../HomePage/aboutMeContent";
 

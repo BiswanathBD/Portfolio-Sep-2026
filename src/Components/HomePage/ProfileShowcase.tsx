@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { SkillItem } from "@/data/heroData";
 import { motion } from "framer-motion";
-import { MotionWrapper } from "../MotionWrapper";
+import { MotionWrapper } from "../Shared/MotionWrapper";
 
 export interface ProfileShowcaseProps {
   profileImage: string;

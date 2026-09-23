@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Code2, Laptop, Rocket } from "lucide-react";
 import { AboutImageProps, SkillItem } from "@/data/aboutMe";
-import { MotionWrapper } from "../MotionWrapper";
+import { MotionWrapper } from "../Shared/MotionWrapper";
 import { SkillGrid } from "./SkillGrid";
 
 interface ExtendedAboutImageProps extends AboutImageProps {
@@ -22,8 +22,8 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
       {/* Outer Scale Animation via MotionWrapper */}
       <MotionWrapper
         animationType="scale"
-         transitionType="spring"
-        delay={0.2}
+        transitionType="spring"
+        delay={0.5}
         className="relative w-full flex justify-center"
       >
         {/* outer container */}
@@ -110,22 +110,22 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
                 repeat: Infinity,
                 duration: 4,
                 ease: "easeInOut",
-                delay: 0.33,
+                delay: 1,
               },
               y: {
                 repeat: Infinity,
                 duration: 3.5,
                 ease: "easeInOut",
-                delay: 0.33,
+                delay: 1,
               },
               x: {
                 repeat: Infinity,
                 duration: 4.5,
                 ease: "easeInOut",
-                delay: 0.33,
+                delay: 1,
               },
-              rotate: { duration: 1.2, ease: "easeOut", delay: 0.33 },
-              opacity: { duration: 1, delay: 0.33 },
+              rotate: { duration: 1.2, ease: "easeOut", delay: 1 },
+              opacity: { duration: 1, delay: 1 },
             }}
             className="absolute -top-1/5 right-1/4 w-8 h-8 bg-linear-to-tl from-card-bg backdrop-blur-md rounded-lg flex items-center justify-center border border-border-color shadow-lg pointer-events-none"
           >
@@ -147,22 +147,22 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
                 repeat: Infinity,
                 duration: 4.5,
                 ease: "easeInOut",
-                delay: 0.53,
+                delay: 1.2,
               },
               y: {
                 repeat: Infinity,
                 duration: 4,
                 ease: "easeInOut",
-                delay: 0.53,
+                delay: 1.2,
               },
               x: {
                 repeat: Infinity,
                 duration: 5,
                 ease: "easeInOut",
-                delay: 0.53,
+                delay: 1.2,
               },
-              rotate: { duration: 1.4, ease: "easeOut", delay: 0.53 },
-              opacity: { duration: 1, delay: 0.53 },
+              rotate: { duration: 1.4, ease: "easeOut", delay: 1.2 },
+              opacity: { duration: 1, delay: 1.2 },
             }}
             className="absolute bottom-4 -left-1/4 w-10 h-10 bg-linear-to-tl from-card-bg backdrop-blur-md rounded-xl flex items-center justify-center border border-border-color shadow-lg pointer-events-none"
           >
@@ -184,21 +184,21 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
                 repeat: Infinity,
                 duration: 3.8,
                 ease: "easeInOut",
-                delay: 0.63,
+                delay: 1.8,
               },
               y: {
                 repeat: Infinity,
                 duration: 3.2,
                 ease: "easeInOut",
-                delay: 0.63,
+                delay: 1.8,
               },
               rotate: {
                 repeat: Infinity,
                 duration: 5,
                 ease: "easeInOut",
-                delay: 0.63,
+                delay: 1.8,
               },
-              opacity: { duration: 1, delay: 0.63 },
+              opacity: { duration: 1, delay: 1.8 },
             }}
             className="absolute top-1/2 -right-1/4 -translate-y-1/2 w-10 h-10 bg-linear-to-br from-card-bg backdrop-blur-md rounded-xl flex items-center justify-center border border-border-color shadow-lg pointer-events-none"
           >
@@ -207,7 +207,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
         </motion.div>
       </MotionWrapper>
 
-      <SkillGrid skills={skills} delay={0.25} />
+      <SkillGrid skills={skills} delay={0.5} />
     </aside>
   );
 };

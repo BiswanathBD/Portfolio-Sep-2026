@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Hind_Siliguri, Nunito } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/Components/CustomCursor";
-import GlobalBackground from "@/Components/GlobalBackground";
-import SideNavbar from "@/Components/Shared/SideNavbar";
+import CustomCursor from "@/Components/Shared/CustomCursor";
+import GlobalBackground from "@/Components/Shared/GlobalBackground";
 import SmoothScroll from "@/utils/SmoothScroll";
+import SideNavbar from "@/Components/SideNavbar";
 
 const nunito = Nunito({
   subsets: ["latin"],

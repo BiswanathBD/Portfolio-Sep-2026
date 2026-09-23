@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { MotionWrapper } from "../MotionWrapper";
+import { MotionWrapper } from "./MotionWrapper";
 
 export interface SectionHeaderProps {
   id?: string;
@@ -49,11 +49,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
                 />
               </div>
               {/* Subtitle Text */}
-              <MotionWrapper
-                animationType="fadeUp"
-                delay={0.25}
-                duration={0.5}
-              >
+              <MotionWrapper animationType="fadeUp" delay={0.25} duration={0.5}>
                 <p className="text-sm sm:text-base md:text-lg text-primary whitespace-nowrap font-normal">
                   {subtitle}
                 </p>

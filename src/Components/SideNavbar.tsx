@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
-import Logo from "./Logo";
-import Navigation from "./Navigation";
-import { MotionWrapper } from "../MotionWrapper";
-import { SectionNavigator } from "../SectionNavigator";
 import { navItems } from "@/data/navData";
+import { MotionWrapper } from "./Shared/MotionWrapper";
+import Logo from "./Shared/Logo";
+import Navigation from "./Navigation";
+import { SectionNavigator } from "./SectionNavigator";
 
 const SideNavbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
