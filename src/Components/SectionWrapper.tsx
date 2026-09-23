@@ -41,7 +41,7 @@ export default function SectionWrapper({
           content,
           {
             opacity: 0,
-            scale: 0.6,
+            scale: 0.8,
             filter: "blur(2px)",
           },
           {
@@ -61,7 +61,7 @@ export default function SectionWrapper({
         })
         .to(content, {
           opacity: 0,
-          scale: 0.6,
+          scale: 0.8,
           filter: "blur(2px)",
           ease: "none",
           duration: 0.5,
