@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Hind_Siliguri, Nunito } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/Components/CustomCursor";
-import Navbar from "@/Components/Shared/Navbar";
 import GlobalBackground from "@/Components/GlobalBackground";
+import SideNavbar from "@/Components/Shared/SideNavbar";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -97,11 +97,15 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${hindSiliguri.variable} antialiased`}
     >
-      <body className="h-screen overflow-hidden flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body className="flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
         <GlobalBackground />
-        <>{children}</>
-        <Navbar />
+        <main className="w-full sm:flex-1 space-y-12 sm:space-y-24 lg:space-y-32">
+          {children}
+        </main>
+        <header className="hidden sm:block">
+          <SideNavbar />
+        </header>
       </body>
     </html>
   );

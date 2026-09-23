@@ -121,7 +121,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
         </div>
       </nav>
 
-      <main className="space-y-2 max-w-sm sm:max-w-sm md:max-w-lg lg:w-full">
+      <section className="space-y-2 max-w-sm sm:max-w-sm md:max-w-lg lg:w-full">
         <MotionWrapper animationType="fadeRight" delay={0.2} duration={0.7}>
           <header>
             <motion.h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-4xl tracking-tight text-accent font-bold">
@@ -209,7 +209,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
             </MotionWrapper>
           </div>
         </MotionWrapper>
-      </main>
+      </section>
     </aside>
   );
 };

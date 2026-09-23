@@ -24,7 +24,7 @@ const AboutMe: React.FC = () => {
       />
 
       {/* section */}
-      <section id="about" className="text-foreground w-full">
+      <section className="text-foreground w-full">
         <Container>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 items-center mt-20">
             <AboutMeImage

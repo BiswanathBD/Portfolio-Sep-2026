@@ -20,7 +20,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" aria-label="Skills and Expertise">
+    <section aria-label="Skills and Expertise">
       {/* SEO Schema Injection */}
       <script
         type="application/ld+json"

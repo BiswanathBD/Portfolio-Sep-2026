@@ -32,16 +32,22 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
 
   const isAtBottom = currentIndex === navItems.length - 1;
 
-  // Direct Scroll Helper (Instant Scroll)
   const scrollToSection = (sectionId: string) => {
     if (sectionId === "home") {
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       return;
     }
 
     const element = document.getElementById(sectionId);
+
     if (element) {
-      element.scrollIntoView({ behavior: "instant" });
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   };
 
@@ -51,6 +57,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   ) => {
     setAnimatingBtn(btnType);
     action();
+
     setTimeout(() => {
       setAnimatingBtn(null);
     }, 550);
@@ -59,8 +66,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   const handlePrev = () => {
     if (currentIndex > 0) {
       triggerClickAnimation("prev", () => {
-        const prevSection = navItems[currentIndex - 1].section;
-        scrollToSection(prevSection);
+        scrollToSection(navItems[currentIndex - 1].section);
       });
     }
   };
@@ -68,8 +74,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   const handleNext = () => {
     if (currentIndex < navItems.length - 1) {
       triggerClickAnimation("next", () => {
-        const nextSection = navItems[currentIndex + 1].section;
-        scrollToSection(nextSection);
+        scrollToSection(navItems[currentIndex + 1].section);
       });
     }
   };
@@ -81,35 +86,50 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   };
 
   const containerVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+    },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
     },
   };
 
-  const tooltipVariants: Variants = {
-    hidden: { opacity: 0, x: -5 },
-    hover: { opacity: 1, x: 0, transition: { duration: 0.2 } },
-  };
-
   const getFlyOutVariants = (yDirection: number): Variants => ({
-    initial: { opacity: 1, scale: 1, y: 0 },
+    initial: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+    },
     exit: {
       opacity: 0,
       scale: 2,
       y: yDirection,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1],
+      },
     },
   });
 
   const buttonEnterVariants: Variants = {
-    initial: { opacity: 0, scale: 0.8 },
+    initial: {
+      opacity: 0,
+      scale: 0.8,
+    },
     animate: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4, ease: "easeOut", delay: 0.2 },
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+        delay: 0.2,
+      },
     },
   };
 
@@ -118,14 +138,16 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.5 }}
+      viewport={{
+        once: false,
+        amount: 0.5,
+      }}
       className={`flex items-center justify-center ${
-        isExpanded ? "w-full gap-8" : "flex-col gap-6 w-12"
+        isExpanded ? "w-full gap-8" : "w-12 flex-col gap-6"
       }`}
     >
       {isAtBottom ? (
-        /* Bottom-most State: Back to Top Icon */
-        <div className="relative flex items-center justify-center w-10 h-10">
+        <div className="relative flex h-10 w-10 items-center justify-center">
           <AnimatePresence mode="wait">
             {animatingBtn === "top" ? (
               <motion.div
@@ -133,7 +155,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
                 variants={getFlyOutVariants(-40)}
                 initial="initial"
                 animate="exit"
-                className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none"
+                className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center"
               >
                 <ChevronsUp size={20} className="text-accent" />
               </motion.div>
@@ -148,23 +170,23 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
                 animate="animate"
                 whileHover="hover"
                 whileTap={{ scale: 0.85 }}
-                className="group relative flex cursor-pointer items-center justify-center p-2 text-accent opacity-60 hover:opacity-100 transition-opacity duration-200"
+                className="group relative flex cursor-pointer items-center justify-center p-2 text-accent opacity-60 transition-opacity duration-200 hover:opacity-100"
               >
                 <motion.div
-                  variants={{ hover: { y: -4, scale: 1.2 } }}
-                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  variants={{
+                    hover: {
+                      y: -4,
+                      scale: 1.2,
+                    },
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 15,
+                  }}
                 >
                   <ChevronsUp size={20} />
                 </motion.div>
-
-                {!isExpanded && (
-                  <motion.div
-                    variants={tooltipVariants}
-                    className="pointer-events-none absolute left-full z-50 ml-3 whitespace-nowrap rounded-md bg-background border border-border-color/50 px-2.5 py-1 text-xs font-medium text-foreground shadow-xl"
-                  >
-                    Back to Top
-                  </motion.div>
-                )}
               </motion.button>
             )}
           </AnimatePresence>
@@ -175,8 +197,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
             isExpanded ? "flex-row" : "flex-col"
           }`}
         >
-          {/* Previous Arrow Button */}
-          <div className="relative flex items-center justify-center w-10 h-10">
+          <div className="relative flex h-10 w-10 items-center justify-center">
             <AnimatePresence mode="wait">
               {animatingBtn === "prev" ? (
                 <motion.div
@@ -184,7 +205,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
                   variants={getFlyOutVariants(-40)}
                   initial="initial"
                   animate="exit"
-                  className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none"
+                  className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center"
                 >
                   <ChevronUp size={20} className="text-accent" />
                 </motion.div>
@@ -198,8 +219,20 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
                   variants={buttonEnterVariants}
                   initial="initial"
                   animate="animate"
-                  whileHover={currentIndex !== 0 ? "hover" : undefined}
-                  whileTap={currentIndex !== 0 ? { scale: 0.85 } : undefined}
+                  whileHover={
+                    currentIndex !== 0
+                      ? {
+                          scale: 1,
+                        }
+                      : undefined
+                  }
+                  whileTap={
+                    currentIndex !== 0
+                      ? {
+                          scale: 0.85,
+                        }
+                      : undefined
+                  }
                   className={`group relative flex items-center justify-center p-2 transition-opacity duration-200 ${
                     currentIndex === 0
                       ? "pointer-events-none cursor-not-allowed text-shadow-color opacity-30"
@@ -207,27 +240,23 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
                   }`}
                 >
                   <motion.div
-                    variants={{ hover: { y: -4, scale: 1.2 } }}
-                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    whileHover={{
+                      y: -4,
+                      scale: 1.2,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 15,
+                    }}
                   >
                     <ChevronUp size={20} />
                   </motion.div>
-
-                  {!isExpanded && currentIndex !== 0 && (
-                    <motion.div
-                      variants={tooltipVariants}
-                      className="pointer-events-none absolute left-full z-50 ml-3 whitespace-nowrap rounded-md bg-background border border-border-color/50 px-2.5 py-1 text-xs font-medium text-foreground shadow-xl"
-                    >
-                      Previous Section
-                    </motion.div>
-                  )}
                 </motion.button>
               )}
             </AnimatePresence>
           </div>
-
-          {/* Next Arrow Button */}
-          <div className="relative flex items-center justify-center w-10 h-10">
+          <div className="relative flex h-10 w-10 items-center justify-center">
             <AnimatePresence mode="wait">
               {animatingBtn === "next" ? (
                 <motion.div
@@ -235,7 +264,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
                   variants={getFlyOutVariants(40)}
                   initial="initial"
                   animate="exit"
-                  className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none"
+                  className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center"
                 >
                   <ChevronDown size={20} className="text-accent" />
                 </motion.div>
@@ -248,25 +277,27 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
                   variants={buttonEnterVariants}
                   initial="initial"
                   animate="animate"
-                  whileHover="hover"
-                  whileTap={{ scale: 0.85 }}
-                  className="group relative flex cursor-pointer items-center justify-center p-2 text-accent opacity-60 hover:opacity-100 transition-opacity duration-200"
+                  whileHover={{
+                    scale: 1,
+                  }}
+                  whileTap={{
+                    scale: 0.85,
+                  }}
+                  className="group relative flex cursor-pointer items-center justify-center p-2 text-accent opacity-60 transition-opacity duration-200 hover:opacity-100"
                 >
                   <motion.div
-                    variants={{ hover: { y: 4, scale: 1.2 } }}
-                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    whileHover={{
+                      y: 4,
+                      scale: 1.2,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 15,
+                    }}
                   >
                     <ChevronDown size={20} />
                   </motion.div>
-
-                  {!isExpanded && (
-                    <motion.div
-                      variants={tooltipVariants}
-                      className="pointer-events-none absolute left-full z-50 ml-3 whitespace-nowrap rounded-md bg-background border border-border-color/50 px-2.5 py-1 text-xs font-medium text-foreground shadow-xl"
-                    >
-                      Next Section
-                    </motion.div>
-                  )}
                 </motion.button>
               )}
             </AnimatePresence>

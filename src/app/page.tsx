@@ -6,14 +6,22 @@ import SectionWrapper from "@/Components/SectionWrapper";
 
 export default function Home() {
   return (
-    <main className="w-full space-y-12 sm:space-y-24 lg:space-y-32 h-screen overflow-y-auto overflow-x-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
-      <SectionWrapper><HeroSection /></SectionWrapper>
-      <SectionWrapper><HeroSection /></SectionWrapper>
-      <SectionWrapper><HeroSection /></SectionWrapper>
-      
-      <AboutMe />
-      <Education />
-      <Skills />
-    </main>
+    <>
+      <SectionWrapper id="home">
+        <HeroSection />
+      </SectionWrapper>
+
+      <SectionWrapper id="about">
+        <AboutMe />
+      </SectionWrapper>
+
+      <SectionWrapper id="education">
+        <Education />
+      </SectionWrapper>
+
+      <SectionWrapper id="skills">
+        <Skills />
+      </SectionWrapper>
+    </>
   );
 }

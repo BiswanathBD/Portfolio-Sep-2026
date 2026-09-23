@@ -23,7 +23,7 @@ const HeroSection = () => {
       />
 
       {/* section */}
-      <section id="#" className="min-h-screen flex flex-col justify-center">
+      <section className="min-h-screen flex flex-col justify-center">
         <Header />
 
         <div
