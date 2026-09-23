@@ -192,7 +192,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                       transitionType="spring"
                       delay={1 + achIndex * 0.1}
                     >
-                      <div className="achievement-item h-full group flex items-center gap-2 p-3 rounded-lg bg-linear-to-r from-foreground/5 to-foreground/10 border border-border-color hover:border-primary/30 hover:from-primary/5 hover:to-accent/5 transition-all duration-300 cursor-default">
+                      <div className="achievement-item h-full group flex items-center gap-2 p-3 rounded-xl bg-linear-to-r from-foreground/5 to-foreground/10 border border-border-color hover:border-primary/30 hover:from-primary/5 hover:to-accent/5 transition-all duration-500 cursor-default">
                         <div className="w-2 h-2 bg-linear-to-r from-primary to-accent rounded-full" />
                         <span className="text-foreground/80 text-xs font-medium group-hover:text-foreground transition-colors duration-300">
                           {achievement}

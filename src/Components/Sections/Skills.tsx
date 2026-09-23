@@ -34,7 +34,7 @@ const Skills = () => {
           <div className="absolute bottom-10 left-10 w-96 h-96 bg-card-bg rounded-full blur-[120px] pointer-events-none -z-10" />
 
           {/* Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {skillCategories.map((category, idx) => (
               <SkillCard
                 key={category.title}

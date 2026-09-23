@@ -166,8 +166,7 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const statsData: StatItem[] = [
-  { number: "15+", label: "Technologies", color: "text-primary" },
-  { number: "30+", label: "Projects", color: "text-accent" },
-  { number: "6+", label: "Months Experience", color: "text-accent" },
-  { number: "100%", label: "Client Satisfaction", color: "text-primary" },
+  { number: "20+", label: "Technologies", color: "text-accent" },
+  { number: "40+", label: "Projects", color: "text-primary" },
+  { number: "1+", label: "Years Experience", color: "text-accent" },
 ];

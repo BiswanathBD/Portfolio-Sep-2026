@@ -85,7 +85,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ category, idx }) => {
           <div className="flex justify-between items-center gap-3 mb-6">
             <span className="h-1 w-1 rounded-full bg-shadow-color" />
 
-            <h3 className="font-bold text-lg text-foreground">
+            <h3 className="font-bold text-lg text-foreground text-center">
               {category.title}
             </h3>
 
