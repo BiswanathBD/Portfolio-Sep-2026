@@ -42,12 +42,12 @@ export default function SectionWrapper({
           {
             opacity: 0,
             scale: 0.8,
-            filter: "blur(2px)",
+            y: "10vh",
           },
           {
             opacity: 1,
             scale: 1,
-            filter: "blur(0px)",
+            y: 0,
             ease: "none",
             duration: 0.5,
           },
@@ -55,14 +55,14 @@ export default function SectionWrapper({
         .to(content, {
           opacity: 1,
           scale: 1,
-          filter: "blur(0px)",
+          y: 0,
           ease: "none",
           duration: 0.5,
         })
         .to(content, {
           opacity: 0,
           scale: 0.8,
-          filter: "blur(2px)",
+          y: "10vh",
           ease: "none",
           duration: 0.5,
         });

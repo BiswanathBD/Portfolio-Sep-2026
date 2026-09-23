@@ -27,7 +27,7 @@ const Skills = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(skillsSchema) }}
       />
 
-      <section aria-label="Skills and Expertise" className="py-2 lg:py-4">
+      <section aria-label="Skills and Expertise" className="py-4 lg:py-8">
         <Container>
           {/* Ambient Background Lights */}
           <div className="absolute top-10 right-10 w-72 h-72 bg-accent/10 rounded-full blur-[100px] pointer-events-none -z-10" />

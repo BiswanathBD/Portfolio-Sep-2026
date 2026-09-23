@@ -37,7 +37,7 @@ export const Education = () => {
       />
 
       {/* section */}
-      <section className="relative py-2 lg:py-4">
+      <section className="relative py-4 lg:py-8">
         <Container>
           <div className="pointer-events-none absolute -left-20 top-1/4 -z-10 size-96 rounded-full bg-accent/10 blur-[120px]" />
           <div className="pointer-events-none absolute bottom-10 right-0 -z-10 size-80 rounded-full bg-primary/10 blur-[100px]" />
