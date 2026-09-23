@@ -12,7 +12,7 @@ export default function SmoothScroll() {
     const lenis = new Lenis({
       duration: 1.5,
       smoothWheel: true,
-      syncTouch: false,
+      syncTouch: true,
       wheelMultiplier: 1,
       touchMultiplier: 1,
     });
