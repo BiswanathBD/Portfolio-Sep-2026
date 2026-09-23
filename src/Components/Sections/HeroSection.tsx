@@ -27,7 +27,7 @@ const HeroSection = () => {
         <Header />
 
         <div
-          className="relative py-6 lg:py-0 grow grid items-center mt-44 sm:mt-22 lg:mt-0"
+          className="relative py-6 lg:py-0 grow grid items-center mt-44 sm:mt-22 lg:-mt-22"
           aria-label="Hero Section"
         >
           <Container className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative h-full">
