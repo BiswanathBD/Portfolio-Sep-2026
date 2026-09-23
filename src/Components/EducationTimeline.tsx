@@ -6,6 +6,7 @@ import { EducationItem, continuousLearningText } from "@/data/educationData";
 import { EducationCard } from "./EducationCard";
 import { MotionWrapper } from "./Shared/MotionWrapper";
 import { GraduationCap, CheckCircle2, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 interface EducationTimelineProps {
   data: EducationItem[];
@@ -50,24 +51,35 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
       {/* Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
         {/* Heading & Info */}
-        <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
-          <MotionWrapper animationType="fadeRight" delay={0.1}>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-4">
-              <GraduationCap className="w-4 h-4" />
-              <span>Academic & Training</span>
-            </div>
-
+        <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6 lg:mt-8">
+          <MotionWrapper
+            animationType="fadeUp"
+            delay={0.5}
+            transitionType="spring"
+          >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground mb-4 leading-[1.15]">
               Education & <br />
-              <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-accent to-primary bg-clip-text text-transparent">
                 Qualifications
               </span>
             </h2>
+          </MotionWrapper>
 
+          <MotionWrapper
+            animationType="fadeUp"
+            delay={0.55}
+            transitionType="spring"
+          >
             <p className="text-foreground/70 text-sm md:text-base leading-relaxed mb-6">
               {continuousLearningText}
             </p>
+          </MotionWrapper>
 
+          <MotionWrapper
+            animationType="fadeUp"
+            delay={0.6}
+            transitionType="spring"
+          >
             <div className="p-5 rounded-2xl bg-card-bg/80 border border-border-color backdrop-blur-xl shadow-xs space-y-3">
               <div className="flex items-center gap-2 text-sm font-bold text-foreground">
                 <CheckCircle2 className="w-4 h-4 text-primary" />
@@ -79,17 +91,23 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
                 platforms.
               </p>
             </div>
+          </MotionWrapper>
 
-            <div className="pt-2">
-              <a
+          <div className="pt-2">
+            <MotionWrapper
+              animationType="fadeUp"
+              delay={0.65}
+              transitionType="spring"
+            >
+              <Link
                 href="#projects"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-accent transition-colors group"
               >
                 <span>Explore technical implementations</span>
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-            </div>
-          </MotionWrapper>
+              </Link>
+            </MotionWrapper>
+          </div>
         </div>
 
         {/* Scroll-Driven Dynamic Line & Cards */}

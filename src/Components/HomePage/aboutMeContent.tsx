@@ -34,7 +34,7 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
           duration={1.2}
           className="absolute left-0 top-0 bottom-0 w-px origin-top overflow-hidden"
         >
-          <div className="h-full w-full bg-accent/40" />
+          <div className="h-full w-full bg-border-color" />
         </MotionWrapper>
 
         {paragraphs.map((paraChunks, index) => (

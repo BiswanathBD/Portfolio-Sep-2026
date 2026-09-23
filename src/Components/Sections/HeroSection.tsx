@@ -23,11 +23,11 @@ const HeroSection = () => {
       />
 
       {/* section */}
-      <section className="min-h-screen flex flex-col justify-center pb-4 lg:pb-8">
+      <section className="flex flex-col justify-center">
         <Header />
 
         <div
-          className="relative py-6 lg:py-0 grow grid items-center mt-44 sm:mt-22 lg:-mt-22"
+          className="relative py-4 lg:py-8 grow grid items-center mt-32 sm:mt-16 lg:mt-0"
           aria-label="Hero Section"
         >
           <Container className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative h-full">
