@@ -14,7 +14,7 @@ export default function SmoothScroll() {
       smoothWheel: true,
       syncTouch: true,
       wheelMultiplier: 1.5,
-      touchMultiplier: 1,
+      touchMultiplier: 1.5,
     });
 
     lenis.on("scroll", ScrollTrigger.update);
