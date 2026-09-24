@@ -205,7 +205,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
                   <MotionWrapper
                     animationType="rotate"
                     duration={5}
-                    className="absolute inset-[-250%] bg-[conic-gradient(from_0deg,transparent_0_180deg,var(--primary)_330deg,var(--accent)_360deg)] opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none"
+                    className="absolute inset-[-250%] bg-[conic-gradient(from_0deg,transparent_0_180deg,var(--primary)_330deg,var(--accent)_360deg)] opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none blur-xs"
                   />
                 </MotionWrapper>
 

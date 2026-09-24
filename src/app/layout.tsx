@@ -5,6 +5,7 @@ import CustomCursor from "@/Components/Shared/CustomCursor";
 import GlobalBackground from "@/Components/Shared/GlobalBackground";
 import SmoothScroll from "@/utils/SmoothScroll";
 import SideNavbar from "@/Components/SideNavbar";
+import TopNavbar from "@/Components/TopNavbar";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -98,13 +99,22 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${hindSiliguri.variable} antialiased w-screen overflow-hidden scrollbar-none`}
     >
-      <body className="flex justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body className="flex flex-col sm:flex-row justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
         <GlobalBackground />
         <SmoothScroll />
+
+        {/* Mobile top nav */}
+        <header className="sm:hidden">
+          <TopNavbar />
+        </header>
+
+        {/* main page */}
         <main className="flex-1 overflow-x-hidden scrollbar-none">
           {children}
         </main>
+
+        {/* desktop side nav */}
         <header className="hidden sm:block">
           <SideNavbar />
         </header>
