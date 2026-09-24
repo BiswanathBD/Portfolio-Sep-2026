@@ -6,13 +6,13 @@ import { projectsData } from "@/data/projectData";
 import {
   ArrowLeft,
   ExternalLink,
-  Code2,
   Sparkles,
   Layers,
   ShieldAlert,
   Rocket,
 } from "lucide-react";
 import Container from "@/Components/Shared/Container";
+import { MotionWrapper } from "@/Components/Shared/MotionWrapper";
 
 interface ProjectDetailPageProps {
   params: Promise<{
@@ -61,7 +61,12 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
         <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 translate-y-1/2 size-100 bg-accent/15 rounded-full blur-[200px] pointer-events-none -z-10" />
 
         {/* back button */}
-        <div className="mb-8 md:mb-16">
+        <MotionWrapper
+          animationType="fadeRight"
+          transitionType="spring"
+          delay={0.1}
+          className="mb-6 md:mb-12"
+        >
           <Link
             href="/#projects"
             className="inline-flex items-center gap-2 py-2 group shadow-sm"
@@ -71,12 +76,20 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
               Back to Projects
             </span>
           </Link>
-        </div>
+        </MotionWrapper>
 
         {/* hero section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-16 md:mb-20">
+        <aside className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-16 md:mb-20">
           {/* project live preview or static image */}
-          <div className="w-full card relative">
+          <MotionWrapper
+            animationType="fadeUp"
+            transitionType="spring"
+            delay={0.2}
+            className="w-full card relative"
+          >
+            {/* corner glow */}
+            <div className="absolute w-1/2 aspect-square bg-primary/20 bottom-0 -right-1/4 -z-10 blur-[150px]"/>
+
             {/* live preview indicator */}
             <div className="inline-flex items-center select-none">
               {/* text area */}
@@ -90,10 +103,10 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
             </div>
 
             {/* main preview */}
-            <div className="relative aspect-3/2 w-full overflow-hidden rounded-xs border-2 border-border-color shadow-2xl backdrop-blur-sm group -mt-0.5">
+            <div className="relative aspect-3/2 w-full overflow-hidden rounded-b-sm rounded-r-sm border-2 border-border-color shadow-2xl backdrop-blur-sm group -mt-0.5">
               {liveUrl ? (
                 <div className="absolute inset-0 w-full h-full overflow-hidden">
-                  <div className="w-[255%] h-[250%] origin-top-left scale-40 overflow-hidden pr-2">
+                  <div className="w-[calc(100%+14px)] lg:w-[254%] h-full lg:h-[250%] origin-top-left lg:scale-40 overflow-hidden">
                     <iframe
                       src={liveUrl}
                       title={project.title}
@@ -108,112 +121,138 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
                   alt={project.title}
                   fill
                   priority
-                  className="object-cover object-top hover:scale-105 transition-transform duration-700 rounded-xs"
+                  className="object-cover object-top hover:scale-105 transition-transform duration-700 rounded-sm"
                 />
               )}
             </div>
-          </div>
+          </MotionWrapper>
 
           {/* project info */}
-          <div className="flex flex-col justify-center space-y-4">
-            <div>
-              <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
-                {/* title */}
+          <aside className="flex flex-col justify-center space-y-4">
+            <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center">
+              {/* title */}
+              <MotionWrapper
+                animationType="fadeRight"
+                transitionType="spring"
+                delay={0.3}
+              >
                 <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight text-accent">
                   {project.title}
                 </h1>
+              </MotionWrapper>
 
-                {/* category & subtitle with primary border */}
-                <div className="border-l border-primary pl-3">
-                  <span className="mb-1 inline-block text-xs font-semibold uppercase tracking-widest text-primary">
-                    {project.category}
-                  </span>
+              {/* category & subtitle */}
+              <MotionWrapper
+                animationType="fadeRight"
+                transitionType="spring"
+                delay={0.4}
+                className="border-l border-primary pl-3"
+              >
+                <span className="mb-1 inline-block text-xs font-semibold uppercase tracking-widest text-primary">
+                  {project.category}
+                </span>
 
-                  {project.subtitle && (
-                    <p className="text-sm font-medium text-foreground/80 md:text-base">
-                      {project.subtitle}
-                    </p>
-                  )}
-                </div>
-              </div>
+                {project.subtitle && (
+                  <p className="text-sm font-medium text-foreground/80 md:text-base">
+                    {project.subtitle}
+                  </p>
+                )}
+              </MotionWrapper>
+            </div>
 
-              {/* description */}
+            {/* description */}
+            <MotionWrapper
+              animationType="fadeUp"
+              transitionType="spring"
+              delay={0.4}
+            >
               <p className="mb-6 text-xs leading-relaxed text-foreground/70 md:text-sm">
                 {project.description}
               </p>
+            </MotionWrapper>
 
-              {/* tech stack */}
-              <div className="mb-8 flex flex-wrap gap-2">
-                {project.technologies.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="border border-border-color bg-card-bg px-3 py-1 text-xs font-medium text-foreground/90 rounded-lg"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+            {/* tech stack */}
+            <div className="mb-8 flex flex-wrap gap-2">
+              {project.technologies.map((tech, idx) => (
+                <MotionWrapper
+                  key={idx}
+                  animationType="fadeUp"
+                  delay={0.4 + idx * 0.1}
+                  className="border border-border-color/40 bg-card-bg px-3 py-1 text-xs font-medium text-foreground backdrop-blur-xs rounded-lg"
+                >
+                  {tech}
+                </MotionWrapper>
+              ))}
+            </div>
 
-              {/* action buttons */}
-              <div className="pt-2 flex flex-wrap gap-3">
+            {/* action buttons */}
+            <div className="pt-2 flex flex-wrap gap-3">
+              <MotionWrapper animationType="fadeUp" delay={0.4}>
                 {liveUrl ? (
-                  <a
+                  <Link
                     href={liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 backdrop-blur-md bg-accent/15 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 text-foreground font-semibold text-xs uppercase tracking-wider rounded-xs shadow-lg transition-all duration-300 hover:shadow-accent/14 hover:-translate-y-0.5 active:translate-y-0"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 backdrop-blur-md bg-accent/15 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 text-foreground font-semibold text-xs uppercase tracking-wider rounded-sm shadow-lg transition-all duration-300 hover:shadow-accent/14 hover:-translate-y-0.5 active:translate-y-0"
                   >
                     <span>Live Demo</span>
                     <ExternalLink className="size-3.5" />
-                  </a>
+                  </Link>
                 ) : (
-                  <span className="px-5 py-2.5 backdrop-blur-xs bg-foreground/5 border border-foreground/5 text-foreground/30 font-semibold text-xs uppercase tracking-wider rounded-xs cursor-not-allowed select-none">
+                  <span className="px-5 py-2.5 backdrop-blur-xs bg-foreground/5 border border-foreground/5 text-foreground/30 font-semibold text-xs uppercase tracking-wider rounded-sm cursor-not-allowed select-none">
                     Live Demo (N/A)
                   </span>
                 )}
+              </MotionWrapper>
 
+              <MotionWrapper animationType="fadeUp" delay={0.5}>
                 {frontendUrl ? (
-                  <a
+                  <Link
                     href={frontendUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 backdrop-blur-md bg-primary/20 hover:bg-primary/30 border border-primary/30 hover:border-primary/50 text-foreground font-semibold text-xs uppercase tracking-wider rounded-xs shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 backdrop-blur-md bg-primary/20 hover:bg-primary/30 border border-primary/30 hover:border-primary/50 text-foreground font-semibold text-xs uppercase tracking-wider rounded-sm shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
                   >
                     <GithubIcon className="size-3.5" />
                     <span>Frontend</span>
-                  </a>
+                  </Link>
                 ) : (
-                  <span className="px-5 py-2.5 backdrop-blur-xs bg-foreground/5 border border-foreground/5 text-foreground/30 font-semibold text-xs uppercase tracking-wider rounded-xs cursor-not-allowed select-none">
+                  <span className="px-5 py-2.5 backdrop-blur-xs bg-foreground/5 border border-foreground/5 text-foreground/30 font-semibold text-xs uppercase tracking-wider rounded-sm cursor-not-allowed select-none">
                     Frontend (N/A)
                   </span>
                 )}
+              </MotionWrapper>
 
+              <MotionWrapper animationType="fadeUp" delay={0.6}>
                 {backendUrl ? (
-                  <a
+                  <Link
                     href={backendUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 backdrop-blur-md bg-primary/20 hover:bg-primary/30 border border-primary/30 hover:border-primary/50 text-foreground font-semibold text-xs uppercase tracking-wider rounded-xs shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 backdrop-blur-md bg-primary/20 hover:bg-primary/30 border border-primary/30 hover:border-primary/50 text-foreground font-semibold text-xs uppercase tracking-wider rounded-sm shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0"
                   >
                     <GithubIcon className="size-3.5" />
                     <span>Backend</span>
-                  </a>
+                  </Link>
                 ) : (
-                  <span className="px-5 py-2.5 backdrop-blur-xs bg-foreground/5 border border-foreground/5 text-foreground/30 font-semibold text-xs uppercase tracking-wider rounded-xs cursor-not-allowed select-none">
+                  <span className="px-5 py-2.5 backdrop-blur-xs bg-foreground/5 border border-foreground/5 text-foreground/30 font-semibold text-xs uppercase tracking-wider rounded-sm cursor-not-allowed select-none">
                     Backend (N/A)
                   </span>
                 )}
-              </div>
+              </MotionWrapper>
             </div>
-          </div>
-        </div>
+          </aside>
+        </aside>
 
         {/* content sections */}
-        <div className="space-y-16">
-          {/* overview and features row */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+        <div className="space-y-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-12 items-stretch">
             {/* project overview */}
-            <section className="lg:col-span-7 flex flex-col justify-between bg-background p-6 rounded-xs">
+            <MotionWrapper
+              animationType="fadeUp"
+              delay={0.2}
+              className="card lg:col-span-7 flex flex-col justify-between bg-background py-6 px-8 rounded-sm"
+            >
               <div>
                 <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-accent">
                   <Layers className="size-5 text-primary" />
@@ -223,11 +262,15 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
                   {project.detailedDescription || project.description}
                 </p>
               </div>
-            </section>
+            </MotionWrapper>
 
             {/* key features */}
             {project.features && project.features.length > 0 && (
-              <section className="lg:col-span-5 flex flex-col justify-between bg-accent p-6 rounded-xs shadow-lg">
+              <MotionWrapper
+                animationType="fadeUp"
+                delay={0.4}
+                className="lg:col-span-5 flex flex-col justify-between bg-accent py-6 px-8 rounded-sm shadow-lg"
+              >
                 <div>
                   <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-accent-foreground">
                     <Sparkles className="size-5 text-accent-foreground" />
@@ -246,15 +289,18 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
                     ))}
                   </div>
                 </div>
-              </section>
+              </MotionWrapper>
             )}
           </div>
 
-          {/* challenges and roadmap row */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             {/* challenges and solutions */}
             {project.challenges && project.challenges.length > 0 && (
-              <section className="flex flex-col justify-between bg-background p-6 rounded-xs">
+              <MotionWrapper
+                animationType="fadeUp"
+                delay={0.2}
+                className="flex flex-col justify-between bg-background py-6 px-8 rounded-sm"
+              >
                 <div>
                   <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-accent">
                     <ShieldAlert className="size-5 text-primary" />
@@ -273,12 +319,16 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
                     ))}
                   </div>
                 </div>
-              </section>
+              </MotionWrapper>
             )}
 
             {/* future roadmap */}
             {project.improvements && project.improvements.length > 0 && (
-              <section className="flex flex-col justify-between bg-background p-6 rounded-xs">
+              <MotionWrapper
+                animationType="fadeUp"
+                delay={0.4}
+                className="flex flex-col justify-between bg-background py-6 px-8 rounded-sm"
+              >
                 <div>
                   <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-accent">
                     <Rocket className="size-5 text-primary" />
@@ -295,7 +345,7 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
                     ))}
                   </div>
                 </div>
-              </section>
+              </MotionWrapper>
             )}
           </div>
         </div>

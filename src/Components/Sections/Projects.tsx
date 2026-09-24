@@ -3,7 +3,7 @@ import { projectsData } from "@/data/projectData";
 import Container from "../Shared/Container";
 import ProjectCard from "../ProjectCard";
 import Link from "next/link";
-import { Download, FolderGit2 } from "lucide-react";
+import {  FolderGit2 } from "lucide-react";
 import { MotionWrapper } from "../Shared/MotionWrapper";
 
 const Projects: React.FC = () => {
