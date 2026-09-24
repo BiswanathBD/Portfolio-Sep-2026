@@ -129,7 +129,7 @@ const TopNavbar: React.FC = () => {
   return (
     <nav className="sm:hidden">
       <div
-        className={`fixed top-4 z-50 w-full transition-colors duration-500 ${
+        className={`fixed top-4 z-50 w-full transition-all duration-500 ${
           isScrolled ? "px-4" : "px-0"
         }`}
       >
