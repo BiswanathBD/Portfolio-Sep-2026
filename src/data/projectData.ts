@@ -25,6 +25,40 @@ export const projectsData: ProjectItem[] = [
       "React Hook Form",
       "SweetAlert2",
     ],
+    mainTech: [
+      {
+        name: "React",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        name: "Node.js",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      },
+      {
+        name: "Express.js",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      },
+      {
+        name: "MongoDB",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
+      {
+        name: "Firebase",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+      },
+      {
+        name: "Tailwind CSS",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+      },
+      {
+        name: "Framer Motion",
+        icon: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg",
+      },
+      {
+        name: "Stripe",
+        icon: "https://www.vectorlogo.zone/logos/stripe/stripe-icon.svg",
+      },
+    ],
     features: [
       "Role-based access control system with three user types (Donor, Volunteer, Admin) each having distinct permissions and dashboard views",
       "Advanced blood donor search by blood group, district, and upazila with real-time filtering and location-based matching",
@@ -69,6 +103,40 @@ export const projectsData: ProjectItem[] = [
       "Axios",
       "React Router",
     ],
+    mainTech: [
+      {
+        name: "React",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        name: "Node.js",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      },
+      {
+        name: "Express",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      },
+      {
+        name: "MongoDB",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
+      {
+        name: "Firebase",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+      },
+      {
+        name: "Tailwind CSS",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+      },
+      {
+        name: "Framer Motion",
+        icon: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg",
+      },
+      {
+        name: "React Router",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/reactrouter/reactrouter-original.svg",
+      },
+    ],
     features: [
       "Create, edit, and delete volunteer events with category selection and date picker",
       "Real-time search and filter by 12 event categories with multiple sort options",
@@ -110,6 +178,36 @@ export const projectsData: ProjectItem[] = [
       "Tailwind CSS",
       "Framer Motion",
     ],
+    mainTech: [
+      {
+        name: "React",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        name: "Node.js",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      },
+      {
+        name: "Express",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      },
+      {
+        name: "MongoDB",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
+      {
+        name: "Firebase",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+      },
+      {
+        name: "Tailwind CSS",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+      },
+      {
+        name: "Framer Motion",
+        icon: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg",
+      },
+    ],
     features: [
       "Competitive bidding system with real-time validation ensuring bids fall within seller-defined price ranges",
       "Secure Firebase authentication with Google Sign-In and backend JWT token verification using Firebase Admin SDK",
@@ -149,6 +247,32 @@ export const projectsData: ProjectItem[] = [
       "Framer Motion",
       "LocalStorage API",
     ],
+    mainTech: [
+      {
+        name: "Next.js",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+      },
+      {
+        name: "React",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        name: "TypeScript",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      },
+      {
+        name: "Tailwind CSS",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+      },
+      {
+        name: "Framer Motion",
+        icon: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg",
+      },
+      {
+        name: "JavaScript",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      },
+    ],
     features: [
       "Cookie-based authentication system with protected routes and middleware",
       "Real-time search with instant product filtering and dropdown results",
@@ -169,7 +293,6 @@ export const projectsData: ProjectItem[] = [
     ],
     liveUrl: "https://fishmart-by-biswanath.vercel.app/",
     frontendUrl: "https://github.com/BiswanathBD/FishMart",
-    // backendUrl দেওয়া হয়নি কারণ এটি ফ্রন্টএন্ড ভিত্তিক প্রজেক্ট
     category: "Full Stack",
   },
 ];

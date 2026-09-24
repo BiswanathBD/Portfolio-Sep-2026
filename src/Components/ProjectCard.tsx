@@ -44,7 +44,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           }`}
         >
           {/* Action Bar */}
-          <div className="order-1 flex w-full shrink-0 items-stretch lg:order-0 lg:w-auto lg:self-stretch lg:items-center lg:border-b-0 lg:px-10 lg:[writing-mode:vertical-lr] lg:rotate-180 lg:text-nowrap">
+          <div className="order-2 flex w-full shrink-0 items-stretch lg:order-0 lg:w-auto lg:self-stretch lg:items-center lg:border-b-0 lg:px-10 lg:[writing-mode:vertical-lr] lg:rotate-180 lg:text-nowrap">
             {actions.map((action) => (
               <MotionWrapper
                 key={action.label}
@@ -90,7 +90,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
             animationType={animationX}
             transitionType="spring"
             delay={0.5}
-            className="relative order-2 aspect-video w-full min-w-0 overflow-hidden shadow-[0_0_200px_var(--color-card-bg)] lg:order-0 lg:aspect-auto lg:flex-1 lg:self-stretch"
+            className="relative order-1 aspect-video w-full min-w-0 overflow-hidden shadow-[0_0_200px_var(--color-card-bg)] lg:order-0 lg:aspect-auto lg:flex-1 lg:self-stretch"
           >
             <Image
               src={project.image}

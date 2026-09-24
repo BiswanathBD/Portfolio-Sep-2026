@@ -1,3 +1,8 @@
+export interface TechStack {
+  name: string;
+  icon: string;
+}
+
 export interface ProjectItem {
   id: number;
   title: string;
@@ -6,6 +11,7 @@ export interface ProjectItem {
   detailedDescription: string;
   image: string;
   technologies: string[];
+  mainTech?: TechStack[];
   features: string[];
   challenges: string[];
   improvements: string[];
