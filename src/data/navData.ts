@@ -18,37 +18,37 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   {
     name: "Home",
-    href: "#",
+    href: "/#",
     section: "home",
     icon: Home,
   },
   {
     name: "About",
-    href: "#about",
+    href: "/#about",
     section: "about",
     icon: User,
   },
   {
     name: "Education",
-    href: "#education",
+    href: "/#education",
     section: "education",
     icon: GraduationCap,
   },
   {
     name: "Skills",
-    href: "#skills",
+    href: "/#skills",
     section: "skills",
     icon: Code2,
   },
   {
     name: "Projects",
-    href: "#projects",
+    href: "/#projects",
     section: "projects",
     icon: FolderGit2,
   },
   {
     name: "Contact",
-    href: "#contact",
+    href: "/#contact",
     section: "contact",
     icon: Mail,
   },

@@ -5,7 +5,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { EducationItem, continuousLearningText } from "@/data/educationData";
 import { EducationCard } from "./EducationCard";
 import { MotionWrapper } from "./Shared/MotionWrapper";
-import { GraduationCap, CheckCircle2, ArrowUpRight } from "lucide-react";
+import {  CheckCircle2, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 interface EducationTimelineProps {

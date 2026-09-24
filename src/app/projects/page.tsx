@@ -4,7 +4,6 @@ import Container from "@/Components/Shared/Container";
 import { ProjectFilters } from "@/Components/ProjectsPage/ProjectFilters";
 import { ProjectGridCard } from "@/Components/ProjectsPage/ProjectGridCard";
 import { MotionWrapper } from "@/Components/Shared/MotionWrapper";
-import ResponsiveScrollArea from "@/utils/ResponsiveScrollArea";
 
 interface PageProps {
   searchParams: Promise<{
@@ -65,11 +64,11 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
       />
 
       {/* give space for mobile navbar */}
-      <section className="relative w-full text-foreground mt-24 sm:mt-12 md:mt-0">
+      <section className="relative py-24 w-full text-foreground sm:py-12 md:py-24">
         <Container>
-          <div className="relative grid grid-cols-1 items-start gap-8 sm:gap-10 md:grid-cols-3 md:h-screen md:gap-12 md:overflow-hidden xl:grid-cols-4 xl:gap-24">
+          <div className="relative grid grid-cols-1 items-start gap-8 sm:gap-10 md:grid-cols-3 md:gap-12 xl:grid-cols-4 xl:gap-24">
             {/* Filter */}
-            <aside className="z-50 flex flex-col md:h-full md:py-16">
+            <aside className="z-50 flex flex-col md:sticky md:top-28 md:self-start">
               <div className="mb-6 shrink-0 text-center md:text-right">
                 <MotionWrapper animationType="fadeLeft" delay={0.1}>
                   <h2 className="text-xl font-extrabold text-accent lg:text-2xl">
@@ -87,7 +86,7 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
               <MotionWrapper
                 animationType="fadeUp"
                 delay={0.4}
-                className="w-full flex-1"
+                className="w-full"
               >
                 <ProjectFilters
                   categories={categories}
@@ -98,11 +97,15 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
             </aside>
 
             {/* Projects */}
-            <ResponsiveScrollArea className="relative z-20 min-h-0 scrollbar-none md:col-span-2 md:h-full md:overflow-y-auto md:overscroll-contain md:py-16 md:touch-pan-y xl:col-span-3 [&::-webkit-scrollbar]:hidden">
+            <div className="relative z-20 md:col-span-2 xl:col-span-3">
               {filteredProjects.length > 0 ? (
-                <div className="grid grid-cols-1 gap-8 lg:gap-12 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 lg:gap-12">
                   {filteredProjects.map((project, idx) => (
-                    <ProjectGridCard key={project.id} project={project} idx={idx} />
+                    <ProjectGridCard
+                      key={project.id}
+                      project={project}
+                      idx={idx}
+                    />
                   ))}
                 </div>
               ) : (
@@ -112,7 +115,7 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
                   </p>
                 </div>
               )}
-            </ResponsiveScrollArea>
+            </div>
           </div>
         </Container>
       </section>
