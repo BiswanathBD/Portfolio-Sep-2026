@@ -6,6 +6,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 import { HeroData, SocialLink } from "@/data/heroData";
 import { MotionWrapper } from "../Shared/MotionWrapper";
+import Link from "next/link";
 
 interface HeroContentProps {
   data: Pick<
@@ -84,7 +85,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
                 ease: [0.34, 1.56, 0.64, 1],
               }}
             >
-              <a
+              <Link
                 aria-label={social.label}
                 className="group w-8 h-8 bg-linear-to-r from-primary/10 to-accent/10 rounded-full border border-primary/20 flex items-center justify-center text-foreground hover:scale-110 transition-all duration-300 shadow-xs hover:border-(--brand-color) hover:text-(--brand-color) hover:shadow-[0_0_20px_var(--brand-color)]"
                 style={
@@ -101,7 +102,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
                 }
               >
                 {renderSocialIcon(social.iconName)}
-              </a>
+              </Link>
             </MotionWrapper>
           );
         })}
@@ -210,7 +211,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
                 </MotionWrapper>
 
                 {/* Main Resume Link Button */}
-                <a
+                <Link
                   className="relative flex items-center gap-2 hover:gap-3 px-6 py-3 rounded-[calc(1rem-1px)] overflow-hidden bg-background/90 backdrop-blur-md bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20 text-accent font-medium z-10 transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                   href={data.resumeUrl}
                   target="_blank"
@@ -220,7 +221,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
                   <span>Download Resume</span>
 
                   <Download className="w-4 h-4 text-foreground group-hover:scale-110 transition-all duration-500" />
-                </a>
+                </Link>
               </div>
             </MotionWrapper>
           </div>

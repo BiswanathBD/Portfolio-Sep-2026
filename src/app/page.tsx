@@ -24,9 +24,9 @@ export default function Home() {
         <Skills />
       </SectionWrapper>
 
-      <SectionWrapper id="projects">
+      <section id="projects">
         <Projects />
-      </SectionWrapper>
+      </section>
     </>
   );
 }

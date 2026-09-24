@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { MotionWrapper } from "./Shared/MotionWrapper";
 import { navItems } from "@/data/navData";
 
@@ -55,7 +56,7 @@ const Navigation = ({
               delay={0.5 + index * 0.15}
             >
               <li className="relative z-10">
-                <a
+                <Link
                   href={item.href}
                   onClick={(event) => onNavClick(event, item.section)}
                   aria-current={isActive ? "page" : undefined}
@@ -94,7 +95,7 @@ const Navigation = ({
                       {item.name}
                     </div>
                   )}
-                </a>
+                </Link>
               </li>
             </MotionWrapper>
           );

@@ -2,6 +2,9 @@ import React from "react";
 import { projectsData } from "@/data/projectData";
 import Container from "../Shared/Container";
 import ProjectCard from "../ProjectCard";
+import Link from "next/link";
+import { Download, FolderGit2 } from "lucide-react";
+import { MotionWrapper } from "../Shared/MotionWrapper";
 
 const Projects: React.FC = () => {
   // SEO Structured Data for Portfolio Projects
@@ -34,13 +37,13 @@ const Projects: React.FC = () => {
       />
 
       {/* Projects Section */}
-      <section className="text-foreground w-full py-4 lg:py-8 relative">
+      <section className="text-foreground w-full py-12 lg:py-24 relative overflow-hidden">
         {/* Background Lighting Effect */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 size-120 bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 sm:w-96 sm:h-96 lg:size-120 bg-primary/10 rounded-full blur-[100px] lg:blur-[120px] pointer-events-none -z-10" />
 
         <Container>
           {/* Projects List */}
-          <div className="space-y-24 md:space-y-32 lg:space-y-48">
+          <div className="gap-8 md:gap-16 lg:gap-32 grid sm:grid-cols-2 lg:grid-cols-1">
             {projectsData.map((project, index) => (
               <ProjectCard
                 key={project.id || index}
@@ -50,17 +53,20 @@ const Projects: React.FC = () => {
             ))}
           </div>
 
-          {/* GitHub Call-to-Action */}
-          <div className="text-center mt-16 md:mt-24 mb-8">
-            <a
-              href="https://github.com/BiswanathBD?tab=repositories"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 text-gray-200 px-8 py-4 rounded-full font-medium hover:bg-white/10 hover:text-white hover:border-primary/40 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg"
-            >
-              <span>View More Projects on GitHub</span>
-              <i className="fab fa-github text-lg" />
-            </a>
+          {/* all projects */}
+          <div className="flex items-center justify-center gap-4 mt-8 lg:mt-16">
+            <MotionWrapper animationType="button">
+              <div className="relative p-px rounded-2xl overflow-hidden flex items-center justify-center group">
+                <Link
+                  href={"/projects"}
+                  className="relative flex items-center gap-2 px-6 py-3 rounded-[calc(1rem-1px)] overflow-hidden bg-background/90 backdrop-blur-md bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20 text-accent font-medium z-10 transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  <span>Explore More Projects</span>
+
+                  <FolderGit2 className="w-4 h-4 text-foreground group-hover:scale-110 transition-all duration-500" />
+                </Link>
+              </div>
+            </MotionWrapper>
           </div>
         </Container>
       </section>

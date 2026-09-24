@@ -39,43 +39,45 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
     <SectionWrapper>
       <div className="relative">
         <div
-          className={`flex items-stretch ${
-            isReversed ? "flex-row-reverse" : "flex-row"
+          className={`flex flex-col lg:items-stretch lg:flex-row ${
+            isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
           }`}
         >
           {/* Action Bar */}
-          <div className="flex shrink-0 self-stretch items-center px-10 [writing-mode:vertical-lr] rotate-180 text-nowrap">
+          <div className="order-1 flex w-full shrink-0 items-stretch lg:order-0 lg:w-auto lg:self-stretch lg:items-center lg:border-b-0 lg:px-10 lg:[writing-mode:vertical-lr] lg:rotate-180 lg:text-nowrap">
             {actions.map((action) => (
               <MotionWrapper
                 key={action.label}
                 animationType={animationXReverse}
                 transitionType="spring"
                 delay={0.8 + action.idx * 0.1}
-                className="text-xs font-bold tracking-widest flex-1 flex justify-center items-center"
+                className="flex flex-1 items-center justify-center text-xs font-bold tracking-widest h-full lg:flex-1"
               >
                 {action.url ? (
                   <MotionWrapper
                     animationType="button"
-                    className="w-full h-full"
+                    className="h-full w-full lg:h-full lg:w-full"
                   >
-                    <a
+                    <Link
                       href={action.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center justify-center min-w-full min-h-full px-4 py-2 text-center transition-all duration-500 ${
+                      className={`flex min-h-12 w-full items-center justify-center px-3 py-3 text-center transition-all duration-500 lg:min-h-0 lg:min-w-full lg:px-4 lg:py-2 ${
                         isReversed
                           ? "bg-accent/60 hover:bg-accent"
-                          : "bg-primary/60  hover:bg-primary"
+                          : "bg-primary/60 hover:bg-primary"
                       }`}
                     >
-                      {action.label.toUpperCase()}
-                    </a>
+                      <span className="lg:block lg:-rotate-0">
+                        {action.label.toUpperCase()}
+                      </span>
+                    </Link>
                   </MotionWrapper>
                 ) : (
                   <button
                     type="button"
                     disabled
-                    className="flex items-center justify-center min-w-full min-h-full bg-foreground/10 px-4 py-2 text-center text-foreground/10"
+                    className="flex min-h-12 w-full items-center justify-center bg-foreground/10 px-3 py-3 text-center text-foreground/10 lg:min-h-0 lg:min-w-full lg:px-4 lg:py-2"
                   >
                     {action.label.toUpperCase()}
                   </button>
@@ -83,35 +85,35 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
               </MotionWrapper>
             ))}
           </div>
-
           {/* Image */}
           <MotionWrapper
             animationType={animationX}
             transitionType="spring"
             delay={0.5}
-            className="relative flex-1 min-w-0 self-stretch shadow-[0_0_200px_var(--color-card-bg)]"
+            className="relative order-2 aspect-video w-full min-w-0 overflow-hidden shadow-[0_0_200px_var(--color-card-bg)] lg:order-0 lg:aspect-auto lg:flex-1 lg:self-stretch"
           >
             <Image
               src={project.image}
               alt={project.title}
               fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
+              sizes="(max-width: 1023px) 100vw, 40vw"
               className="object-cover object-top"
-              priority={false}
+              priority
             />
           </MotionWrapper>
-
           {/* Content */}
           <div
-            className={`flex min-w-0 flex-1 flex-col justify-center space-y-4 py-10 ${
+            className={`order-3 flex min-w-0 w-full flex-1 flex-col justify-center space-y-4 py-8 sm:py-10 lg:order-3 lg:w-auto lg:py-10 ${
               isReversed
-                ? "text-right lg:order-1 lg:pr-16"
-                : "lg:order-3 lg:pl-16"
+                ? "text-left lg:pr-16 lg:text-right lg:order-1"
+                : "lg:pl-16"
             }`}
           >
             <div>
               <div
-                className={`flex item-center gap-3 mb-4 ${isReversed && "flex-row-reverse"}`}
+                className={`mb-4 flex flex-col gap-3 lg:flex-row lg:items-center ${
+                  isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
+                }`}
               >
                 <MotionWrapper animationType={animationX} delay={0.3}>
                   <h2 className="text-3xl font-extrabold leading-tight text-accent md:text-3xl lg:text-4xl">
@@ -121,7 +123,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
 
                 <MotionWrapper animationType={animationX} delay={0.5}>
                   <div
-                    className={`${isReversed ? "pr-3 border-r border-primary" : "pl-3 border-l border-primary"}`}
+                    className={`${
+                      isReversed
+                        ? "border-l pl-3 lg:border-r lg:pr-3 lg:border-l-0 lg:pl-0"
+                        : "border-l pl-3 lg:border-l lg:pl-3"
+                    } border-primary`}
                   >
                     <span className="mb-1 inline-block text-xs font-semibold uppercase tracking-widest text-primary">
                       {project.category}
@@ -144,7 +150,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
 
               <div
                 className={`mb-8 flex flex-wrap gap-2 ${
-                  isReversed ? "justify-end" : ""
+                  isReversed ? "lg:justify-end" : ""
                 }`}
               >
                 {project.technologies.map((tech, techIndex) => (
@@ -160,19 +166,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
                 ))}
               </div>
 
-              <MotionWrapper
-                animationType={animationX}
-                transitionType="spring"
-                delay={0.6}
+              <div
+                className={`flex justify-between items-center gap-4 ${isReversed ? "justify-end" : "justify-start"}`}
               >
-                <Link
-                  href={`/projects/${project.id}`}
-                  className="group inline-flex items-center gap-2 text-x font-semibold text-accent shadow-md transition-all"
+                <span className="grow h-px bg-border-color/60 lg:hidden" />
+
+                <MotionWrapper
+                  animationType={animationX}
+                  transitionType="spring"
+                  delay={0.6}
                 >
-                  <span>View Details</span>
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </MotionWrapper>
+                  <Link
+                    href={`/projects/${project.id}`}
+                    className="group inline-flex items-center gap-2 lg:text-lg font-semibold text-accent shadow-md transition-all"
+                  >
+                    <span>View Details</span>
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </MotionWrapper>
+              </div>
             </div>
           </div>
         </div>
