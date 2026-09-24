@@ -14,6 +14,7 @@ const TopNavbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("home");
+  const navRef = useRef<HTMLElement | null>(null);
 
   const lastScrollY = useRef<number>(0);
   const sectionElementsRef = useRef<HTMLElement[]>([]);
@@ -126,6 +127,29 @@ const TopNavbar: React.FC = () => {
     });
   };
 
+  const handleOutsideClick = useCallback(
+    (event: PointerEvent) => {
+      if (!isOpen || !navRef.current) return;
+
+      const target = event.target as Node;
+
+      if (!navRef.current.contains(target)) {
+        setIsOpen(false);
+      }
+    },
+    [isOpen],
+  );
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    document.addEventListener("pointerdown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("pointerdown", handleOutsideClick);
+    };
+  }, [isOpen, handleOutsideClick]);
+
   return (
     <nav className="sm:hidden">
       <div
@@ -169,6 +193,7 @@ const TopNavbar: React.FC = () => {
           <>
             {/* Mobile Navigation Panel */}
             <motion.aside
+              ref={navRef}
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -177,8 +202,24 @@ const TopNavbar: React.FC = () => {
                 stiffness: 120,
                 damping: 12,
               }}
-              className="fixed -right-10 top-0 z-50 h-screen min-w-60 select-none overflow-y-auto overflow-x-hidden bg-background/90 shadow-2xl backdrop-blur-md"
+              className="fixed -right-10 top-0 z-50 h-screen min-w-60 select-none overflow-y-auto overflow-x-hidden bg-background/80 shadow-2xl backdrop-blur-sm"
             >
+              {/* line */}
+              <MotionWrapper animationType="fade" duration={2}>
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-y-0 left-0 z-2 w-px bg-linear-to-b from-transparent via-accent/20 to-transparent"
+                />
+              </MotionWrapper>
+
+              {/* line glow */}
+              <MotionWrapper animationType="fade" delay={1} duration={2}>
+                <div
+                  aria-hidden="true"
+                  className="absolute top-1/2 left-0 z-2 h-1/2 w-0.5 -translate-y-1/2 bg-linear-to-b from-transparent via-accent to-transparent blur-xl"
+                />
+              </MotionWrapper>
+
               <div className="flex h-full flex-col gap-8 pb-8">
                 <span className="flex justify-end py-6 pr-14">
                   <MotionWrapper

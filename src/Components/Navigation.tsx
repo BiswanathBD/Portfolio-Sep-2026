@@ -27,12 +27,19 @@ const Navigation = ({
         {/*  Active Indicator */}
         {activeIndex !== -1 && (
           <MotionWrapper
-            className={`absolute left-0 top-0 h-12 z-0 -right-1 overflow-hidden rounded-l-2xl border border-accent/10 bg-linear-to-r from-accent/20 via-accent/10 to-transparent transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) translate-y-${activeIndex * 56}px`}
-            style={{
-              transform: `translateY(${activeIndex * 56}px)`,
-            }}
+            animationType="fadeLeft"
+            transitionType="spring"
+            delay={0.5}
+            className="absolute w-full"
           >
-            <div className="absolute top-1/2 left-0 h-6 w-1.5 -translate-y-1/2 rounded-r-full bg-accent shadow-[0_0_12px_var(--color-accent)]" />
+            <div
+              className={`absolute left-0 top-0 h-12 z-0 -right-1 overflow-hidden rounded-l-2xl border border-accent/10 bg-linear-to-r from-accent/20 via-accent/10 to-transparent transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) translate-y-${activeIndex * 56}px`}
+              style={{
+                transform: `translateY(${activeIndex * 56}px)`,
+              }}
+            >
+              <div className="absolute top-1/2 left-0 h-6 w-1.5 -translate-y-1/2 rounded-r-full bg-accent shadow-[0_0_12px_var(--color-accent)]" />
+            </div>
           </MotionWrapper>
         )}
 
