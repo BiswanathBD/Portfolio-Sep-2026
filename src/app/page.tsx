@@ -1,6 +1,7 @@
 import AboutMe from "@/Components/Sections/AboutMe";
 import Education from "@/Components/Sections/Education";
 import HeroSection from "@/Components/Sections/HeroSection";
+import Projects from "@/Components/Sections/Projects";
 import Skills from "@/Components/Sections/Skills";
 import SectionWrapper from "@/Components/SectionWrapper";
 
@@ -21,6 +22,10 @@ export default function Home() {
 
       <SectionWrapper id="skills">
         <Skills />
+      </SectionWrapper>
+
+      <SectionWrapper id="projects">
+        <Projects />
       </SectionWrapper>
     </>
   );

@@ -33,7 +33,7 @@ const Navigation = ({
             className="absolute w-full"
           >
             <div
-              className={`absolute left-0 top-0 h-12 z-0 -right-1 overflow-hidden rounded-l-2xl border border-accent/10 bg-linear-to-r from-accent/20 via-accent/10 to-transparent transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) translate-y-${activeIndex * 56}px`}
+              className={`absolute left-0 top-0 h-12 z-0 right-0 overflow-hidden rounded-l-2xl border-l border-y border-accent/10 bg-linear-to-r from-accent/20 via-accent/10 to-transparent transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) translate-y-${activeIndex * 56}px`}
               style={{
                 transform: `translateY(${activeIndex * 56}px)`,
               }}

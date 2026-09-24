@@ -53,7 +53,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   animationType = "fade",
   transitionType = "tween",
   delay = 0,
-  duration = 1,
+  duration = 0.5,
   hoverScale = 1.02,
   once = false,
   transition,
