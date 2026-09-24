@@ -10,7 +10,7 @@ import Navigation from "./Navigation";
 import { SectionNavigator } from "./SectionNavigator";
 
 const SideNavbar = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState("home");
 
   const sectionElementsRef = useRef<HTMLElement[]>([]);
@@ -100,6 +100,8 @@ const SideNavbar = () => {
       top: element.offsetTop,
       behavior: "smooth",
     });
+
+    setIsExpanded(false);
   };
 
   return (
@@ -189,6 +191,7 @@ const SideNavbar = () => {
               navItems={navItems}
               activeSection={activeSection}
               isExpanded={isExpanded}
+              setIsExpanded={setIsExpanded}
             />
           </div>
         </div>

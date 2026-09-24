@@ -16,12 +16,14 @@ interface SectionNavigatorProps {
   navItems: NavItem[];
   activeSection: string;
   isExpanded: boolean;
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   navItems,
   activeSection,
   isExpanded,
+  setIsExpanded,
 }) => {
   const [animatingBtn, setAnimatingBtn] = useState<
     "prev" | "next" | "top" | null
@@ -68,6 +70,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
     if (currentIndex > 0) {
       triggerClickAnimation("prev", () => {
         scrollToSection(navItems[currentIndex - 1].section);
+        setIsExpanded(false);
       });
     }
   };
@@ -76,6 +79,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
     if (currentIndex < navItems.length - 1) {
       triggerClickAnimation("next", () => {
         scrollToSection(navItems[currentIndex + 1].section);
+        setIsExpanded(false);
       });
     }
   };
@@ -83,6 +87,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   const handleScrollToTop = () => {
     triggerClickAnimation("top", () => {
       scrollToSection("home");
+      setIsExpanded(false);
     });
   };
 

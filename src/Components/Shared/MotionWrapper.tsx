@@ -35,6 +35,7 @@ type AnimationConfig = {
 type MotionWrapperProps = {
   children?: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   animationType?: AnimationType;
   transitionType?: TransitionType;
   delay?: number;
@@ -48,6 +49,7 @@ type MotionWrapperProps = {
 export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   children,
   className,
+  style,
   animationType = "fade",
   transitionType = "tween",
   delay = 0,
@@ -262,7 +264,12 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   const config = getAnimationConfig(animationType);
 
   return (
-    <motion.div className={className} onClick={onClick} {...config}>
+    <motion.div
+      className={className}
+      style={style}
+      onClick={onClick}
+      {...config}
+    >
       {children}
     </motion.div>
   );
