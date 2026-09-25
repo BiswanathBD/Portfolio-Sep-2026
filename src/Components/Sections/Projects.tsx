@@ -45,12 +45,8 @@ const Projects: React.FC = () => {
         <Container>
           {/* Projects List */}
           <div className="gap-8 md:gap-16 lg:gap-32 grid sm:grid-cols-2 lg:grid-cols-1">
-            {projectsData.map((project, index) => (
-              <ProjectCard
-                key={project.id || index}
-                project={project}
-                index={index}
-              />
+            {projectsData.slice(0, 4).map((project, index) => (
+              <ProjectCard key={project.slug} project={project} index={index} />
             ))}
           </div>
 

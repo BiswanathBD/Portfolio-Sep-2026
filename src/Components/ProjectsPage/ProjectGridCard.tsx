@@ -26,7 +26,7 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({
         {/* Project visual */}
 
         <Link
-          href={`/projects/${project.id}`}
+          href={`/projects/${project.slug}`}
           className="group/image relative block aspect-video w-full overflow-hidden"
         >
           <Image
@@ -45,7 +45,7 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
             <MotionWrapper animationType="fadeRight" delay={0.2}>
               <Link
-                href={`/projects/${project.id}`}
+                href={`/projects/${project.slug}`}
                 className="group/title inline-flex w-fit items-center"
               >
                 <h3 className="text-xl text-nowrap font-extrabold leading-tight text-foreground transition-all duration-400 group-hover/title:text-accent sm:text-2xl">
@@ -168,7 +168,7 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({
               className="ml-auto"
             >
               <Link
-                href={`/projects/${project.id}`}
+                href={`/projects/${project.slug}`}
                 className="group/details inline-flex items-center gap-1.5 text-xs font-semibold text-accent transition-colors duration-300 hover:text-primary sm:text-sm"
               >
                 <span>View details</span>

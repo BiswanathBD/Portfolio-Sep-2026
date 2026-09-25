@@ -39,25 +39,32 @@ export const skillCategories: SkillCategory[] = [
         level: 88,
       },
       {
+        name: "TypeScript",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+        color: "text-blue-500",
+        level: 82,
+      },
+      {
         name: "React",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
         color: "text-secondary",
-        level: 85,
+        level: 88,
       },
       {
         name: "Next.js",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
         color: "text-white",
-        level: 80,
+        level: 82,
       },
       {
         name: "Tailwind CSS",
-        icon: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
         color: "text-cyan-400",
         level: 92,
       },
     ],
   },
+
   {
     title: "Backend Development",
     skills: [
@@ -77,10 +84,35 @@ export const skillCategories: SkillCategory[] = [
         name: "MongoDB",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
         color: "text-green-600",
+        level: 78,
+      },
+      {
+        name: "Firebase",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+        color: "text-orange-400",
         level: 75,
+      },
+      {
+        name: "PostgreSQL",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+        color: "text-blue-400",
+        level: 45,
+      },
+      {
+        name: "Prisma",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
+        color: "text-gray-300",
+        level: 45,
+      },
+      {
+        name: "NeonDB",
+        icon: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/neon.svg",
+        color: "text-green-400",
+        level: 40,
       },
     ],
   },
+
   {
     title: "Tools & Services",
     skills: [
@@ -88,25 +120,25 @@ export const skillCategories: SkillCategory[] = [
         name: "Git",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
         color: "text-red-500",
-        level: 85,
+        level: 88,
       },
       {
         name: "Postman",
         icon: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg",
         color: "text-orange-500",
-        level: 80,
+        level: 85,
       },
       {
         name: "Thunder Client",
         icon: "https://raw.githubusercontent.com/rangav/thunder-client-support/master/images/thunder-icon.png",
         color: "text-purple-400",
-        level: 75,
+        level: 78,
       },
       {
-        name: "Firebase",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-        color: "text-orange-400",
-        level: 70,
+        name: "Vercel",
+        icon: "https://www.svgrepo.com/show/354513/vercel-icon.svg",
+        color: "text-white",
+        level: 88,
       },
       {
         name: "Netlify",
@@ -115,21 +147,46 @@ export const skillCategories: SkillCategory[] = [
         level: 88,
       },
       {
-        name: "Vercel",
-        icon: "https://www.svgrepo.com/show/354513/vercel-icon.svg",
-        color: "text-white",
-        level: 85,
+        name: "Docker",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+        color: "text-blue-500",
+        level: 60,
+      },
+      {
+        name: "Redis",
+        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+        color: "text-red-500",
+        level: 60,
       },
     ],
   },
+
   {
     title: "UI/UX & Animation",
     skills: [
+      {
+        name: "Framer Motion",
+        icon: "https://cdn.brandfetch.io/idDJv1mfrb/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1753779030563",
+        color: "text-secondary",
+        level: 85,
+      },
       {
         name: "GSAP",
         icon: "https://cdn.worldvectorlogo.com/logos/gsap-greensock.svg",
         color: "text-green-500",
         level: 78,
+      },
+      {
+        name: "shadcn/ui",
+        icon: "https://ui.shadcn.com/favicon.ico",
+        color: "text-white",
+        level: 82,
+      },
+      {
+        name: "HeroUI",
+        icon: "https://avatars.githubusercontent.com/u/139895814?s=200&v=4",
+        color: "text-purple-400",
+        level: 75,
       },
       {
         name: "Lenis",
@@ -138,25 +195,13 @@ export const skillCategories: SkillCategory[] = [
         level: 70,
       },
       {
-        name: "Swiper",
-        icon: "https://swiperjs.com/images/swiper-logo.svg",
-        color: "text-blue-500",
-        level: 75,
-      },
-      {
         name: "AOS",
         icon: "https://www.drupal.org/files/project-images/Drupal-AOSJS-Animate-On-Scroll-Javascript-Library.png",
         color: "text-cyan-400",
         level: 72,
       },
       {
-        name: "Framer Motion",
-        icon: "https://cdn.brandfetch.io/idDJv1mfrb/theme/light/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1753779030563",
-        color: "text-secondary",
-        level: 85,
-      },
-      {
-        name: "Daisy UI",
+        name: "DaisyUI",
         icon: "https://img.daisyui.com/images/daisyui/mark-rotating.svg",
         color: "text-pink-400",
         level: 80,
@@ -166,7 +211,19 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const statsData: StatItem[] = [
-  { number: "20+", label: "Technologies", color: "text-accent" },
-  { number: "40+", label: "Projects", color: "text-primary" },
-  { number: "1+", label: "Years Experience", color: "text-accent" },
+  {
+    number: "20+",
+    label: "Technologies",
+    color: "text-accent",
+  },
+  {
+    number: "40+",
+    label: "Projects",
+    color: "text-primary",
+  },
+  {
+    number: "3+",
+    label: "Production Projects",
+    color: "text-accent",
+  },
 ];

@@ -177,7 +177,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
                   delay={0.6}
                 >
                   <Link
-                    href={`/projects/${project.id}`}
+                    href={`/projects/${project.slug}`}
                     className="group inline-flex items-center gap-2 lg:text-lg font-semibold text-accent shadow-md transition-all"
                   >
                     <span>View Details</span>

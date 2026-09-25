@@ -16,13 +16,13 @@ import { MotionWrapper } from "@/Components/Shared/MotionWrapper";
 
 interface ProjectDetailPageProps {
   params: Promise<{
-    id: string;
+    slug: string;
   }>;
 }
 
 export async function generateStaticParams() {
   return projectsData.map((project) => ({
-    id: project.id.toString(),
+    slug: project.slug,
   }));
 }
 
@@ -45,7 +45,7 @@ const GithubIcon = ({ className = "size-4" }: { className?: string }) => (
 const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
   const resolvedParams = await params;
   const project = projectsData.find(
-    (p) => p.id.toString() === resolvedParams.id,
+    (project) => project.slug === resolvedParams.slug,
   );
 
   if (!project) {
@@ -88,7 +88,7 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
             className="w-full card relative"
           >
             {/* corner glow */}
-            <div className="absolute w-1/2 aspect-square bg-primary/20 bottom-0 -right-1/4 -z-10 blur-[150px]"/>
+            <div className="absolute w-1/2 aspect-square bg-primary/20 bottom-0 -right-1/4 -z-10 blur-[150px]" />
 
             {/* live preview indicator */}
             <div className="inline-flex items-center select-none">

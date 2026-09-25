@@ -34,21 +34,24 @@ export const aboutData: AboutData = {
     imageSrc: "/assets/aboutMeImg.png",
     imageAlt: "Biswanath Sarker - MERN Stack Developer",
   },
+
   contentProps: {
     namePrefix: "I'm",
     name: "Biswanath Sarker",
+
     paragraphs: [
       [
         { text: "I am a passionate " },
-        { text: "MERN Stack developer", highlight: "primary" },
+        { text: "MERN Stack Developer", highlight: "primary" },
         {
-          text: " and a fresher who genuinely enjoys building modern web applications. My interest in web development comes from my love for ",
+          text: " who enjoys building modern web applications and solving real-world problems. My interest in web development comes from my love for ",
         },
         { text: "art and painting", highlight: "accent" },
-        { text: ", as it allows me to express creativity through " },
+        { text: ", which inspires my approach to " },
         { text: "UI design", highlight: "primary" },
-        { text: " and visual layouts while solving real-world problems." },
+        { text: " and visual experiences." },
       ],
+
       [
         { text: "I focus on writing " },
         { text: "clean code", highlight: "accent" },
@@ -57,34 +60,35 @@ export const aboutData: AboutData = {
         },
         { text: "quick learner", highlight: "primary" },
         {
-          text: " patient problem solver, and continuously motivated to improve my skills by working on real projects and exploring both frontend and backend development to grow into a strong ",
+          text: " and patient problem solver who continuously improves through real-world projects and exploring both frontend and backend development to grow as a ",
         },
-        { text: "full-stack developer.", highlight: "accent" },
+        { text: "MERN Stack Developer.", highlight: "accent" },
       ],
     ],
+
     skills: [
       {
         id: "mern",
         title: "MERN Stack",
-        description: "Building scalable apps with React, Node etc.",
+        description: "Building modern and scalable web applications.",
         colorType: "primary",
       },
       {
         id: "ui",
         title: "UI Design",
-        description: "Modern, responsive, and intuitive interfaces.",
+        description: "Creating modern, responsive, and intuitive interfaces.",
         colorType: "accent",
       },
       {
         id: "problem",
         title: "Problem Solving",
-        description: "Analyzing to write clean, efficient code.",
+        description: "Analyzing problems and writing clean, efficient code.",
         colorType: "accent",
       },
       {
         id: "backend",
         title: "Backend APIs",
-        description: "Secure RESTful APIs and database architecture.",
+        description: "Building secure REST APIs and backend services.",
         colorType: "primary",
       },
     ],

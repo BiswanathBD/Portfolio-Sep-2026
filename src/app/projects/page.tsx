@@ -102,7 +102,7 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 lg:gap-12">
                   {filteredProjects.map((project, idx) => (
                     <ProjectGridCard
-                      key={project.id}
+                      key={project.slug}
                       project={project}
                       idx={idx}
                     />

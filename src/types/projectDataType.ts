@@ -4,7 +4,7 @@ export interface TechStack {
 }
 
 export interface ProjectItem {
-  id: number;
+  slug: string;
   title: string;
   subtitle: string;
   description: string;

@@ -29,9 +29,9 @@ export interface HeroData {
 export const heroData: HeroData = {
   greeting: "Hi, I'm",
   name: "Biswanath Sarker",
-  role: "MERN Stack Web Developer",
+  role: "MERN Stack Developer",
   description:
-    "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
+    "Building production-ready web applications with modern technologies, responsive UI, optimization, and technical Search Engine Optimization(SEO).",
   resumeUrl:
     "https://drive.google.com/file/d/1ztfZQBwpZmJhdonW6V-5wnhg5vGOqMbn/view?usp=sharing",
   profileImage: "/assets/heroProfile.jpeg",
@@ -44,13 +44,13 @@ export const heroData: HeroData = {
       color: "#ffffff",
     },
     {
-      href: "https://www.linkedin.com/in/biswanath-sarker-bd/",
+      href: "https://www.linkedin.com/in/biswanathsarker/",
       label: "LinkedIn",
       iconName: "linkedin",
       color: "#0A66C2",
     },
     {
-      href: "mailto:biswanath.sarker.bd@gmail.com",
+      href: "mailto:biswanath[.sarker.bd@gmail.com](mailto:.sarker.bd@gmail.com)",
       label: "Email",
       iconName: "mail",
       color: "#EA4335",
