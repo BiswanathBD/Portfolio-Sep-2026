@@ -9,15 +9,19 @@ import { MotionWrapper } from "./MotionWrapper";
 interface NavigationProps {
   activeSection: string;
   isExpanded: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsExpanded?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ITEM_HEIGHT = 48; // h-12 = 48px
-const ITEM_GAP = 8; // gap-2 = 8px
-const STEP_OFFSET = ITEM_HEIGHT + ITEM_GAP; // 56px
+const ITEM_HEIGHT = 48;
+const ITEM_GAP = 8;
+const STEP_OFFSET = ITEM_HEIGHT + ITEM_GAP;
 
 const Navigation = ({
   activeSection: parentActiveSection,
   isExpanded,
+  setIsOpen,
+  setIsExpanded,
 }: NavigationProps) => {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
@@ -131,6 +135,10 @@ const Navigation = ({
     targetHref: string,
     sectionId?: string,
   ) => {
+    setIsExpanded?.(false);
+    setIsOpen?.(false);
+    console.log(isExpanded);
+
     if (isHomePage && targetHref.startsWith("#")) {
       e.preventDefault();
       const targetId = targetHref.replace("#", "");
@@ -155,14 +163,21 @@ const Navigation = ({
       <ul className="relative m-0 flex list-none flex-col gap-2 p-0">
         {/* Active Highlight Indicator */}
         {activeIndex !== -1 && (
-          <div
-            className="pointer-events-none absolute left-0 right-0 top-0 z-0 h-12 overflow-hidden rounded-l-2xl border-y border-l border-accent/10 bg-linear-to-r from-accent/20 via-accent/10 to-transparent transition-transform duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)"
-            style={{
-              transform: `translateY(${activeIndex * STEP_OFFSET}px)`,
-            }}
+          <MotionWrapper
+            animationType="fadeLeft"
+            transitionType="spring"
+            delay={1}
+            className="pointer-events-none absolute left-0 right-0 top-0 z-0 h-12"
           >
-            <div className="absolute left-0 top-1/2 h-6 w-1.5 -translate-y-1/2 rounded-r-full bg-accent shadow-[0_0_12px_var(--color-accent)]" />
-          </div>
+            <div
+              className="h-full w-full overflow-hidden rounded-l-2xl border-y border-l border-accent/10 bg-linear-to-r from-accent/20 via-accent/10 to-transparent transition-transform duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)"
+              style={{
+                transform: `translateY(${activeIndex * STEP_OFFSET}px)`,
+              }}
+            >
+              <div className="absolute left-0 top-1/2 h-6 w-1.5 -translate-y-1/2 rounded-r-full bg-accent shadow-[0_0_12px_var(--color-accent)]" />
+            </div>
+          </MotionWrapper>
         )}
 
         {/* Navigation List Items */}

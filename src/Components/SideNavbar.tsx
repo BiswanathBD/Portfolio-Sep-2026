@@ -164,6 +164,7 @@ const SideNavbar = () => {
           <Navigation
             activeSection={activeSection}
             isExpanded={isExpanded}
+            setIsExpanded={setIsExpanded}
           />
 
           {/* section navigator */}

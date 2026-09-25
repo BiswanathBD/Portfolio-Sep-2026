@@ -225,6 +225,7 @@ const TopNavbar: React.FC = () => {
                 <Navigation
                   activeSection={activeSection}
                   isExpanded={true}
+                  setIsOpen={setIsOpen}
                 />
               </div>
             </motion.aside>
