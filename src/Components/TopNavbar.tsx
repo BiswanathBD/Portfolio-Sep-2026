@@ -110,23 +110,6 @@ const TopNavbar: React.FC = () => {
     };
   }, [collectSections, updateActiveSection]);
 
-  // Smooth Navigation Handler
-  const handleNavClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    section: string,
-  ) => {
-    event.preventDefault();
-    setIsOpen(false);
-
-    const element = document.getElementById(section);
-    if (!element) return;
-
-    window.scrollTo({
-      top: element.offsetTop,
-      behavior: "smooth",
-    });
-  };
-
   const handleOutsideClick = useCallback(
     (event: PointerEvent) => {
       if (!isOpen || !navRef.current) return;
@@ -242,7 +225,6 @@ const TopNavbar: React.FC = () => {
                 <Navigation
                   activeSection={activeSection}
                   isExpanded={true}
-                  onNavClick={handleNavClick}
                 />
               </div>
             </motion.aside>
