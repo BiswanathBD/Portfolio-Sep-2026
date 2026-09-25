@@ -1,17 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaPaperPlane,
-  FaUser,
-  FaEnvelope,
-  FaMessage,
-  FaXmark,
-} from "react-icons/fa6";
+import { FaUser, FaEnvelope, FaMessage } from "react-icons/fa6";
 import { MotionWrapper } from "./Shared/MotionWrapper";
-
-type ButtonState = "idle" | "sending" | "success" | "error";
+import { ButtonState, ContactSubmitButton } from "./ContactSubmitButton";
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -37,8 +29,6 @@ export const ContactForm = () => {
     setButtonState("sending");
     setStatus({ type: null, message: "" });
 
-    console.log("🚀 [Contact Form Submitting Data]:", formData);
-
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -49,9 +39,6 @@ export const ContactForm = () => {
       });
 
       const data = await response.json();
-
-      console.log("📥 [Contact Form API Response Status]:", response.status);
-      console.log("📦 [Contact Form API Response Data]:", data);
 
       if (response.ok) {
         setButtonState("success");
@@ -192,151 +179,16 @@ export const ContactForm = () => {
           </div>
         </MotionWrapper>
 
-        {/* Action Button */}
+        {/* Action Button (Isolated Component) */}
         <MotionWrapper
           animationType="fadeUp"
           delay={0.5}
           className="w-full pt-1"
         >
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={`group relative flex w-full items-center justify-center gap-3 rounded-lg border px-6 py-3.5 text-xs font-bold tracking-widest uppercase shadow-md transition-all duration-500 hover:gap-4.5 active:scale-[0.98] disabled:cursor-not-allowed md:text-sm ${
-              buttonState === "success"
-                ? "border-success/70 bg-success/15 text-success shadow-success/10"
-                : buttonState === "error"
-                  ? "border-destructive/70 bg-destructive/15 text-destructive shadow-destructive/10"
-                  : "border-primary/60 bg-linear-to-r from-card-bg via-primary/20 to-accent/20 text-foreground"
-            }`}
-          >
-            {/* Dynamic Text with Smooth Sequential Transitions */}
-            <AnimatePresence mode="wait">
-              {buttonState === "idle" && (
-                <motion.span
-                  key="idle-text"
-                  initial={{ opacity: 0, y: 6, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -6, filter: "blur(4px)", scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="relative z-10 transition-colors duration-300"
-                >
-                  Send Message
-                </motion.span>
-              )}
-
-              {buttonState === "sending" && (
-                <motion.span
-                  key="sending-text"
-                  initial={{ opacity: 0, y: 6, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -6, filter: "blur(4px)", scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="relative z-10"
-                >
-                  Sending Message
-                </motion.span>
-              )}
-
-              {buttonState === "success" && (
-                <motion.span
-                  key="success-text"
-                  initial={{ opacity: 0, y: 6, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -6, filter: "blur(4px)", scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="relative z-10 text-success"
-                >
-                  Message Sent Successfully
-                </motion.span>
-              )}
-
-              {buttonState === "error" && (
-                <motion.span
-                  key="error-text"
-                  initial={{ opacity: 0, y: 6, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -6, filter: "blur(4px)", scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="relative z-10 text-destructive"
-                >
-                  Message Send Failed
-                </motion.span>
-              )}
-            </AnimatePresence>
-
-            {/* Dynamic Animated Icons Container */}
-            <div className="relative z-10 flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                {buttonState === "idle" && (
-                  <motion.div
-                    key="idle-icon"
-                    initial={{ opacity: 0, scale: 0.7, filter: "blur(2px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 0.7, filter: "blur(2px)" }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <FaPaperPlane className="text-primary transition-transform duration-300 group-hover:scale-110" />
-                  </motion.div>
-                )}
-
-                {buttonState === "sending" && (
-                  <motion.div
-                    key="sending-icon"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{
-                      opacity: 1,
-                      scale: 1.1,
-                      x: [0, 2, -2, 2, 0],
-                      y: [0, -2, 1, -1, 0],
-                    }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{
-                      x: { repeat: Infinity, duration: 2, ease: "easeInOut" },
-                      y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
-                      duration: 0.5,
-                    }}
-                  >
-                    <FaPaperPlane className="text-primary" />
-                  </motion.div>
-                )}
-
-                {buttonState === "error" && (
-                  <motion.div
-                    key="success-icon"
-                    initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                    animate={{
-                      x: 60,
-                      y: -60,
-                      opacity: [1, 0.5, 0],
-                      scale: [1, 3, 5],
-                    }}
-                    transition={{
-                      duration: 1,
-                      ease: [0.16, 1, 0.1, 1],
-                    }}
-                  >
-                    <FaPaperPlane className="text-success" />
-                  </motion.div>
-                )}
-
-                {/* {buttonState === "error" && (
-                  <motion.div
-                    key="error-icon"
-                    initial={{ opacity: 0, scale: 0.4, rotate: -45 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.4 }}
-                    transition={{
-                      duration: 0.3,
-                      type: "spring",
-                      stiffness: 300,
-                    }}
-                  >
-                    <FaXmark className="text-sm text-destructive" />
-                  </motion.div>
-                )} */}
-              </AnimatePresence>
-            </div>
-          </button>
+          <ContactSubmitButton
+            buttonState={buttonState}
+            isSubmitting={isSubmitting}
+          />
         </MotionWrapper>
 
         {/* Status Notification Below Form */}
