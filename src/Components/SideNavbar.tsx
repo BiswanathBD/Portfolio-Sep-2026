@@ -6,8 +6,8 @@ import { ChevronRight } from "lucide-react";
 import { navItems } from "@/data/navData";
 import { MotionWrapper } from "./Shared/MotionWrapper";
 import Logo from "./Shared/Logo";
-import Navigation from "./Navigation";
 import { SectionNavigator } from "./SectionNavigator";
+import Navigation from "./Shared/Navigation";
 
 const SideNavbar = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -85,24 +85,6 @@ const SideNavbar = () => {
       }
     };
   }, [collectSections, updateActiveSection]);
-
-  const handleNavClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    section: string,
-  ) => {
-    event.preventDefault();
-
-    const element = document.getElementById(section);
-
-    if (!element) return;
-
-    window.scrollTo({
-      top: element.offsetTop,
-      behavior: "smooth",
-    });
-
-    setIsExpanded(false);
-  };
 
   return (
     <MotionWrapper
@@ -182,7 +164,6 @@ const SideNavbar = () => {
           <Navigation
             activeSection={activeSection}
             isExpanded={isExpanded}
-            onNavClick={handleNavClick}
           />
 
           {/* section navigator */}

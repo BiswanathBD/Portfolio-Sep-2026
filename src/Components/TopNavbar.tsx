@@ -5,9 +5,9 @@ import Logo from "./Shared/Logo";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Container from "./Shared/Container";
 import { MotionWrapper } from "./Shared/MotionWrapper";
-import Navigation from "./Navigation";
 import { navItems } from "@/data/navData";
 import { AnimatePresence, motion } from "framer-motion";
+import Navigation from "./Shared/Navigation";
 
 const TopNavbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
