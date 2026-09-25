@@ -64,7 +64,7 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
       />
 
       {/* give space for mobile navbar */}
-      <section className="relative py-24 w-full text-foreground sm:py-12 md:py-24">
+      <section className="relative py-24 sm:py-12 md:py-24 w-full text-foreground">
         <Container>
           <div className="relative grid grid-cols-1 items-start gap-8 sm:gap-10 md:grid-cols-3 md:gap-12 xl:grid-cols-4 xl:gap-24">
             {/* Filter */}

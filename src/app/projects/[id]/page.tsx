@@ -55,7 +55,7 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
   const { liveUrl, frontendUrl, backendUrl } = project;
 
   return (
-    <main className="relative min-h-screen text-foreground py-8">
+    <main className="relative min-h-screen text-foreground  py-24 sm:py-8">
       <Container>
         {/* bottom glow */}
         <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 translate-y-1/2 size-100 bg-accent/15 rounded-full blur-[200px] pointer-events-none -z-10" />
@@ -103,10 +103,10 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
             </div>
 
             {/* main preview */}
-            <div className="relative aspect-3/2 w-full overflow-hidden rounded-b-sm rounded-r-sm border-2 border-border-color shadow-2xl backdrop-blur-sm group -mt-0.5">
+            <div className="relative aspect-3/4 sm:aspect-3/2 w-full overflow-hidden rounded-b-sm rounded-r-sm border-2 border-border-color shadow-2xl backdrop-blur-sm group -mt-0.5">
               {liveUrl ? (
                 <div className="absolute inset-0 w-full h-full overflow-hidden">
-                  <div className="w-[calc(100%+14px)] lg:w-[254%] h-full lg:h-[250%] origin-top-left lg:scale-40 overflow-hidden">
+                  <div className="w-[155%] h-[150%] lg:w-[255%] lg:h-[250%] pr-[8vw] sm:pr-[7vw] lg:pr-[0.5vw] origin-top-left scale-70 lg:scale-40 overflow-hidden">
                     <iframe
                       src={liveUrl}
                       title={project.title}
