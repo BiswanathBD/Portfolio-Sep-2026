@@ -1,4 +1,5 @@
 import AboutMe from "@/Components/Sections/AboutMe";
+import { Contact } from "@/Components/Sections/Contact";
 import Education from "@/Components/Sections/Education";
 import HeroSection from "@/Components/Sections/HeroSection";
 import Projects from "@/Components/Sections/Projects";
@@ -27,6 +28,10 @@ export default function Home() {
       <section id="projects">
         <Projects />
       </section>
+
+      <SectionWrapper id="contact">
+        <Contact />
+      </SectionWrapper>
     </>
   );
 }

@@ -3,8 +3,9 @@ import { projectsData } from "@/data/projectData";
 import Container from "../Shared/Container";
 import ProjectCard from "../ProjectCard";
 import Link from "next/link";
-import {  FolderGit2 } from "lucide-react";
+import { FolderGit2 } from "lucide-react";
 import { MotionWrapper } from "../Shared/MotionWrapper";
+import SectionWrapper from "../SectionWrapper";
 
 const Projects: React.FC = () => {
   // SEO Structured Data for Portfolio Projects
@@ -54,20 +55,22 @@ const Projects: React.FC = () => {
           </div>
 
           {/* all projects */}
-          <div className="flex items-center justify-center gap-4 mt-8 lg:mt-16">
-            <MotionWrapper animationType="button">
-              <div className="relative p-px rounded-2xl overflow-hidden flex items-center justify-center group">
-                <Link
-                  href={"/projects"}
-                  className="relative flex items-center gap-2 px-6 py-3 rounded-[calc(1rem-1px)] overflow-hidden bg-background/90 backdrop-blur-md bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20 text-accent font-medium z-10 transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                >
-                  <span>Explore More Projects</span>
+          <SectionWrapper>
+            <div className="flex items-center justify-center gap-4 mt-8 lg:mt-16">
+              <MotionWrapper animationType="button">
+                <div className="relative p-px rounded-2xl overflow-hidden flex items-center justify-center group">
+                  <Link
+                    href={"/projects"}
+                    className="relative flex items-center gap-2 px-6 py-3 rounded-[calc(1rem-1px)] overflow-hidden bg-background/90 backdrop-blur-md bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20 text-accent font-medium z-10 transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  >
+                    <span>Explore More Projects</span>
 
-                  <FolderGit2 className="w-4 h-4 text-foreground group-hover:scale-110 transition-all duration-500" />
-                </Link>
-              </div>
-            </MotionWrapper>
-          </div>
+                    <FolderGit2 className="w-4 h-4 text-foreground group-hover:scale-110 transition-all duration-500" />
+                  </Link>
+                </div>
+              </MotionWrapper>
+            </div>
+          </SectionWrapper>
         </Container>
       </section>
     </>
