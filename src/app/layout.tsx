@@ -6,6 +6,7 @@ import GlobalBackground from "@/Components/Shared/GlobalBackground";
 import SmoothScroll from "@/utils/SmoothScroll";
 import SideNavbar from "@/Components/SideNavbar";
 import TopNavbar from "@/Components/TopNavbar";
+import Footer from "@/Components/Sections/Footer";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -116,6 +117,9 @@ export default function RootLayout({
         {/* main page */}
         <main className="flex-1 overflow-x-clip scrollbar-none">
           {children}
+          <section id="footer">
+            <Footer />
+          </section>
         </main>
 
         {/* desktop side nav */}
