@@ -28,11 +28,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Google Site Name Schema Data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Biswanath Sarker",
+    alternateName: [
+      "Biswanath Sarker Portfolio",
+      "Biswanath Sarker - MERN Stack Developer",
+    ],
+    url: "https://biswanath.vercel.app",
+  };
+
   return (
     <html
       lang="en"
       className={`${nunito.variable} ${hindSiliguri.variable} antialiased w-full overflow-hidden scrollbar-none`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="flex flex-col sm:flex-row justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <CustomCursor />
         <GlobalBackground />
