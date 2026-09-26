@@ -50,7 +50,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
                 key={action.label}
                 animationType={animationXReverse}
                 transitionType="spring"
-                delay={0.8 + action.idx * 0.1}
+                delay={0.4 + action.idx * 0.1}
                 className="flex flex-1 items-center justify-center text-xs font-bold tracking-widest h-full lg:flex-1"
               >
                 {action.url ? (
@@ -89,7 +89,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           <MotionWrapper
             animationType={animationX}
             transitionType="spring"
-            delay={0.5}
+            delay={0.2}
             className="relative order-1 aspect-video w-full min-w-0 overflow-hidden shadow-[0_0_200px_var(--color-card-bg)] lg:order-0 lg:aspect-auto lg:flex-1 lg:self-stretch"
           >
             <Image
@@ -115,13 +115,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
                   isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
                 }`}
               >
-                <MotionWrapper animationType={animationX} delay={0.3}>
+                <MotionWrapper animationType={animationX} delay={0.1}>
                   <h2 className="text-3xl font-extrabold leading-tight text-accent md:text-3xl lg:text-4xl">
                     {project.title}
                   </h2>
                 </MotionWrapper>
 
-                <MotionWrapper animationType={animationX} delay={0.5}>
+                <MotionWrapper animationType={animationX} delay={0.2}>
                   <div
                     className={`${
                       isReversed
@@ -142,7 +142,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
                 </MotionWrapper>
               </div>
 
-              <MotionWrapper animationType="fadeUp" delay={0.4}>
+              <MotionWrapper animationType="fadeUp" delay={0.1}>
                 <p className="mb-6 line-clamp-4 text-xs leading-relaxed text-foreground/70 md:text-sm">
                   {project.description}
                 </p>
@@ -157,7 +157,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
                   <MotionWrapper
                     key={techIndex}
                     animationType="fadeUp"
-                    delay={0.4 + techIndex * 0.1}
+                    delay={0.1 + techIndex * 0.1}
                   >
                     <span className="border border-border-color bg-card-bg px-3 py-1 text-xs font-medium text-foreground/90">
                       {tech}
@@ -174,7 +174,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
                 <MotionWrapper
                   animationType={animationX}
                   transitionType="spring"
-                  delay={0.6}
+                  delay={0.3}
                 >
                   <Link
                     href={`/projects/${project.slug}`}

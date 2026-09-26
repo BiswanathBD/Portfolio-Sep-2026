@@ -23,7 +23,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
       <MotionWrapper
         animationType="scale"
         transitionType="spring"
-        delay={0.5}
+        delay={0.2}
         className="relative w-full flex justify-center"
       >
         {/* outer container */}
@@ -50,7 +50,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
             <div className="absolute inset-0 bg-linear-to-t from-background/40 via-transparent to-primary/10 pointer-events-none" />
           </figure>
 
-          {/* corner accents (Rotation removed, position offset kept, opacity drops to 60%) */}
+          {/* corner accents */}
           <motion.div
             variants={{
               rest: { x: 0, y: 0, opacity: 0.8 },
@@ -99,7 +99,6 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
           <motion.div
             initial={{ scale: 0, rotate: -180, opacity: 0 }}
             whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
-            viewport={{ once: true }}
             animate={{
               scale: [1, 1.08, 0.95, 1],
               y: [0, -3, 2, 0],
@@ -110,7 +109,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
                 repeat: Infinity,
                 duration: 4,
                 ease: "easeInOut",
-                delay: 1,
+                delay: 0.8,
               },
               y: {
                 repeat: Infinity,
@@ -136,7 +135,6 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
           <motion.div
             initial={{ scale: 0, rotate: 180, opacity: 0 }}
             whileInView={{ scale: 1, rotate: 0, opacity: 1 }}
-            viewport={{ once: true }}
             animate={{
               scale: [1, 0.92, 1.06, 1],
               y: [0, 3, -2, 0],
@@ -147,7 +145,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
                 repeat: Infinity,
                 duration: 4.5,
                 ease: "easeInOut",
-                delay: 1.2,
+                delay: 0.8,
               },
               y: {
                 repeat: Infinity,
@@ -184,7 +182,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
                 repeat: Infinity,
                 duration: 3.8,
                 ease: "easeInOut",
-                delay: 1.8,
+                delay: 0.2,
               },
               y: {
                 repeat: Infinity,
@@ -207,7 +205,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
         </motion.div>
       </MotionWrapper>
 
-      <SkillGrid skills={skills} delay={0.5} />
+      <SkillGrid skills={skills} delay={0.2} />
     </aside>
   );
 };

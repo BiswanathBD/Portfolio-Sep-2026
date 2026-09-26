@@ -31,14 +31,14 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
   return (
     <MotionWrapper
       animationType="fadeLeft"
-      delay={0.5}
+      delay={0.2}
       transitionType="spring"
       className="relative flex items-start mb-20 last:mb-0"
     >
       {/* Timeline Dot*/}
       <MotionWrapper
         animationType="scale"
-        delay={0.5}
+        delay={0.2}
         className="absolute left-0 md:left-19 top-8 w-6 h-6 bg-linear-to-r from-primary to-accent rounded-full border-4 border-background z-10 shadow-lg hidden md:block"
       >
         <div className="absolute inset-1 bg-linear-to-r from-primary to-accent rounded-full" />
@@ -48,7 +48,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
       <MotionWrapper
         animationType="fadeLeft"
         transitionType="spring"
-        delay={1.2}
+        delay={0.8}
         className="absolute -left-6 top-7 bg-linear-to-r from-primary to-accent text-primary-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10 hidden md:block"
       >
         {edu.year}
@@ -69,7 +69,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
               {/* Year Tag - Mobile */}
               <MotionWrapper
                 animationType="fadeLeft"
-                delay={0.6}
+                delay={0.3}
                 transitionType="spring"
               >
                 <span className="md:hidden mb-4 inline-block bg-linear-to-r from-primary to-accent text-primary-foreground px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg">
@@ -85,7 +85,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                     type: "spring",
                     stiffness: 120,
                     damping: 15,
-                    delay: 0.8,
+                    delay: 0.2,
                   }}
                   className="card-icon"
                 >
@@ -98,7 +98,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
-                    delay={1}
+                    delay={0.5}
                   >
                     <h3 className="text-foreground font-bold text-xl md:text-2xl xl:text-3xl leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-primary group-hover:to-accent transition-all duration-300">
                       {edu.degree}
@@ -108,7 +108,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
-                    delay={1.1}
+                    delay={0.7}
                   >
                     <p className="text-primary font-semibold text-sm md:text-base mb-2 flex items-center gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
@@ -123,7 +123,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                 <MotionWrapper
                   animationType="fadeUp"
                   transitionType="spring"
-                  delay={0.8}
+                  delay={0.4}
                 >
                   <div className="flex items-center gap-2 bg-card-bg rounded-xl backdrop-blur-sm p-2 border border-border-color hover:border-primary/30 transition-all duration-300">
                     <div className="w-6 h-6 bg-accent rounded-md flex items-center justify-center text-foreground">
@@ -138,7 +138,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                 <MotionWrapper
                   animationType="fadeUp"
                   transitionType="spring"
-                  delay={0.9}
+                  delay={0.6}
                 >
                   <div className="flex items-center gap-2 bg-card-bg rounded-xl backdrop-blur-sm p-2 border border-border-color hover:border-primary/30 transition-all duration-300">
                     <div className="w-6 h-6 bg-accent rounded-md flex items-center justify-center text-foreground">
@@ -155,7 +155,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
               <MotionWrapper
                 animationType="fadeRight"
                 transitionType="spring"
-                delay={1}
+                delay={0.8}
               >
                 <p className="text-foreground/80 leading-relaxed my-4 py-2 pl-4 border-l border-accent text-sm group-hover:text-foreground transition-colors duration-300">
                   {edu.description}
@@ -168,7 +168,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
-                    delay={0.8}
+                    delay={0.5}
                   >
                     <div className="w-6 h-6 bg-primary rounded-md flex items-center justify-center text-primary-foreground">
                       <BookOpen className="w-3.5 h-3.5" />
@@ -177,7 +177,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
-                    delay={0.9}
+                    delay={0.6}
                   >
                     Key Learning Areas
                   </MotionWrapper>
@@ -190,7 +190,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ edu }) => {
                       key={achIndex}
                       animationType="fadeUp"
                       transitionType="spring"
-                      delay={1 + achIndex * 0.1}
+                      delay={0.6 + achIndex * 0.1}
                     >
                       <div className="achievement-item h-full group flex items-center gap-2 p-3 rounded-xl bg-linear-to-r from-foreground/5 to-foreground/10 border border-border-color hover:border-primary/30 hover:from-primary/5 hover:to-accent/5 transition-all duration-500 cursor-default">
                         <div className="w-2 h-2 bg-linear-to-r from-primary to-accent rounded-full" />

@@ -177,7 +177,7 @@ function SkillCard({ item, idx }: { item: SkillItem; idx: number }) {
     <MotionWrapper
       animationType="fadeUp"
       transitionType="spring"
-      delay={0.3 + idx * 0.1}
+      delay={0.2 + idx * 0.1}
       className="group relative z-0 flex gap-2 p-4 cursor-none"
     >
       {/* Icon Wrapper with Micro-interaction */}

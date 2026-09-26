@@ -51,7 +51,7 @@ const ProfileShowcase = ({
         {/* bg glow */}
         <MotionWrapper
           animationType="scale"
-          delay={0.5}
+          delay={0.2}
           duration={1}
           className="absolute inset-0 bg-primary/60 rounded-full blur-[100px] z-0 pointer-events-none"
         />

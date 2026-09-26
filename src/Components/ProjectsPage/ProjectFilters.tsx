@@ -71,7 +71,6 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
 
   return (
     <div className="relative flex flex-col rounded-xl border-b border-border-color/40 bg-linear-to-bl p-3.5 sm:p-4 md:h-full md:rounded-none md:border-b-0 md:border-r md:p-5">
-      {" "}
       <div className="pointer-events-none absolute right-0 top-0 z-0 aspect-square w-1/3 rounded-full bg-primary/40 blur-[80px]" />
       <div className="relative z-10 flex flex-col gap-3 md:flex-1 md:min-h-0 md:gap-5">
         {/* Mobile / Tablet Filter Controls */}

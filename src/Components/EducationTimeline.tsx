@@ -54,7 +54,7 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
         <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6 lg:mt-8">
           <MotionWrapper
             animationType="fadeUp"
-            delay={0.5}
+            delay={0.2}
             transitionType="spring"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground mb-4 leading-[1.15]">
@@ -67,8 +67,7 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
 
           <MotionWrapper
             animationType="fadeUp"
-            delay={0.55}
-            transitionType="spring"
+            delay={0.3}
           >
             <p className="text-foreground/70 text-sm md:text-base leading-relaxed mb-6">
               {continuousLearningText}
@@ -77,8 +76,7 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
 
           <MotionWrapper
             animationType="fadeUp"
-            delay={0.6}
-            transitionType="spring"
+            delay={0.4}
           >
             <div className="p-5 rounded-2xl bg-card-bg/80 border border-border-color backdrop-blur-xl shadow-xs space-y-3">
               <div className="flex items-center gap-2 text-sm font-bold text-foreground">
@@ -96,7 +94,7 @@ export const EducationTimeline: React.FC<EducationTimelineProps> = ({
           <div className="pt-2">
             <MotionWrapper
               animationType="fadeUp"
-              delay={0.65}
+              delay={0.45}
               transitionType="spring"
             >
               <Link

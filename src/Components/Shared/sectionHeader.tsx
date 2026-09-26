@@ -29,7 +29,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
               id={id}
               className="text-center font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground tracking-tight leading-tight"
             >
-              {titlePrefix}{" "}
+              {titlePrefix}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto] animate-gradient">
                 {titleHighlight}
               </span>

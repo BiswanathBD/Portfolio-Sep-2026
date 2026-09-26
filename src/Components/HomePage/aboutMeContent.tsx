@@ -18,7 +18,7 @@ export const AboutMeContent: React.FC<Omit<AboutContentProps, "skills">> = ({
         delay={0.5}
       >
         <h3 className="font-sans font-bold text-3xl sm:text-4xl text-foreground">
-          {namePrefix}{" "}
+          {namePrefix}
           <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto] animate-linear">
             {name}
           </span>

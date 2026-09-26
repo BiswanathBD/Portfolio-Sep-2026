@@ -72,7 +72,7 @@ export const Experiences = () => {
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
-                    delay={0.35}
+                    delay={0.3}
                   >
                     <div className="mb-2 flex items-center gap-2">
                       <span className="h-px w-4 bg-accent sm:w-8" />
@@ -86,7 +86,7 @@ export const Experiences = () => {
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
-                    delay={0.45}
+                    delay={0.4}
                   >
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                       {experience.companyUrl ? (

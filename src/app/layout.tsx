@@ -59,7 +59,7 @@ export default function RootLayout({
         </header>
 
         {/* main page */}
-        <main className="flex-1 overflow-x-clip scrollbar-none">
+        <main className="flex-1 overflow-x-clip scrollbar-none space-y-8 lg:space-y-16">
           {children}
           <section id="footer">
             <Footer />

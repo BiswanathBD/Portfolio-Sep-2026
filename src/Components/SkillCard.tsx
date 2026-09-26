@@ -40,7 +40,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ category, idx }) => {
     <MotionWrapper
       animationType="fadeUp"
       transitionType="spring"
-      delay={0.5 + idx * 0.1}
+      delay={0.2 + idx * 0.1}
       className="h-full"
     >
       <div
@@ -101,7 +101,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ category, idx }) => {
                     <MotionWrapper
                       animationType="fadeRight"
                       transitionType="spring"
-                      delay={0.5 + skillIdx * 0.1}
+                      delay={0.2 + skillIdx * 0.1}
                     >
                       <div className="w-8 h-8 bg-linear-to-r from-primary/10 to-accent/10 rounded-lg border border-border-color/80 flex justify-center items-center text-primary shrink-0">
                         <Image
@@ -119,7 +119,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ category, idx }) => {
                         <MotionWrapper
                           animationType="fadeUp"
                           transitionType="spring"
-                          delay={0.6 + skillIdx * 0.1}
+                          delay={0.3 + skillIdx * 0.1}
                         >
                           <span className="text-foreground font-medium">
                             {skill.name}
@@ -128,7 +128,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ category, idx }) => {
 
                         <MotionWrapper
                           animationType="fade"
-                          delay={1 + skillIdx * 0.1}
+                          delay={0.6 + skillIdx * 0.1}
                         >
                           <span className="text-foreground/60 text-sm font-mono">
                             {skill.level}%

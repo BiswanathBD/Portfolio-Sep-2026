@@ -38,7 +38,7 @@ const renderSocialIcon = (iconName: SocialLink["iconName"]) => {
 };
 
 const HeroContent = ({ data }: HeroContentProps) => {
-  const topLineDuration = 0.4;
+  const topLineDuration = 0.3;
   const topLineDelay = 0;
 
   const iconStartDelay = topLineDelay + topLineDuration + 0.15;
@@ -163,7 +163,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
         {/* Dynamic Rotating Gradient Role */}
         <MotionWrapper
           animationType="fadeRight"
-          delay={0.4}
+          delay={0.3}
           transitionType="spring"
         >
           <h2 className="font-sans font-semibold text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-4xl">
@@ -185,7 +185,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
 
         <MotionWrapper
           animationType="fadeRight"
-          delay={0.6}
+          delay={0.4}
           transitionType="spring"
         >
           <p className="text-foreground/70 text-base sm:text-lg md:text-xl lg:text-base xl:text-xl leading-relaxed">
@@ -195,7 +195,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
 
         <MotionWrapper
           animationType="fadeUp"
-          delay={0.8}
+          delay={0.5}
           transitionType="spring"
         >
           <div className="flex items-center gap-4 mt-8">
