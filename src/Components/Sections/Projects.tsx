@@ -38,7 +38,7 @@ const Projects: React.FC = () => {
       />
 
       {/* Projects Section */}
-      <section className="text-foreground w-full py-12 lg:py-24 relative overflow-hidden">
+      <section className="text-foreground w-full py-4 lg:py-8 relative">
         {/* Background Lighting Effect */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 sm:w-96 sm:h-96 lg:size-120 bg-primary/10 rounded-full blur-[100px] lg:blur-[120px] pointer-events-none -z-10" />
 

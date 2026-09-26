@@ -12,13 +12,13 @@ interface ExperienceCardsProps {
 
 const ExperienceCards = ({ experience }: ExperienceCardsProps) => {
   return (
-    <div className="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-10">
+    <div className="grid grid-cols-1 md:grid-cols-7 lg:grid-cols-2 gap-4">
       {/* What I Do */}
       <MotionWrapper
         animationType="fadeUp"
         transitionType="spring"
         delay={0.3}
-        className="h-full lg:col-span-4"
+        className="h-full md:col-span-4 lg:col-span-1 lg:row-span-2"
       >
         <article className="group relative h-full overflow-hidden rounded-4xl border border-border-color/40 bg-card-bg/35 p-4 transition-all duration-500 hover:border-primary/20 sm:p-8">
           <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 blur-3xl transition-transform duration-700 group-hover:scale-125" />
@@ -64,7 +64,7 @@ const ExperienceCards = ({ experience }: ExperienceCardsProps) => {
         animationType="fadeUp"
         transitionType="spring"
         delay={0.4}
-        className="h-full lg:col-span-3"
+        className="h-full md:col-span-3 lg:col-span-1"
       >
         <article className="group relative h-full overflow-hidden rounded-4xl border border-border-color/40 bg-card-bg/35 p-4 transition-all duration-500 hover:border-accent/10 sm:p-8">
           <div className="pointer-events-none absolute -right-20 -top-20 size-44 rounded-full bg-accent/8 blur-3xl transition-transform duration-700 group-hover:scale-125" />
@@ -115,12 +115,12 @@ const ExperienceCards = ({ experience }: ExperienceCardsProps) => {
             animationType="fadeUp"
             transitionType="spring"
             delay={0.5}
-            className="h-full lg:col-span-3"
+            className="h-full md:col-span-7 lg:col-span-1"
           >
-            <article className="group relative h-full overflow-hidden rounded-4xl border border-border-color/40 bg-card-bg/50 p-4 transition-all duration-500 hover:border-primary/20 sm:p-8">
-              <div className="pointer-events-none absolute -right-20 -top-20 size-44 rounded-full bg-primary/8 blur-3xl transition-transform duration-700 group-hover:scale-125" />
+            <article className="relative h-full overflow-hidden rounded-4xl border border-border-color/40 bg-card-bg/50 p-4 transition-all duration-500 hover:border-primary/20 sm:p-8">
+              <div className="pointer-events-none absolute -right-20 -top-20 size-44 rounded-full bg-primary/8 blur-3xl transition-transform duration-700" />
 
-              <div className="pointer-events-none absolute -bottom-16 -left-12 size-36 rounded-full bg-accent/8 blur-3xl transition-transform duration-700 group-hover:scale-110" />
+              <div className="pointer-events-none absolute -bottom-16 -left-12 size-36 rounded-full bg-accent/8 blur-3xl transition-transform duration-700" />
 
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--color-primary)/5%,transparent_38%)]" />
 
@@ -141,35 +141,35 @@ const ExperienceCards = ({ experience }: ExperienceCardsProps) => {
                   </div>
                 </header>
 
-                <div className="space-y-3">
+                <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
                   {experience.projectsWorkedOn.map((project) => (
                     <div
                       key={project.name}
-                      className="rounded-xl border border-border-color/35 bg-background/15 p-3 transition-colors duration-300 hover:border-primary/30 hover:bg-background/25"
+                      className="group rounded-xl border border-border-color/35 bg-background/15 p-3 transition-colors duration-300 hover:border-primary/30 hover:bg-background/25"
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <h4 className="text-sm font-bold text-foreground">
-                            {project.name}
-                          </h4>
-
-                          <p className="mt-1 text-xs leading-relaxed text-foreground/55">
-                            {project.description}
-                          </p>
-                        </div>
+                      <div className="flex justify-between gap-3">
+                        <h4 className="text-sm font-bold text-foreground">
+                          {project.name}
+                        </h4>
 
                         {project.liveUrl && (
-                          <Link
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`${project.name} live website`}
-                            className="flex size-7 shrink-0 items-center justify-center rounded-lg text-foreground/40 transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent/10 hover:text-accent"
-                          >
-                            <ArrowUpRight className="size-4" />
-                          </Link>
+                          <MotionWrapper animationType="button">
+                            <Link
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${project.name} live website`}
+                              className="flex size-7 shrink-0 items-center justify-center rounded-lg text-shadow-color transition-all duration-500 group-hover:text-primary hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            >
+                              <ArrowUpRight className="size-4" />
+                            </Link>
+                          </MotionWrapper>
                         )}
                       </div>
+
+                      <p className="mt-1 text-xs leading-relaxed text-foreground/55">
+                        {project.description}
+                      </p>
                     </div>
                   ))}
                 </div>

@@ -44,16 +44,16 @@ export const Experiences = () => {
       <section
         id="experience"
         aria-labelledby="experience-heading"
-        className="relative overflow-hidden py-8 sm:py-10 lg:py-16"
+        className="relative overflow-hidden py-4 lg:py-8"
       >
         <Container>
           <div className="relative">
             <div className="w-fit mb-6 lg:mb-12">
-              <MotionWrapper className="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <MotionWrapper className="flex gap-4 lg:items-center">
                 {/* Company Logo */}
                 <MotionWrapper animationType="scale" delay={0.2}>
                   <div className="flex shrink-0 items-center p-4">
-                    <div className="relative flex size-24 items-center justify-center rounded-full border border-border-color p-2 shadow-[0_0_90px_var(--color-border-color)] backdrop-blur-xl transition-shadow duration-500 hover:shadow-[0_0_100px_var(--color-border-color)] sm:size-32 lg:size-48">
+                    <div className="relative flex size-20 sm:size-36 lg:size-48 items-center justify-center rounded-full border border-border-color p-2 shadow-[0_0_90px_var(--color-border-color)] backdrop-blur-xl transition-shadow duration-500 hover:shadow-[0_0_100px_var(--color-border-color)]">
                       <div className="pointer-events-none absolute inset-0 rounded-full bg-primary/5 blur-xl" />
 
                       <Image
@@ -68,7 +68,7 @@ export const Experiences = () => {
                 </MotionWrapper>
 
                 {/* Experience Info */}
-                <div className="min-w-0 flex-1 lg:p-6 lg:border-l lg:border-border-color/80">
+                <div className="min-w-0 flex-1 my-auto md:p-6 md:border-l md:border-border-color/80">
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
@@ -94,7 +94,7 @@ export const Experiences = () => {
                           href={experience.companyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-1.5 text-2xl font-extrabold text-accent transition-colors duration-300 hover:text-primary sm:text-3xl"
+                          className="group inline-flex items-center gap-1.5 font-extrabold text-accent transition-colors duration-300 hover:text-primary sm:text-2xl"
                         >
                           {experience.company}
 
@@ -121,7 +121,7 @@ export const Experiences = () => {
                   >
                     <h2
                       id="experience-heading"
-                      className="mt-1 mb-4 text-2xl font-extrabold leading-tight text-foreground sm:text-3xl lg:text-4xl"
+                      className="mt-1 mb-4 font-extrabold leading-tight text-foreground sm:text-3xl lg:text-4xl"
                     >
                       {experience.role}
                     </h2>
