@@ -51,7 +51,7 @@ export const portfolioMetadata: Metadata = {
     title: "Biswanath Sarker | MERN Stack Developer",
     description:
       "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
-    siteName: "Biswanath Sarker Portfolio",
+    siteName: "Biswanath Sarker",
 
     images: [
       {

@@ -33,10 +33,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Biswanath Sarker",
-    alternateName: [
-      "Biswanath Sarker Portfolio",
-      "Biswanath Sarker - MERN Stack Developer",
-    ],
+    alternateName: "Biswanath",
     url: "https://biswanath.vercel.app",
   };
 
