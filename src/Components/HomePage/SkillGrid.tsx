@@ -46,7 +46,7 @@ export const SkillGrid: React.FC<SkillGridProps> = ({
     <MotionWrapper animationType="fade" delay={delay}>
       <div
         role="button"
-        className="relative grid w-full grid-cols-2 overflow-visible"
+        className="relative grid w-full grid-cols-2 overflow-visible max-w-lg mx-auto"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={handleMouseMove}

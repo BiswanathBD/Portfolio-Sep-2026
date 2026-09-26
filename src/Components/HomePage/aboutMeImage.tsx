@@ -18,7 +18,7 @@ export const AboutMeImage: React.FC<ExtendedAboutImageProps> = ({
   skills,
 }) => {
   return (
-    <aside className="flex flex-col mx-auto gap-10 w-10/12">
+    <aside className="flex flex-col mx-auto gap-10 sm:w-10/12">
       {/* Outer Scale Animation via MotionWrapper */}
       <MotionWrapper
         animationType="scale"
