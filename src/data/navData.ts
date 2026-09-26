@@ -6,6 +6,7 @@ import {
   FolderGit2,
   Mail,
   type LucideIcon,
+  BriefcaseBusiness,
 } from "lucide-react";
 
 export interface NavItem {
@@ -37,6 +38,13 @@ export const navItems: NavItem[] = [
     route: "/",
     section: "education",
     icon: GraduationCap,
+  },
+  {
+    name: "Experiences",
+    href: "/#experiences",
+    route: "/",
+    section: "experiences",
+    icon: BriefcaseBusiness,
   },
   {
     name: "Skills",
