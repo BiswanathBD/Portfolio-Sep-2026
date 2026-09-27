@@ -44,7 +44,7 @@ export const Experiences = () => {
       <section
         id="experience"
         aria-labelledby="experience-heading"
-        className="relative overflow-hidden py-4 lg:py-8"
+        className="relative py-4 lg:py-8"
       >
         <Container>
           <div className="relative">

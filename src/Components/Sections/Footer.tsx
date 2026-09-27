@@ -31,7 +31,7 @@ export const Footer = () => {
             {/* Name and Title */}
             <div className="flex items-center justify-center gap-3 md:justify-start">
               <MotionWrapper animationType="fadeUp" delay={0.1}>
-                <span className="font-display text-xl font-bold tracking-wide text-foreground">
+                <span className="font-display text-xl font-bold tracking-wide text-foreground ">
                   Biswanath Sarker
                 </span>
               </MotionWrapper>
@@ -40,7 +40,7 @@ export const Footer = () => {
               </MotionWrapper>
 
               <MotionWrapper animationType="fadeUp" delay={0.3}>
-                <span className="text-sm font-medium animate-pulse bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="text-sm font-medium animate-pulse bg-linear-to-r from-primary to-accent bg-clip-text text-transparent text-nowrap">
                   MERN Stack Developer
                 </span>
               </MotionWrapper>
