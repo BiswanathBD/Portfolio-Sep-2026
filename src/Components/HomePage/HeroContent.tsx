@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 import { HeroData, SocialLink } from "@/data/heroData";
 import { MotionWrapper } from "../Shared/MotionWrapper";
 import Link from "next/link";
+import { FileText } from "lucide-react";
 
 interface HeroContentProps {
   data: Pick<
@@ -216,11 +216,11 @@ const HeroContent = ({ data }: HeroContentProps) => {
                   href={data.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Download Biswanath's Resume"
+                  aria-label="Biswanath's Resume"
                 >
-                  <span>Download Resume</span>
+                  <span>View Resume</span>
 
-                  <Download className="w-4 h-4 text-foreground group-hover:scale-110 transition-all duration-500" />
+                  <FileText className="w-4 h-4 text-primary group-hover:scale-110 transition-all duration-500" />
                 </Link>
               </div>
             </MotionWrapper>
