@@ -212,7 +212,7 @@ const HeroContent = ({ data }: HeroContentProps) => {
 
                 {/* Main Resume Link Button */}
                 <Link
-                  className="relative flex items-center gap-2 hover:gap-3 px-6 py-3 rounded-[calc(1rem-1px)] overflow-hidden bg-background/90 backdrop-blur-md bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20 text-accent font-medium z-10 transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="relative flex items-center gap-3 hover:gap-4 px-6 py-3 rounded-[calc(1rem-1px)] overflow-hidden bg-background/80 backdrop-blur-md bg-linear-to-br from-primary/10 to-accent/10 border border-primary/20 text-accent font-bold z-10 transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                   href={data.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
