@@ -86,7 +86,7 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
               <MotionWrapper
                 animationType="fadeUp"
                 delay={0.4}
-                className="w-full flex-1"
+                className="w-full flex-1 border-b border-border-color/40 md:border-b-0 md:border-r "
               >
                 <ProjectFilters
                   categories={categories}
