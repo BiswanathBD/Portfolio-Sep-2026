@@ -80,21 +80,22 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({
 
           {/* main technology stack */}
           {project.mainTech && (
-            <div className="mb-6 flex flex-wrap items-center justify-center gap-3 text-[10px] font-medium text-foreground/50 sm:text-xs">
+            <div className="mb-6 flex flex-wrap items-center gap-3 text-[10px] font-medium text-foreground/50 sm:text-xs">
+              <div className="grow h-[0.5px] bg-border-color"/>
               {project.mainTech.map((tech, idx) => (
                 <MotionWrapper
                   key={tech.name}
-                  animationType="fadeUp"
+                  animationType="fadeRight"
                   transitionType="spring"
                   delay={0.5 + idx * 0.1}
-                  className="flex items-center justify-center p-1.5 bg-border-color border border-border-color  rounded-full"
+                  className="flex items-center justify-center p-1 bg-border-color border border-border-color  rounded-full"
                 >
                   <Image
                     src={tech.icon}
                     alt={tech.name}
                     width={24}
                     height={24}
-                    className="h-4 w-4 object-contain"
+                    className="h-3 w-3 object-contain"
                   />
                 </MotionWrapper>
               ))}

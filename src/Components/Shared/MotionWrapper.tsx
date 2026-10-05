@@ -142,7 +142,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
         whileInView: { opacity: 1, scale: 1 },
         exit: { opacity: 0, scale: 0.95 },
         whileHover: { scale: hoverScale },
-        whileTap: { scale: 0.9 },
+        whileTap: { scale: 0.95 },
         transition: transition ?? {
           type: "tween",
           duration: 0.2,
@@ -210,7 +210,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
 
       heightIncrease: {
         initial: { height: 0 },
-        whileInView: { height: "100%" },
+        whileInView: { height: "auto" },
         exit: { height: 0 },
         transition: defaultTransition,
         viewport: { once },
@@ -218,7 +218,7 @@ export const MotionWrapper: React.FC<MotionWrapperProps> = ({
 
       widthIncrease: {
         initial: { width: 0 },
-        whileInView: { width: "100%" },
+        whileInView: { width: "auto" },
         exit: { width: 0 },
         transition: defaultTransition,
         viewport: { once },
