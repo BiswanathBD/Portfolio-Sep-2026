@@ -33,7 +33,6 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env
 .env*.local
 .env.development.local
 .env.test.local
@@ -48,7 +47,6 @@ next-env.d.ts
 
 # IDEs & Code Editors
 .idea/
-.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -70,3 +68,4 @@ desktop.ini
 .cache
 .eslintcache
 .stylelintcache
+config.bat
