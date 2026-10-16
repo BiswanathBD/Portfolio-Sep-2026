@@ -166,7 +166,7 @@ const Navigation = ({
           <MotionWrapper
             animationType="fadeLeft"
             transitionType="spring"
-            delay={1}
+            delay={activeIndex * 0.1}
             className="pointer-events-none absolute left-0 right-0 top-0 z-0 h-12"
           >
             <div
@@ -196,11 +196,10 @@ const Navigation = ({
                 ? item.href
                 : `/#${item.section}`;
 
-          const commonClassName = `group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-colors duration-300 ${
-            isActive
-              ? "font-medium text-foreground"
-              : "text-foreground/60 hover:text-foreground/90"
-          }`;
+          const commonClassName = `group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-colors duration-300 ${isActive
+            ? "font-medium text-foreground"
+            : "text-foreground/60 hover:text-foreground/90"
+            }`;
 
           return (
             <MotionWrapper
@@ -219,9 +218,8 @@ const Navigation = ({
                   <div className="z-10 flex shrink-0 items-center justify-center pl-2">
                     <Icon
                       aria-hidden="true"
-                      className={`h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110 group-hover:text-accent ${
-                        isActive ? "text-primary" : "text-foreground/70"
-                      }`}
+                      className={`h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110 group-hover:text-accent ${isActive ? "text-primary" : "text-foreground/70"
+                        }`}
                     />
                   </div>
 
