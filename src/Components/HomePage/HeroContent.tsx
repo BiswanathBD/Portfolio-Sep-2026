@@ -62,14 +62,14 @@ const HeroContent = ({ data }: HeroContentProps) => {
         <div className="relative h-16 w-px overflow-hidden">
           <MotionWrapper
             animationType="heightIncrease"
-            className="h-full w-full"
+            className="absolute left-0 top-0 bottom-0 w-px origin-top overflow-hidden"
             transition={{
               duration: topLineDuration,
               delay: topLineDelay,
               ease: "easeInOut",
             }}
           >
-            <span className="block h-full w-full bg-linear-to-t from-accent" />
+            <div className="h-full w-full bg-linear-to-t from-accent" />
           </MotionWrapper>
         </div>
         {data.socialLinks.map((social, idx) => {
@@ -107,17 +107,17 @@ const HeroContent = ({ data }: HeroContentProps) => {
           );
         })}
 
-        <div className="h-16 w-px overflow-hidden">
+        <div className="relative h-16 w-px overflow-hidden">
           <MotionWrapper
             animationType="heightIncrease"
-            className="h-full"
+            className="absolute left-0 top-0 bottom-0 w-px origin-top overflow-hidden"
             transition={{
               duration: topLineDuration,
               delay: bottomLineDelay,
               ease: "easeInOut",
             }}
           >
-            <span className="block h-full w-full bg-linear-to-b from-accent" />
+            <div className="h-full w-full bg-linear-to-b from-accent" />
           </MotionWrapper>
         </div>
       </nav>
