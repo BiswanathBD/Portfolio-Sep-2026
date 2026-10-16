@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+.vscode/
 api.js
 /fonts
 
