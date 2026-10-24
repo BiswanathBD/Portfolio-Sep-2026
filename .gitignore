@@ -10,11 +10,6 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-api.js
-/fonts
-
 # next.js
 /.next/
 /out/
@@ -47,14 +42,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# IDEs & Code Editors
-.idea/
-!.vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.vscode/
+api.js
+api.ts
+**/public/fonts/
 
 # OS generated files
 Thumbs.db
