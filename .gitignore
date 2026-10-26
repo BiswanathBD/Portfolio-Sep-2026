@@ -47,7 +47,7 @@ next-env.d.ts
 .vscode/task.json
 api.js
 api.ts
-**/public/fonts/
+**/public/fonts
 
 # OS generated files
 Thumbs.db
