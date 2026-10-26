@@ -43,8 +43,6 @@ yarn-error.log*
 next-env.d.ts
 
 # security 
-.vscode
-.vscode/task.json
 api.js
 api.ts
 **/public/fonts
