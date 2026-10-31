@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 type LogoSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -13,6 +13,77 @@ interface LogoProps {
   variant?: LogoVariant;
   className?: string;
 }
+
+// Exact Vector Fallback for the Biswanath code logo (< / >)
+export const LogoIconFallback: React.FC<{ className?: string }> = ({
+  className = "w-full h-full",
+}) => (
+  <svg
+    viewBox="0 0 500 500"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    aria-hidden="true"
+  >
+    <defs>
+      <linearGradient id="logoCyanBlue" x1="100%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#00F2FE" />
+        <stop offset="35%" stopColor="#00C9FF" />
+        <stop offset="100%" stopColor="#0072FF" />
+      </linearGradient>
+      <linearGradient id="logoOrangeRed" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#E11D48" />
+        <stop offset="35%" stopColor="#F43F5E" />
+        <stop offset="70%" stopColor="#FB923C" />
+        <stop offset="100%" stopColor="#F59E0B" />
+      </linearGradient>
+      <filter id="logoSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="2" stdDeviation="6" floodColor="#000000" floodOpacity="0.25" />
+      </filter>
+    </defs>
+
+    {/* Left Chevron (<) */}
+    <path
+      d="M 235 68 L 102 188 C 88 200 88 220 102 232 L 208 322"
+      stroke="url(#logoCyanBlue)"
+      strokeWidth="44"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+
+    {/* Right Chevron (>) */}
+    <path
+      d="M 292 178 L 398 268 C 412 280 412 300 398 312 L 265 432"
+      stroke="url(#logoOrangeRed)"
+      strokeWidth="44"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+
+    {/* Middle Slash (/) Outline */}
+    <line
+      x1="300"
+      y1="68"
+      x2="200"
+      y2="432"
+      stroke="rgba(192, 132, 252, 0.45)"
+      strokeWidth="46"
+      strokeLinecap="round"
+    />
+
+    {/* Middle Slash (/) White Core */}
+    <line
+      x1="300"
+      y1="68"
+      x2="200"
+      y2="432"
+      stroke="#FFFFFF"
+      strokeWidth="42"
+      strokeLinecap="round"
+      filter="url(#logoSoftGlow)"
+    />
+  </svg>
+);
 
 // Scale factors based on default 'md' (100% / 1.0)
 const scaleMap: Record<LogoSize, number> = {
@@ -28,6 +99,9 @@ const Logo: React.FC<LogoProps> = ({
   variant = "both",
   className = "",
 }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   const scale = scaleMap[size];
   const showIcon = variant === "both" || variant === "icon-only";
   const showText = variant === "both" || variant === "text-only";
@@ -72,21 +146,34 @@ const Logo: React.FC<LogoProps> = ({
               initial={false}
             />
 
-            {/* Logo Image */}
+            {/* Logo Image Container with Instant Fallback */}
             <motion.div
-              className="relative z-10 w-full h-full overflow-hidden rounded-xl border border-border-color group-hover:border-primary/50 transition-colors duration-300"
+              className="relative z-10 w-full h-full overflow-hidden rounded-xl border border-border-color group-hover:border-primary/50 transition-colors duration-300 bg-background/40 flex items-center justify-center p-1"
               whileHover={{ filter: "brightness(1.1)" }}
               transition={{ duration: 0.3 }}
             >
-              <Image
-                src="https://i.ibb.co.com/cKyjq19R/4897896.jpg"
-                alt="Biswanath Sarker"
-                fill
-                sizes="48px"
-                className="object-cover"
-                priority
-                unoptimized
-              />
+              {/* Instant Inline Vector Fallback (0ms paint, renders on load or error) */}
+              {(!imageLoaded || imageError) && (
+                <div className="absolute inset-0 flex items-center justify-center p-1.5">
+                  <LogoIconFallback className="w-full h-full object-contain" />
+                </div>
+              )}
+
+              {/* High-res Logo Image */}
+              {!imageError && (
+                <Image
+                  src="/assets/logo.png"
+                  alt="Biswanath Logo"
+                  fill
+                  sizes="48px"
+                  className={`object-contain p-1 transition-opacity duration-300 ${
+                    imageLoaded ? "opacity-100" : "opacity-0"
+                  }`}
+                  priority
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => setImageError(true)}
+                />
+              )}
             </motion.div>
 
             {/* Corner Accent Dots */}

@@ -30,10 +30,8 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env
+.env.*
 
 # vercel & deployment
 .vercel
@@ -67,7 +65,3 @@ config.bat
 .envrc
 .venv/
 venv/
-
-# Environment variables & secrets (added by GitHub Guardian)
-.env
-.env.*

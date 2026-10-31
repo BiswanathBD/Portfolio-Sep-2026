@@ -4,6 +4,7 @@ export interface ExperienceItem {
   company: string;
   companyLogo: string;
   companyUrl?: string;
+  companyLinkedin?: string;
   location: string;
   jobType: "Remote" | "On-site" | "Hybrid";
   employmentType: "Internship" | "Full-time" | "Part-time" | "Contract";
@@ -24,9 +25,9 @@ export const experienceData: ExperienceItem[] = [
     id: "rise-together-internship",
     role: "MERN Stack Developer Intern",
     company: "Rise Together",
-    companyLogo:
-      "https://scontent.fdac183-1.fna.fbcdn.net/v/t39.30808-6/671134194_122130811569118229_6337579141557797642_n.jpg?stp=dst-jpg_tt6&cstp=mx1500x1500&ctp=s1500x1500&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHr_bbOMTNBIz09hqkEGIh_4YstFA0PB67hiy0UDQ8HrrfWC8QohswSnWZTa6Rz59E8cSjH8Xfq8LxI_YKC8k4J&_nc_ohc=-ZUaTqDWGHYQ7kNvwFohDjo&_nc_oc=Adqq2t84ZwuHorEnphphYTFZquzsvIK8onQgpzZi_-slIYwhbU9CC4RSlUTYhy-sdPU&_nc_zt=23&_nc_ht=scontent.fdac183-1.fna&_nc_gid=TrOz17MiTC9WdSsHlETSHw&_nc_ss=7a2a8&oh=00_AQLN6x5SqfTPdJ5kE_PYRnPUj5nqt6rDNoBt1_S2WQBA9w&oe=6ABD8479",
+    companyLogo: "/assets/rise-together.png",
     companyUrl: "https://www.risetogetherbd.com",
+    companyLinkedin: "https://www.linkedin.com/company/risetogetherbd/posts/?feedView=all",
     location: "Remote",
     jobType: "Remote",
     employmentType: "Internship",

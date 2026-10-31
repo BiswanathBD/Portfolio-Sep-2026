@@ -1,11 +1,11 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, ExternalLink, MapPin } from "lucide-react";
 import { experienceData } from "@/data/experienceData";
 import Container from "../Shared/Container";
 import ExperienceCards from "../ExperienceCards";
 import { MotionWrapper } from "../Shared/MotionWrapper";
+import CompanyLogo from "./CompanyLogo";
 
 export const Experiences = () => {
   const experience = experienceData[0];
@@ -50,20 +50,15 @@ export const Experiences = () => {
           <div className="relative">
             <div className="w-fit mb-6 lg:mb-12">
               <MotionWrapper className="flex gap-4 lg:items-center">
-                {/* Company Logo */}
+                {/* Company Logo with Fallback and Click to Website */}
                 <MotionWrapper animationType="scale" delay={0.2}>
-                  <div className="flex shrink-0 items-center p-4">
-                    <div className="relative flex size-20 sm:size-36 lg:size-48 items-center justify-center rounded-full border border-border-color p-2 shadow-[0_0_90px_var(--color-border-color)] backdrop-blur-xl transition-shadow duration-500 hover:shadow-[0_0_100px_var(--color-border-color)]">
-                      <div className="pointer-events-none absolute inset-0 rounded-full bg-primary/5 blur-xl" />
-
-                      <Image
-                        src={experience.companyLogo}
-                        alt={`${experience.company} logo`}
-                        width={160}
-                        height={160}
-                        className="relative z-10 size-full rounded-full object-cover"
-                      />
-                    </div>
+                  <div className="flex shrink-0 items-center p-2 sm:p-4">
+                    <CompanyLogo
+                      src={experience.companyLogo}
+                      alt={`${experience.company} logo`}
+                      url={experience.companyUrl}
+                      companyName={experience.company}
+                    />
                   </div>
                 </MotionWrapper>
 
