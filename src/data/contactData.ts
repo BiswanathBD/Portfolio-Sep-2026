@@ -82,7 +82,7 @@ export const socialsData: SocialItem[] = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/biswanath-sarker-bd/",
+    href: "https://www.linkedin.com/in/biswanathsarker/",
     icon: FaLinkedinIn,
     color: "hover:text-blue-400",
     glow: "from-blue-400/20 to-blue-500/20",
