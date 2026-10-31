@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { navItems } from "@/data/navData";
+import { useActiveSection } from "@/hooks/useActiveSection";
 import { MotionWrapper } from "./Shared/MotionWrapper";
 import Logo from "./Shared/Logo";
 import { SectionNavigator } from "./SectionNavigator";
@@ -11,80 +12,7 @@ import Navigation from "./Shared/Navigation";
 
 const SideNavbar = () => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState("home");
-
-  const sectionElementsRef = useRef<HTMLElement[]>([]);
-  const activeSectionRef = useRef("home");
-  const animationFrameRef = useRef<number | null>(null);
-
-  const setCurrentSection = useCallback((section: string) => {
-    if (activeSectionRef.current === section) return;
-
-    activeSectionRef.current = section;
-    setActiveSection(section);
-  }, []);
-
-  const collectSections = useCallback(() => {
-    sectionElementsRef.current = navItems
-      .map((item) => document.getElementById(item.section))
-      .filter((element): element is HTMLElement => element !== null);
-  }, []);
-
-  const updateActiveSection = useCallback(() => {
-    if (animationFrameRef.current !== null) return;
-
-    animationFrameRef.current = window.requestAnimationFrame(() => {
-      animationFrameRef.current = null;
-
-      const scrollY = window.scrollY;
-      const sections = sectionElementsRef.current;
-
-      if (scrollY < 200) {
-        setCurrentSection("home");
-        return;
-      }
-
-      const activationPosition = scrollY + 200;
-
-      for (let index = sections.length - 1; index >= 0; index--) {
-        const section = sections[index];
-
-        if (activationPosition >= section.offsetTop) {
-          setCurrentSection(section.id);
-          return;
-        }
-      }
-
-      setCurrentSection("home");
-    });
-  }, [setCurrentSection]);
-
-  useEffect(() => {
-    collectSections();
-    updateActiveSection();
-
-    const handleScroll = () => {
-      updateActiveSection();
-    };
-
-    const handleResize = () => {
-      collectSections();
-      updateActiveSection();
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-
-      if (animationFrameRef.current !== null) {
-        window.cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = null;
-      }
-    };
-  }, [collectSections, updateActiveSection]);
+  const { activeSection, scrollToSection } = useActiveSection();
 
   return (
     <MotionWrapper
@@ -107,7 +35,6 @@ const SideNavbar = () => {
         }}
         className="h-full flex flex-col"
       >
-        {/* line */}
         <MotionWrapper animationType="fade" duration={2}>
           <div
             aria-hidden="true"
@@ -115,7 +42,6 @@ const SideNavbar = () => {
           />
         </MotionWrapper>
 
-        {/* line glow */}
         <MotionWrapper animationType="fade" delay={1} duration={2}>
           <div
             aria-hidden="true"
@@ -124,7 +50,6 @@ const SideNavbar = () => {
         </MotionWrapper>
 
         <div className="flex h-full flex-col sm:justify-between">
-          {/* header */}
           <header className="relative mb-8 flex h-14 items-center justify-between px-4">
             <div className="flex min-w-0 flex-1 items-center">
               <AnimatePresence mode="wait">
@@ -132,7 +57,6 @@ const SideNavbar = () => {
               </AnimatePresence>
             </div>
 
-            {/* expand / collapse */}
             <button
               type="button"
               onClick={() => setIsExpanded((previous) => !previous)}
@@ -160,20 +84,20 @@ const SideNavbar = () => {
             </button>
           </header>
 
-          {/* navigation */}
           <Navigation
             activeSection={activeSection}
             isExpanded={isExpanded}
             setIsExpanded={setIsExpanded}
+            onSectionNavigate={scrollToSection}
           />
 
-          {/* section navigator */}
           <div className="flex items-center justify-center pb-2 pt-4">
             <SectionNavigator
               navItems={navItems}
               activeSection={activeSection}
               isExpanded={isExpanded}
               setIsExpanded={setIsExpanded}
+              onSectionNavigate={scrollToSection}
             />
           </div>
         </div>

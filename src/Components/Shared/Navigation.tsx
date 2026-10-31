@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useState, useRef } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navItems } from "@/data/navData";
@@ -11,6 +11,7 @@ interface NavigationProps {
   isExpanded: boolean;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsExpanded?: React.Dispatch<React.SetStateAction<boolean>>;
+  onSectionNavigate?: (sectionId: string) => void;
 }
 
 const ITEM_HEIGHT = 48;
@@ -18,100 +19,22 @@ const ITEM_GAP = 8;
 const STEP_OFFSET = ITEM_HEIGHT + ITEM_GAP;
 
 const Navigation = ({
-  activeSection: parentActiveSection,
+  activeSection,
   isExpanded,
   setIsOpen,
   setIsExpanded,
+  onSectionNavigate,
 }: NavigationProps) => {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
-  const [localActiveSection, setLocalActiveSection] = useState<string>("");
-  const isClickScrolling = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (!isHomePage) return;
-
-    let observer: IntersectionObserver | null = null;
-
-    const setupObserver = () => {
-      const observedElements: HTMLElement[] = [];
-
-      navItems.forEach((item) => {
-        if (item.section) {
-          const el = document.getElementById(item.section);
-          if (el) observedElements.push(el);
-        }
-      });
-
-      if (observedElements.length === 0) return;
-
-      observer = new IntersectionObserver(
-        (entries) => {
-          if (isClickScrolling.current) return;
-
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setLocalActiveSection(entry.target.id);
-            }
-          });
-        },
-        {
-          root: null,
-          rootMargin: "-20% 0px -40% 0px",
-          threshold: 0.1,
-        },
-      );
-
-      observedElements.forEach((el) => observer?.observe(el));
-    };
-
-    const timeoutId = setTimeout(setupObserver, 300);
-
-    const hash = window.location.hash.replace("#", "");
-    if (hash) {
-      const element = document.getElementById(hash);
-      if (element) {
-        isClickScrolling.current = true;
-
-        setTimeout(() => {
-          setLocalActiveSection(hash);
-          element.scrollIntoView({ behavior: "smooth" });
-
-          setTimeout(() => {
-            isClickScrolling.current = false;
-          }, 800);
-        }, 200);
-      }
-    }
-
-    return () => {
-      clearTimeout(timeoutId);
-      if (observer) observer.disconnect();
-    };
-  }, [pathname, isHomePage]);
-
-  const effectiveActiveSection = useMemo(() => {
-    if (!isHomePage) return "";
-    return localActiveSection || parentActiveSection || "";
-  }, [isHomePage, localActiveSection, parentActiveSection]);
-
   const activeIndex = useMemo(() => {
     if (isHomePage) {
       const index = navItems.findIndex(
-        (item) => item.section === effectiveActiveSection,
+        (item) => item.section === activeSection,
       );
 
-      if (index !== -1) return index;
-      if (typeof window !== "undefined" && window.location.hash) {
-        const hashSection = window.location.hash.replace("#", "");
-        const hashIndex = navItems.findIndex(
-          (item) => item.section === hashSection,
-        );
-        if (hashIndex !== -1) return hashIndex;
-      }
-
-      return 0;
+      return index === -1 ? 0 : index;
     }
 
     const currentRootPath = pathname.split("/")[1]?.toLowerCase();
@@ -128,45 +51,30 @@ const Navigation = ({
         (item.route && item.route !== "/" && pathname.startsWith(item.route))
       );
     });
-  }, [pathname, isHomePage, effectiveActiveSection]);
+  }, [pathname, isHomePage, activeSection]);
 
-  const handleLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    targetHref: string,
-    sectionId?: string,
-  ) => {
-    setIsExpanded?.(false);
+  const closeMenus = () => {
     setIsOpen?.(false);
-    console.log(isExpanded);
+    setIsExpanded?.(false);
+  };
 
-    if (isHomePage && targetHref.startsWith("#")) {
-      e.preventDefault();
-      const targetId = targetHref.replace("#", "");
-      const element = document.getElementById(targetId);
-
-      if (element) {
-        isClickScrolling.current = true;
-        if (sectionId) setLocalActiveSection(sectionId);
-
-        element.scrollIntoView({ behavior: "smooth" });
-        window.history.pushState(null, "", targetHref);
-
-        setTimeout(() => {
-          isClickScrolling.current = false;
-        }, 800);
-      }
-    }
+  const handleHashClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string,
+  ) => {
+    event.preventDefault();
+    closeMenus();
+    onSectionNavigate?.(sectionId);
   };
 
   return (
     <nav aria-label="Primary navigation" className="flex flex-col">
       <ul className="relative m-0 flex list-none flex-col gap-2 p-0">
-        {/* Active Highlight Indicator */}
         {activeIndex !== -1 && (
           <MotionWrapper
             animationType="fadeLeft"
             transitionType="spring"
-            delay={activeIndex * 0.1}
+            delay={0.2}
             className="pointer-events-none absolute left-0 right-0 top-0 z-0 h-12"
           >
             <div
@@ -180,26 +88,52 @@ const Navigation = ({
           </MotionWrapper>
         )}
 
-        {/* Navigation List Items */}
         {navItems.map((item, index) => {
           const isActive = index === activeIndex;
           const Icon = item.icon;
-          const targetHref = isHomePage
-            ? item.href.startsWith("/") && item.href.includes("#")
-              ? item.href.substring(item.href.indexOf("#"))
-              : item.href.startsWith("#")
-                ? item.href
-                : `/#${item.section}`
-            : item.href.startsWith("#")
-              ? `/${item.href}`
-              : item.href.includes("#")
-                ? item.href
-                : `/#${item.section}`;
+          const hashHref = `#${item.section}`;
+          const pageHref = item.href.startsWith("#")
+            ? `/${item.href}`
+            : item.href.includes("#")
+              ? item.href
+              : `/#${item.section}`;
 
-          const commonClassName = `group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-colors duration-300 ${isActive
-            ? "font-medium text-foreground"
-            : "text-foreground/60 hover:text-foreground/90"
-            }`;
+          const commonClassName = `group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-colors duration-300 ${
+            isActive
+              ? "font-medium text-foreground"
+              : "text-foreground/60 hover:text-foreground/90"
+          }`;
+
+          const linkContent = (
+            <>
+              <div className="z-10 flex shrink-0 items-center justify-center pl-2">
+                <Icon
+                  aria-hidden="true"
+                  className={`h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110 group-hover:text-accent ${
+                    isActive ? "text-primary" : "text-foreground/70"
+                  }`}
+                />
+              </div>
+
+              {isExpanded && (
+                <MotionWrapper
+                  animationType="staggerChild"
+                  delay={index * 0.04}
+                  className="z-10"
+                >
+                  <span className="ml-3 overflow-hidden whitespace-nowrap text-sm font-medium transition-all duration-300 group-hover:ml-3.5 group-hover:text-accent">
+                    {item.name}
+                  </span>
+                </MotionWrapper>
+              )}
+
+              {!isExpanded && (
+                <div className="pointer-events-none absolute left-full z-50 ml-3 rounded-md bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground opacity-0 shadow-xl transition-all duration-300 group-hover:opacity-100">
+                  {item.name}
+                </div>
+              )}
+            </>
+          );
 
           return (
             <MotionWrapper
@@ -209,38 +143,25 @@ const Navigation = ({
               delay={0.3 + index * 0.1}
             >
               <li className="relative z-10">
-                <Link
-                  href={targetHref}
-                  aria-current={isActive ? "page" : undefined}
-                  className={commonClassName}
-                  onClick={(e) => handleLinkClick(e, targetHref, item.section)}
-                >
-                  <div className="z-10 flex shrink-0 items-center justify-center pl-2">
-                    <Icon
-                      aria-hidden="true"
-                      className={`h-5 w-5 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110 group-hover:text-accent ${isActive ? "text-primary" : "text-foreground/70"
-                        }`}
-                    />
-                  </div>
-
-                  {isExpanded && (
-                    <MotionWrapper
-                      animationType="staggerChild"
-                      delay={index * 0.04}
-                      className="z-10"
-                    >
-                      <span className="ml-3 overflow-hidden whitespace-nowrap text-sm font-medium transition-all duration-300 group-hover:ml-3.5 group-hover:text-accent">
-                        {item.name}
-                      </span>
-                    </MotionWrapper>
-                  )}
-
-                  {!isExpanded && (
-                    <div className="pointer-events-none absolute left-full z-50 ml-3 rounded-md bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground opacity-0 shadow-xl transition-all duration-300 group-hover:opacity-100">
-                      {item.name}
-                    </div>
-                  )}
-                </Link>
+                {isHomePage ? (
+                  <a
+                    href={hashHref}
+                    aria-current={isActive ? "page" : undefined}
+                    className={commonClassName}
+                    onClick={(event) => handleHashClick(event, item.section)}
+                  >
+                    {linkContent}
+                  </a>
+                ) : (
+                  <Link
+                    href={pageHref}
+                    aria-current={isActive ? "page" : undefined}
+                    className={commonClassName}
+                    onClick={closeMenus}
+                  >
+                    {linkContent}
+                  </Link>
+                )}
               </li>
             </MotionWrapper>
           );

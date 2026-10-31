@@ -28,10 +28,7 @@ export const Contact = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <section
-        id="contact"
-        className="container relative z-20 mx-auto px-4 py-20 md:px-8 lg:px-16 xl:px-24"
-      >
+      <section className="container relative z-20 mx-auto px-4 py-20 md:px-8 lg:px-16 xl:px-24">
         <div className="pointer-events-none absolute top-20 left-10 -z-10 h-80 w-80 rounded-full bg-primary/10 blur-[100px]" />
 
         {/* Main Grid Layout */}

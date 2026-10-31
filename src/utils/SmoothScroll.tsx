@@ -4,19 +4,22 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setLenisInstance } from "@/utils/lenisController";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 2,
+      autoRaf: false,
+      duration: 1.2,
       smoothWheel: true,
       syncTouch: true,
       wheelMultiplier: 1.5,
       touchMultiplier: 1,
     });
 
+    setLenisInstance(lenis);
     lenis.on("scroll", ScrollTrigger.update);
 
     const update = (time: number) => {
@@ -31,18 +34,34 @@ export default function SmoothScroll() {
       ScrollTrigger.refresh();
     };
 
+    const scrollToHash = () => {
+      const hash = window.location.hash;
+      if (!hash) return;
+
+      const element = document.querySelector(hash);
+      if (element instanceof HTMLElement) {
+        lenis.scrollTo(element, {
+          offset: window.innerWidth < 640 ? -88 : 0,
+          duration: 1.2,
+        });
+      }
+    };
+
     window.addEventListener("resize", handleResize);
+    window.addEventListener("hashchange", scrollToHash);
 
     const refresh = window.setTimeout(() => {
       lenis.resize();
       ScrollTrigger.refresh();
-    }, 100);
+      scrollToHash();
+    }, 120);
 
     return () => {
       window.clearTimeout(refresh);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("hashchange", scrollToHash);
       gsap.ticker.remove(update);
-
+      setLenisInstance(null);
       lenis.destroy();
     };
   }, []);

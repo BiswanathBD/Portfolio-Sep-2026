@@ -17,6 +17,7 @@ interface SectionNavigatorProps {
   activeSection: string;
   isExpanded: boolean;
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  onSectionNavigate: (sectionId: string) => void;
 }
 
 export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
@@ -24,6 +25,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   activeSection,
   isExpanded,
   setIsExpanded,
+  onSectionNavigate,
 }) => {
   const [animatingBtn, setAnimatingBtn] = useState<
     "prev" | "next" | "top" | null
@@ -34,25 +36,6 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   );
 
   const isAtBottom = currentIndex === navItems.length - 1;
-
-  const scrollToSection = (sectionId: string) => {
-    if (sectionId === "home") {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-      return;
-    }
-
-    const element = document.getElementById(sectionId);
-
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
 
   const triggerClickAnimation = (
     btnType: "prev" | "next" | "top",
@@ -69,7 +52,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   const handlePrev = () => {
     if (currentIndex > 0) {
       triggerClickAnimation("prev", () => {
-        scrollToSection(navItems[currentIndex - 1].section);
+        onSectionNavigate(navItems[currentIndex - 1].section);
         setIsExpanded(false);
       });
     }
@@ -78,7 +61,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
   const handleNext = () => {
     if (currentIndex < navItems.length - 1) {
       triggerClickAnimation("next", () => {
-        scrollToSection(navItems[currentIndex + 1].section);
+        onSectionNavigate(navItems[currentIndex + 1].section);
         setIsExpanded(false);
       });
     }
@@ -86,7 +69,7 @@ export const SectionNavigator: React.FC<SectionNavigatorProps> = ({
 
   const handleScrollToTop = () => {
     triggerClickAnimation("top", () => {
-      scrollToSection("home");
+      onSectionNavigate("home");
       setIsExpanded(false);
     });
   };

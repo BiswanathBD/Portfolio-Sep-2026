@@ -5,7 +5,7 @@ import Logo from "./Shared/Logo";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Container from "./Shared/Container";
 import { MotionWrapper } from "./Shared/MotionWrapper";
-import { navItems } from "@/data/navData";
+import { useActiveSection } from "@/hooks/useActiveSection";
 import { AnimatePresence, motion } from "framer-motion";
 import Navigation from "./Shared/Navigation";
 
@@ -13,72 +13,21 @@ const TopNavbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<string>("home");
+  const { activeSection, scrollToSection } = useActiveSection();
   const navRef = useRef<HTMLElement | null>(null);
 
   const lastScrollY = useRef<number>(0);
-  const sectionElementsRef = useRef<HTMLElement[]>([]);
-  const activeSectionRef = useRef<string>("home");
-  const animationFrameRef = useRef<number | null>(null);
 
-  // Active section management
-  const setCurrentSection = useCallback((section: string) => {
-    if (activeSectionRef.current === section) return;
-    activeSectionRef.current = section;
-    setActiveSection(section);
-  }, []);
-
-  const collectSections = useCallback(() => {
-    sectionElementsRef.current = navItems
-      .map((item) => document.getElementById(item.section))
-      .filter((element): element is HTMLElement => element !== null);
-  }, []);
-
-  const updateActiveSection = useCallback(() => {
-    if (animationFrameRef.current !== null) return;
-
-    animationFrameRef.current = window.requestAnimationFrame(() => {
-      animationFrameRef.current = null;
-
-      const scrollY = window.scrollY;
-      const sections = sectionElementsRef.current;
-
-      if (scrollY < 200) {
-        setCurrentSection("home");
-        return;
-      }
-
-      const activationPosition = scrollY + 200;
-
-      for (let index = sections.length - 1; index >= 0; index--) {
-        const section = sections[index];
-
-        if (activationPosition >= section.offsetTop) {
-          setCurrentSection(section.id);
-          return;
-        }
-      }
-
-      setCurrentSection("home");
-    });
-  }, [setCurrentSection]);
-
-  // Handle Navbar Visibility and Section Tracking
   useEffect(() => {
-    collectSections();
-    updateActiveSection();
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Check scroll top
       if (currentScrollY > 10) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
 
-      // Hide/Show navbar based on scroll direction
       if (currentScrollY <= 10) {
         setIsVisible(true);
       } else if (currentScrollY > lastScrollY.current) {
@@ -88,27 +37,14 @@ const TopNavbar: React.FC = () => {
       }
 
       lastScrollY.current = currentScrollY;
-      updateActiveSection();
-    };
-
-    const handleResize = () => {
-      collectSections();
-      updateActiveSection();
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-
-      if (animationFrameRef.current !== null) {
-        window.cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = null;
-      }
     };
-  }, [collectSections, updateActiveSection]);
+  }, []);
 
   const handleOutsideClick = useCallback(
     (event: PointerEvent) => {
@@ -226,6 +162,7 @@ const TopNavbar: React.FC = () => {
                   activeSection={activeSection}
                   isExpanded={true}
                   setIsOpen={setIsOpen}
+                  onSectionNavigate={scrollToSection}
                 />
               </div>
             </motion.aside>
