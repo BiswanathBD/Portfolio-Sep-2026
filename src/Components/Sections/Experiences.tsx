@@ -15,7 +15,7 @@ export const Experiences = () => {
     "@type": "Person",
     name: "Biswanath Sarker",
     jobTitle: experience.role,
-    url: "https://biswanath.vercel.app",
+    url: "https://www.biswanathsarker.com",
     worksFor: {
       "@type": "Organization",
       name: experience.company,

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const portfolioMetadata: Metadata = {
-  metadataBase: new URL("https://biswanath.vercel.app"),
+  metadataBase: new URL("https://www.biswanathsarker.com"),
 
   title: {
     default: "Biswanath Sarker | MERN Stack Developer",
@@ -35,7 +35,7 @@ export const portfolioMetadata: Metadata = {
   creator: "Biswanath Sarker",
 
   alternates: {
-    canonical: "https://biswanath.vercel.app",
+    canonical: "https://www.biswanathsarker.com",
   },
 
   icons: {
@@ -47,7 +47,7 @@ export const portfolioMetadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://biswanath.vercel.app",
+    url: "https://www.biswanathsarker.com",
     title: "Biswanath Sarker | MERN Stack Developer",
     description:
       "Crafting modern, responsive, and user-friendly web applications with passion and precision.",

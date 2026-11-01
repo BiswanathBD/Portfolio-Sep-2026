@@ -34,7 +34,7 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "Biswanath Sarker",
     alternateName: "Biswanath",
-    url: "https://biswanath.vercel.app",
+    url: "https://www.biswanathsarker.com",
   };
 
   return (
