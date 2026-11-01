@@ -86,6 +86,7 @@ export const portfolioMetadata: Metadata = {
   },
 
   verification: {
-    google: "i0aRoegdik7oijpsT4HPl7FLYrUw3E8YpoeJASi9s-s",
+    // google: "i0aRoegdik7oijpsT4HPl7FLYrUw3E8YpoeJASi9s-s",
+    google: "VL2H8b1HOAUsMVuzryfqdvg1QLTwrgJ1lhaM_HzdfFM",
   },
 };
