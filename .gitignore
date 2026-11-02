@@ -1,67 +1,33 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
 
-# next.js
+# next.js build & output
 /.next/
 /out/
-
-# production
 /build
 /dist
 
-# misc
+# misc & logs
 .DS_Store
 *.pem
 *.log
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 .pnpm-debug.log*
 
 # env files
 .env
 .env.*
+!.env.example
 
 # vercel & deployment
 .vercel
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
-
-# security 
-api.js
-api.ts
-**/public/fonts
 
 # OS generated files
 Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
 desktop.ini
 
-# Temporary files & caches
-.turbo
+# temporary files & caches
 .cache
 .eslintcache
-.stylelintcache
-config.bat
-
-# Environment variables & secrets (added by GitHub Guardian)
-*.env
-!.env.example
-!.env.sample
-.envrc
-.venv/
-venv/
