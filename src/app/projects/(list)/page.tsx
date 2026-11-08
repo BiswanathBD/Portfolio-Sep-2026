@@ -135,3 +135,4 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
 };
 
 export default AllProjectsPage;
+
