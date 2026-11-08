@@ -33,6 +33,7 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({
             src={project.image}
             alt={project.title}
             fill
+            loading="eager"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
             className="object-cover object-top transition-transform duration-700 ease-out group-hover/image:scale-[1.035]"
           />
@@ -81,7 +82,7 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({
           {/* main technology stack */}
           {project.mainTech && (
             <div className="mb-6 flex flex-wrap items-center gap-3 text-[10px] font-medium text-foreground/50 sm:text-xs">
-              <div className="grow h-[0.5px] bg-border-color"/>
+              <div className="grow h-[0.5px] bg-border-color" />
               {project.mainTech.map((tech, idx) => (
                 <MotionWrapper
                   key={tech.name}

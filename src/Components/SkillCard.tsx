@@ -109,6 +109,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({ category, idx }) => {
                           alt={`${skill.name} icon`}
                           width={16}
                           height={16}
+                          unoptimized
                           className="w-4 h-4 object-contain"
                         />
                       </div>

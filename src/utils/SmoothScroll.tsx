@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { setLenisInstance } from "@/utils/lenisController";
+import { setLenisInstance, getLenisInstance } from "@/utils/lenisController";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Lenis init 1 time
   useEffect(() => {
     const lenis = new Lenis({
       autoRaf: false,
@@ -65,6 +70,27 @@ export default function SmoothScroll() {
       lenis.destroy();
     };
   }, []);
+
+  // Route change scroll reset
+  useEffect(() => {
+    const lenis = getLenisInstance();
+
+    if (lenis) {
+      lenis.scrollTo(0, {
+        immediate: true,
+        force: true,
+      });
+    } else {
+      window.scrollTo(0, 0);
+    }
+
+    // Scrolltrigger refresh
+    const t = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+
+    return () => clearTimeout(t);
+  }, [pathname, searchParams]);
 
   return null;
 }
