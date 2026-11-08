@@ -75,15 +75,15 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
       />
 
       {/* give space for mobile navbar */}
-      <section className="relative py-24 sm:py-12 md:py-24 w-full text-foreground">
+      <section className="relative py-24 sm:py-12 md:py-10 w-full text-foreground">
         <Container>
           <div className="relative grid grid-cols-1 items-start gap-8 sm:gap-10 md:grid-cols-3 md:gap-12 xl:grid-cols-4 xl:gap-24">
             {/* Filter */}
-            <aside className="z-50 flex flex-col md:sticky md:top-24 md:min-h-[calc(100vh-192px)] md:self-start">
+            <aside className="z-50 flex flex-col md:sticky md:top-10 md:min-h-[calc(100vh-192px)] md:self-start">
               <div className="mb-6 shrink-0 text-center md:text-right">
                 <MotionWrapper animationType="fadeLeft" delay={0.1}>
                   <h2 className="text-xl font-extrabold text-accent lg:text-2xl">
-                    Relevant Projects
+                    Projects
                   </h2>
                 </MotionWrapper>
 

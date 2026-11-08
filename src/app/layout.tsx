@@ -7,6 +7,7 @@ import SideNavbar from "@/Components/SideNavbar";
 import TopNavbar from "@/Components/TopNavbar";
 import Footer from "@/Components/Sections/Footer";
 import { portfolioMetadata } from "@/data/metadata";
+import ScrollToTop from "@/Components/Shared/ScrollToTop";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export default function RootLayout({
         <CustomCursor />
         <GlobalBackground />
         <SmoothScroll />
+        <ScrollToTop />
 
         {/* Mobile top nav */}
         <header className="sm:hidden">

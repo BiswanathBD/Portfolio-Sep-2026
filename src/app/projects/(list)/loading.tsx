@@ -3,17 +3,17 @@ import Container from "@/Components/Shared/Container";
 
 export default function ProjectsLoading() {
   return (
-    <section className="relative py-24 sm:py-12 md:py-24 w-full h-screen overflow-hidden text-foreground">
+    <section className="relative py-24 sm:py-12 w-full h-screen overflow-hidden text-foreground">
       {/* Background ambient glow */}
       <div className="absolute top-1/4 left-1/3 size-96 bg-primary/5 rounded-full blur-[180px] pointer-events-none -z-10" />
 
       <Container>
         <div className="relative grid grid-cols-1 items-start gap-8 sm:gap-10 md:grid-cols-3 md:gap-12 xl:grid-cols-4 xl:gap-24">
           {/* Left: Filter Sidebar Skeleton */}
-          <aside className="flex flex-col md:sticky md:top-24 md:min-h-[calc(100vh-192px)] md:self-start">
+          <aside className="flex flex-col md:sticky md:top-12 md:min-h-[calc(100vh-192px)] md:self-start">
             <div className="mb-6 shrink-0 text-center md:text-right space-y-2">
-              <div className="h-6 sm:h-7 w-40 sm:w-48 ml-auto mr-auto md:mr-0 md:ml-auto rounded-lg bg-white/5 animate-pulse" />
-              <div className="h-3.5 w-52 sm:w-60 ml-auto mr-auto md:mr-0 md:ml-auto rounded bg-white/5 animate-pulse" />
+              <div className="h-6 sm:h-7 w-20 sm:w-24 ml-auto mr-auto md:mr-0 md:ml-auto rounded bg-white/5 animate-pulse" />
+              <div className="h-3.5 w-40 sm:w-48 ml-auto mr-auto md:mr-0 md:ml-auto rounded bg-white/5 animate-pulse" />
             </div>
 
             <div className="w-full flex-1 border-b border-border-color/40 md:border-b-0 md:border-r md:pr-6 space-y-4 pt-2">
