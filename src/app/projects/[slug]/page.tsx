@@ -117,7 +117,7 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
             className="mb-6 md:mb-12"
           >
             <Link
-              href="/#projects"
+              href="/projects"
               className="inline-flex items-center gap-2 py-2 group shadow-sm"
             >
               <ArrowLeft className="size-4 text-accent transition-transform duration-500 group-hover:-translate-x-1" />
