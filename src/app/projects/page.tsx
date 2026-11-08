@@ -1,9 +1,19 @@
 import React from "react";
+import type { Metadata } from "next";
 import { projectsData } from "@/data/projectData";
 import Container from "@/Components/Shared/Container";
 import { ProjectFilters } from "@/Components/ProjectsPage/ProjectFilters";
 import { ProjectGridCard } from "@/Components/ProjectsPage/ProjectGridCard";
 import { MotionWrapper } from "@/Components/Shared/MotionWrapper";
+
+export const metadata: Metadata = {
+  title: "Projects | Biswanath Sarker - MERN Stack Developer",
+  description:
+    "Explore full-stack and MERN web applications built by Biswanath Sarker using React, Next.js, TypeScript, Node.js, and MongoDB.",
+  alternates: {
+    canonical: "/projects",
+  }
+};
 
 interface PageProps {
   searchParams: Promise<{
@@ -39,8 +49,9 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
   const projectListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "All Portfolio Projects",
-    description: "A showcase of web development projects.",
+    name: "All Portfolio Projects - Biswanath Sarker",
+    description: "A showcase of web development projects by Biswanath Sarker.",
+    url: "https://biswanathsarker.com/projects",
     itemListElement: filteredProjects.map((project, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -49,7 +60,7 @@ const AllProjectsPage = async ({ searchParams }: PageProps) => {
         name: project.title,
         description: project.description,
         image: project.image,
-        url: project.liveUrl,
+        url: `https://biswanathsarker.com/projects/${project.slug}`,
       },
     })),
   };

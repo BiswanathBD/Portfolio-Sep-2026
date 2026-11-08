@@ -28,13 +28,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Google Site Name Schema Data
+  // Google Site Name & Person Schema Data
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Biswanath Sarker",
-    alternateName: "Biswanath",
-    url: "https://www.biswanathsarker.com",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://biswanathsarker.com/#website",
+        name: "Biswanath Sarker",
+        alternateName: ["Biswanath", "biswanathsarker.com"],
+        url: "https://biswanathsarker.com/",
+      },
+      {
+        "@type": "Person",
+        "@id": "https://biswanathsarker.com/#person",
+        name: "Biswanath Sarker",
+        jobTitle: "MERN Stack Developer",
+        url: "https://biswanathsarker.com/",
+      },
+    ],
   };
 
   return (
@@ -42,13 +54,12 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${hindSiliguri.variable} antialiased w-full overflow-hidden scrollbar-none`}
     >
-      <head>
+      <body className="flex flex-col sm:flex-row justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body className="flex flex-col sm:flex-row justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+
         <CustomCursor />
         <GlobalBackground />
         <SmoothScroll />

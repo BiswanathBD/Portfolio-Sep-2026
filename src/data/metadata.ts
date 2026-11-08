@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 export const portfolioMetadata: Metadata = {
-  metadataBase: new URL("https://www.biswanathsarker.com"),
+  metadataBase: new URL("https://biswanathsarker.com"),
+  applicationName: "Biswanath Sarker",
 
   title: {
     default: "Biswanath Sarker | MERN Stack Developer",
@@ -9,33 +10,34 @@ export const portfolioMetadata: Metadata = {
   },
 
   description:
-    "Portfolio of Biswanath Sarker — MERN Stack Web Developer specializing in React, Next.js, TypeScript, and modern UI/UX design.",
+    "MERN Stack Developer with hands-on experience building production-ready web applications using React, Next.js, TypeScript, and Node.js. Skilled in UI development, API integration, authentication, modern backend tools, technical SEO, and performance optimization.",
 
   keywords: [
     "Biswanath Sarker",
     "Biswanath",
-    "Web Developer",
     "MERN Stack Developer",
     "Full Stack Developer",
     "Frontend Developer",
-    "Backend Developer",
     "React Developer",
     "Next.js Developer",
     "TypeScript Developer",
+    "Node.js Developer",
+    "Express.js Developer",
     "Web Developer Bangladesh",
   ],
 
   authors: [
     {
       name: "Biswanath Sarker",
-      url: "https://github.com/BiswanathBD",
+      url: "https://biswanathsarker.com",
     },
   ],
 
   creator: "Biswanath Sarker",
+  publisher: "Biswanath Sarker",
 
   alternates: {
-    canonical: "https://www.biswanathsarker.com",
+    canonical: "/",
   },
 
   icons: {
@@ -47,10 +49,10 @@ export const portfolioMetadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.biswanathsarker.com",
+    url: "https://biswanathsarker.com",
     title: "Biswanath Sarker | MERN Stack Developer",
     description:
-      "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
+      "MERN Stack Developer with hands-on experience building production-ready web applications using React, Next.js, TypeScript, and Node.js. Skilled in UI development, API integration, authentication, modern backend tools, technical SEO, and performance optimization.",
     siteName: "Biswanath Sarker",
 
     images: [
@@ -66,12 +68,11 @@ export const portfolioMetadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Biswanath Sarker | MERN Stack Developer",
-
     description:
-      "Crafting modern, responsive, and user-friendly web applications with passion and precision.",
-
+      "MERN Stack Developer with hands-on experience building production-ready web applications using React, Next.js, TypeScript, and Node.js. Skilled in UI development, API integration, authentication, modern backend tools, technical SEO, and performance optimization.",
     images: ["/seo/og-image.png"],
   },
+
   robots: {
     index: true,
     follow: true,
