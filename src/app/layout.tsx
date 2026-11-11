@@ -36,7 +36,7 @@ export default function RootLayout({
         "@type": "WebSite",
         "@id": "https://biswanathsarker.com/#website",
         name: "Biswanath Sarker",
-        alternateName: ["Biswanath", "biswanathsarker.com"],
+        "alternateName": ["Biswanath", "Biswanath Sarker Portfolio"],
         url: "https://biswanathsarker.com/",
       },
       {

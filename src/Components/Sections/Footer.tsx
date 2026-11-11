@@ -5,6 +5,7 @@ import Link from "next/link";
 import { navItems } from "@/data/navData";
 import { socialsData } from "@/data/contactData";
 import { MotionWrapper } from "../Shared/MotionWrapper";
+import Container from "../Shared/Container";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,7 +25,8 @@ export const Footer = () => {
         duration={12}
       />
 
-      <div className="container mx-auto px-4 pb-8 pt-12 md:px-8 lg:px-16 xl:px-24">
+      <Container>
+      <div className="pb-8 pt-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Logo & Description */}
           <div className="space-y-3 text-center md:text-left">
@@ -149,6 +151,7 @@ export const Footer = () => {
           <p>© {currentYear} Biswanath Sarker. All rights reserved.</p>
         </MotionWrapper>
       </div>
+      </Container>
     </footer>
   );
 };
