@@ -15,33 +15,55 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+const isTouchDevice = () => {
+  if (typeof window === "undefined") return false;
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(pointer: coarse)").matches ||
+    window.innerWidth < 768
+  );
+};
+
 export default function SmoothScroll() {
   const pathname = usePathname();
   const isInitialMount = useRef(true);
 
-  // Lenis initialization and listeners
+  // Scroll initialization and listeners
   useEffect(() => {
-    const lenis = new Lenis({
-      autoRaf: false,
-      duration: 1.2,
-      smoothWheel: true,
-      syncTouch: true,
-      wheelMultiplier: 1.5,
-      touchMultiplier: 1,
-    });
+    const isTouch = isTouchDevice();
 
-    setLenisInstance(lenis);
-    lenis.on("scroll", ScrollTrigger.update);
+    let lenis: Lenis | null = null;
+    let updateTicker: ((time: number) => void) | null = null;
 
-    const update = (time: number) => {
-      lenis.raf(time * 1000);
-    };
+    if (!isTouch) {
+      // Desktop / Mouse: Enable Lenis smooth scrolling (syncTouch disabled)
+      lenis = new Lenis({
+        autoRaf: false,
+        duration: 1.2,
+        smoothWheel: true,
+        syncTouch: false,
+        wheelMultiplier: 1.2,
+        touchMultiplier: 0,
+      });
 
-    gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
+      setLenisInstance(lenis);
+      lenis.on("scroll", ScrollTrigger.update);
+
+      updateTicker = (time: number) => {
+        lenis?.raf(time * 1000);
+      };
+
+      gsap.ticker.add(updateTicker);
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      // Mobile / Touch: Use native smooth momentum scroll (Lenis OFF for touch)
+      setLenisInstance(null);
+      window.addEventListener("scroll", ScrollTrigger.update, { passive: true });
+    }
 
     const handleResize = () => {
-      lenis.resize();
+      lenis?.resize();
       ScrollTrigger.refresh();
     };
 
@@ -61,7 +83,7 @@ export default function SmoothScroll() {
 
     // Initial mount hash scroll check
     const initialTimer = window.setTimeout(() => {
-      lenis.resize();
+      lenis?.resize();
       ScrollTrigger.refresh();
 
       const initialHash = window.location.hash;
@@ -79,9 +101,16 @@ export default function SmoothScroll() {
       window.clearTimeout(initialTimer);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("hashchange", handleHashChange);
-      gsap.ticker.remove(update);
+
+      if (updateTicker) {
+        gsap.ticker.remove(updateTicker);
+      }
+      if (isTouch) {
+        window.removeEventListener("scroll", ScrollTrigger.update);
+      }
+
       setLenisInstance(null);
-      lenis.destroy();
+      lenis?.destroy();
     };
   }, []);
 
@@ -93,7 +122,9 @@ export default function SmoothScroll() {
     }
 
     const pending = getPendingSection();
-    const hash = window.location.hash ? window.location.hash.replace(/^#/, "") : null;
+    const hash = window.location.hash
+      ? window.location.hash.replace(/^#/, "")
+      : null;
     const targetSection = pending || hash;
 
     if (pathname === "/" && targetSection && targetSection !== "home") {
@@ -115,7 +146,7 @@ export default function SmoothScroll() {
           force: true,
         });
       } else {
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: "auto" });
       }
     }
 
@@ -128,3 +159,4 @@ export default function SmoothScroll() {
 
   return null;
 }
+

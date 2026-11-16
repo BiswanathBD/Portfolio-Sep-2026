@@ -60,16 +60,20 @@ export const scrollToTarget = (
       top: Math.max(0, target + offset),
       behavior: options?.immediate ? "auto" : "smooth",
     });
-  } else if (typeof target === "string") {
-    document.querySelector(target)?.scrollIntoView({
-      behavior: options?.immediate ? "auto" : "smooth",
-      block: "start",
-    });
   } else {
-    target.scrollIntoView({
-      behavior: options?.immediate ? "auto" : "smooth",
-      block: "start",
-    });
+    const element =
+      typeof target === "string"
+        ? (document.querySelector(target) as HTMLElement | null)
+        : target;
+
+    if (element) {
+      const targetTop =
+        element.getBoundingClientRect().top + window.scrollY + offset;
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: options?.immediate ? "auto" : "smooth",
+      });
+    }
   }
 
   window.setTimeout(() => options?.onComplete?.(), 800);

@@ -53,7 +53,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${nunito.variable} ${hindSiliguri.variable} antialiased w-full overflow-hidden scrollbar-none`}
+      className={`${nunito.variable} ${hindSiliguri.variable} antialiased w-full overflow-x-clip scrollbar-none`}
     >
       <body className="flex flex-col sm:flex-row justify-between font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <script
