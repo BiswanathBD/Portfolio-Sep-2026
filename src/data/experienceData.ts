@@ -2,7 +2,6 @@ export interface ExperienceItem {
   id: string;
   role: string;
   company: string;
-  companyLogo: string;
   companyUrl?: string;
   companyLinkedin?: string;
   location: string;
@@ -25,7 +24,6 @@ export const experienceData: ExperienceItem[] = [
     id: "rise-together-internship",
     role: "MERN Stack Developer Intern",
     company: "Rise Together",
-    companyLogo: "/assets/rise-together.png",
     companyUrl: "https://www.risetogetherbd.com",
     companyLinkedin: "https://www.linkedin.com/company/risetogetherbd/posts/?feedView=all",
     location: "Remote",

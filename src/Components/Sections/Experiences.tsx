@@ -5,7 +5,6 @@ import { experienceData } from "@/data/experienceData";
 import Container from "../Shared/Container";
 import ExperienceCards from "../ExperienceCards";
 import { MotionWrapper } from "../Shared/MotionWrapper";
-import CompanyLogo from "./CompanyLogo";
 
 export const Experiences = () => {
   const experience = experienceData[0];
@@ -50,29 +49,18 @@ export const Experiences = () => {
           <div className="relative">
             <div className="w-fit mb-6 lg:mb-12">
               <MotionWrapper className="flex gap-4 lg:items-center">
-                {/* Company Logo with Fallback and Click to Website */}
-                <MotionWrapper animationType="scale" delay={0.2}>
-                  <div className="flex shrink-0 items-center p-2 sm:p-4">
-                    <CompanyLogo
-                      src={experience.companyLogo}
-                      alt={`${experience.company} logo`}
-                      url={experience.companyUrl}
-                      companyName={experience.company}
-                    />
-                  </div>
-                </MotionWrapper>
 
                 {/* Experience Info */}
-                <div className="min-w-0 flex-1 my-auto md:p-6 md:border-l md:border-border-color/80">
+                <div className="min-w-0 flex-1 my-auto p-6 border-l border-border-color/80">
                   <MotionWrapper
                     animationType="fadeRight"
                     transitionType="spring"
                     delay={0.3}
                   >
                     <div className="mb-2 flex items-center gap-2">
-                      <span className="h-px w-4 bg-accent sm:w-8" />
+                      <span className="h-px w-4 bg-foreground/60 sm:w-8" />
 
-                      <span className="text-[10px] font-bold tracking-[0.16em] text-accent">
+                      <span className="text-[10px] font-bold tracking-[0.16em] text-foreground/60">
                         PROFESSIONAL EXPERIENCE
                       </span>
                     </div>
@@ -100,12 +88,6 @@ export const Experiences = () => {
                           {experience.company}
                         </span>
                       )}
-
-                      <span className="text-foreground/25">/</span>
-
-                      <span className="text-sm font-medium text-foreground/60">
-                        {experience.employmentType}
-                      </span>
                     </div>
                   </MotionWrapper>
 
