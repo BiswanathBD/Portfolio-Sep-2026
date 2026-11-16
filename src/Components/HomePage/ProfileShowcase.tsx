@@ -55,13 +55,22 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
   smoothVelocity,
   isInView,
 }) => {
+  const ringRef = useRef<HTMLDivElement>(null);
   const circleSizeClass = circleSize[circleIdx] || "w-[100%]";
   const isClockwise = circleIdx % 2 === 0;
   const initialAngle = getInitialRotation(circleIdx);
   const ringRotation = useMotionValue(initialAngle);
   const counterRotation = useTransform(ringRotation, (r) => -r);
 
-  // Dynamic glow and border opacity reacting to scroll velocity
+  // Pinwheel (chorki) drag & flick physics state
+  const isDraggingRef = useRef(false);
+  const extraVelocityRef = useRef(0); // in deg/ms
+  const centerRef = useRef({ x: 0, y: 0 });
+  const lastAngleRef = useRef(0);
+  const lastTimeRef = useRef(0);
+  const velocitySamplesRef = useRef<{ v: number; t: number }[]>([]);
+
+  // Dynamic glow and border opacity reacting to scroll or flick velocity
   const ringGlow = useTransform(
     smoothVelocity,
     [-1500, 0, 1500],
@@ -85,13 +94,107 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
   useAnimationFrame((time, delta) => {
     if (!isInView) return;
 
-    // React to scroll velocity: accelerates when scrolling in either direction
+    if (isDraggingRef.current) {
+      // While dragging, angle is directly updated by pointer movements
+      return;
+    }
+
+    // Decay flick velocity with natural pinwheel friction
+    const friction = Math.pow(0.965, delta / 16.66);
+    extraVelocityRef.current *= friction;
+
+    if (Math.abs(extraVelocityRef.current) < 0.0001) {
+      extraVelocityRef.current = 0;
+    }
+
+    // Scroll velocity boost
     const vel = Math.abs(smoothVelocity.get());
     const boost = 1 + Math.min(vel / 200, 6.5);
-    const moveBy = baseDegPerMs * delta * boost;
+    const ambientSpeed = baseDegPerMs * boost;
+
+    // Combined angular movement
+    const totalSpeed = ambientSpeed + extraVelocityRef.current;
+    const moveBy = totalSpeed * delta;
     const current = ringRotation.get();
     ringRotation.set((current + moveBy) % 360);
   });
+
+  // Pinwheel drag handlers attached to icons
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch (_) {}
+
+    isDraggingRef.current = true;
+    extraVelocityRef.current = 0; // stop ongoing inertia when grabbed
+
+    const rect = ringRef.current?.getBoundingClientRect();
+    if (rect) {
+      centerRef.current = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      };
+    }
+
+    const { x: cx, y: cy } = centerRef.current;
+    const angle = Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
+    lastAngleRef.current = angle;
+    lastTimeRef.current = performance.now();
+    velocitySamplesRef.current = [];
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+
+    const { x: cx, y: cy } = centerRef.current;
+    const newAngle =
+      Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
+    let dAngle = newAngle - lastAngleRef.current;
+
+    // Handle wrap-around between -180 and +180
+    if (dAngle > 180) dAngle -= 360;
+    else if (dAngle < -180) dAngle += 360;
+
+    const now = performance.now();
+    const dt = now - lastTimeRef.current;
+
+    // Update ring rotation directly with user's hand
+    ringRotation.set((ringRotation.get() + dAngle) % 360);
+
+    if (dt > 0) {
+      const v = dAngle / dt; // in deg/ms
+      velocitySamplesRef.current.push({ v, t: now });
+      velocitySamplesRef.current = velocitySamplesRef.current.filter(
+        (s) => now - s.t < 100,
+      );
+    }
+
+    lastAngleRef.current = newAngle;
+    lastTimeRef.current = now;
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch (_) {}
+
+    // Calculate release flick momentum
+    const now = performance.now();
+    const recent = velocitySamplesRef.current.filter((s) => now - s.t < 100);
+
+    if (recent.length > 0) {
+      const avgV = recent.reduce((sum, s) => sum + s.v, 0) / recent.length;
+      // Cap maximum flick speed for smooth physics
+      const maxFlick = 2.4; // ~2400 deg/s
+      extraVelocityRef.current = Math.max(-maxFlick, Math.min(maxFlick, avgV));
+    } else {
+      extraVelocityRef.current = 0;
+    }
+  };
 
   const zIndexClass = `z-[${10 - circleIdx}]`;
 
@@ -103,8 +206,9 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
       delay={0.2 + circleIdx * 0.15}
       className={`absolute inset-0 flex items-center justify-center pointer-events-none ${zIndexClass}`}
     >
-      {/* Rotating Ring Container reacting to scroll */}
+      {/* Rotating Ring Container reacting to scroll and pinwheel drag */}
       <motion.div
+        ref={ringRef}
         className={`absolute ${circleSizeClass} aspect-square rounded-full border border-border-color pointer-events-none`}
         style={{
           rotate: ringRotation,
@@ -120,7 +224,11 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
           return (
             <motion.div
               key={skill.name || skillIdx}
-              className={`absolute p-1.5 aspect-square rounded-full border border-primary/60 bg-linear-to-br from-border-color to-accent/15 shadow-[0_0_10px_var(--border-color)] scale-60 sm:scale-70 md:scale-100 lg:scale-50 xl:scale-100 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+              className={`absolute p-1.5 aspect-square rounded-full border border-primary/60 bg-linear-to-br from-border-color to-accent/15 shadow-[0_0_10px_var(--border-color)] scale-60 sm:scale-70 md:scale-100 lg:scale-50 xl:scale-100 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-grab active:cursor-grabbing select-none
                 ${skillIdx === 0 && "top-0 left-1/2"} 
                 ${skillIdx === 1 && "top-1/2 left-full"} 
                 ${skillIdx === 2 && "top-full left-1/2"} 
@@ -130,6 +238,7 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
                 width: dynamicDimension,
                 height: dynamicDimension,
                 willChange: "transform",
+                touchAction: "none",
               }}
               title={skill.name}
               animate={{
@@ -149,7 +258,7 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
               {/* Gyroscopic upright skill icon */}
               {skill.icon && (
                 <motion.div
-                  className="relative w-full h-full flex items-center justify-center"
+                  className="relative w-full h-full flex items-center justify-center select-none"
                   style={{
                     rotate: counterRotation,
                     willChange: "transform",
@@ -161,7 +270,8 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
                     fill
                     unoptimized
                     sizes="40px"
-                    className="object-contain pointer-events-none"
+                    draggable={false}
+                    className="object-contain pointer-events-none select-none"
                   />
                 </motion.div>
               )}
