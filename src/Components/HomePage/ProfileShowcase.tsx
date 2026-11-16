@@ -238,7 +238,7 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
               onPointerCancel={handlePointerUp}
-              className={`absolute p-1.5 aspect-square rounded-full border border-primary/60 bg-linear-to-br from-border-color to-accent/15 shadow-[0_0_10px_var(--border-color)] scale-60 sm:scale-70 md:scale-100 lg:scale-50 xl:scale-100 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-grab active:cursor-grabbing select-none
+              className={`absolute p-1.5 aspect-square rounded-full border border-primary/40 bg-linear-to-br from-border-color to-accent/10 shadow-[0_0_10px_var(--border-color)] scale-60 sm:scale-70 md:scale-100 lg:scale-50 xl:scale-100 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-grab active:cursor-grabbing select-none
                 ${skillIdx === 0 && "top-0 left-1/2"} 
                 ${skillIdx === 1 && "top-1/2 left-full"} 
                 ${skillIdx === 2 && "top-full left-1/2"} 
@@ -262,7 +262,6 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
               }}
               whileHover={{
                 scale: 1.25,
-                boxShadow: "0px 0px 20px var(--accent)",
               }}
             >
               {/* Gyroscopic upright skill icon */}
