@@ -3,8 +3,9 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navItems } from "@/data/navData";
+import { navItems, type NavItem } from "@/data/navData";
 import { MotionWrapper } from "./MotionWrapper";
+import { setPendingSection, scrollToTarget } from "@/utils/lenisController";
 
 interface NavigationProps {
   activeSection: string;
@@ -39,6 +40,14 @@ const Navigation = ({
 
     const currentRootPath = pathname.split("/")[1]?.toLowerCase();
 
+    // If activeSection was set to a section during cross-page transition
+    if (activeSection && activeSection !== "home" && activeSection !== "projects") {
+      const targetIndex = navItems.findIndex(
+        (item) => item.section === activeSection,
+      );
+      if (targetIndex !== -1) return targetIndex;
+    }
+
     return navItems.findIndex((item) => {
       const itemSection = item.section?.toLowerCase();
       const itemRoute = item.route?.replace(/^\//, "").toLowerCase();
@@ -58,13 +67,27 @@ const Navigation = ({
     setIsExpanded?.(false);
   };
 
-  const handleHashClick = (
+  const handleNavClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
-    sectionId: string,
+    item: NavItem,
   ) => {
-    event.preventDefault();
     closeMenus();
-    onSectionNavigate?.(sectionId);
+
+    if (isHomePage) {
+      event.preventDefault();
+      onSectionNavigate?.(item.section);
+      return;
+    }
+
+    // On non-home routes (e.g. /projects or /projects/[slug])
+    if (item.route === "/projects" && pathname === "/projects") {
+      event.preventDefault();
+      scrollToTarget(0);
+      return;
+    }
+
+    // Navigating back to home page sections
+    setPendingSection(item.section);
   };
 
   return (
@@ -92,11 +115,14 @@ const Navigation = ({
           const isActive = index === activeIndex;
           const Icon = item.icon;
           const hashHref = `#${item.section}`;
-          const pageHref = item.href.startsWith("#")
-            ? `/${item.href}`
-            : item.href.includes("#")
-              ? item.href
-              : `/#${item.section}`;
+          const pageHref =
+            !isHomePage && item.route === "/projects" && pathname.startsWith("/projects/")
+              ? "/projects"
+              : item.href.startsWith("#")
+                ? `/${item.href}`
+                : item.href.includes("#")
+                  ? item.href
+                  : `/#${item.section}`;
 
           const commonClassName = `group relative flex h-12 cursor-pointer items-center rounded-xl px-3 transition-colors duration-300 ${
             isActive
@@ -148,7 +174,7 @@ const Navigation = ({
                     href={hashHref}
                     aria-current={isActive ? "page" : undefined}
                     className={commonClassName}
-                    onClick={(event) => handleHashClick(event, item.section)}
+                    onClick={(event) => handleNavClick(event, item)}
                   >
                     {linkContent}
                   </a>
@@ -157,7 +183,7 @@ const Navigation = ({
                     href={pageHref}
                     aria-current={isActive ? "page" : undefined}
                     className={commonClassName}
-                    onClick={closeMenus}
+                    onClick={(event) => handleNavClick(event, item)}
                   >
                     {linkContent}
                   </Link>

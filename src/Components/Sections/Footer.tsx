@@ -2,13 +2,32 @@
 
 import React from "react";
 import Link from "next/link";
-import { navItems } from "@/data/navData";
+import { usePathname } from "next/navigation";
+import { navItems, type NavItem } from "@/data/navData";
 import { socialsData } from "@/data/contactData";
 import { MotionWrapper } from "../Shared/MotionWrapper";
 import Container from "../Shared/Container";
+import { setPendingSection, scrollToSectionElement } from "@/utils/lenisController";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+
+  const handleQuickLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    item: NavItem,
+  ) => {
+    if (pathname === "/") {
+      event.preventDefault();
+      scrollToSectionElement(item.section);
+      const nextHash = item.section === "home" ? "#home" : `#${item.section}`;
+      if (window.location.hash !== nextHash) {
+        window.history.pushState(null, "", nextHash);
+      }
+    } else {
+      setPendingSection(item.section);
+    }
+  };
 
   return (
     <footer className="relative bg-background">
@@ -78,6 +97,7 @@ export const Footer = () => {
                 >
                   <Link
                     href={item.href}
+                    onClick={(e) => handleQuickLinkClick(e, item)}
                     className="text-sm font-medium text-foreground/70 transition-colors duration-300 hover:text-accent hover:-translate-y-1"
                   >
                     {item.name}

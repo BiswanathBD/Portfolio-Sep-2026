@@ -1,18 +1,25 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { setLenisInstance, getLenisInstance } from "@/utils/lenisController";
+import {
+  setLenisInstance,
+  getLenisInstance,
+  getPendingSection,
+  setPendingSection,
+  scrollToSectionElement,
+} from "@/utils/lenisController";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll() {
   const pathname = usePathname();
+  const isInitialMount = useRef(true);
 
-  // Lenis init
+  // Lenis initialization and listeners
   useEffect(() => {
     const lenis = new Lenis({
       autoRaf: false,
@@ -38,56 +45,85 @@ export default function SmoothScroll() {
       ScrollTrigger.refresh();
     };
 
-    const scrollToHash = () => {
+    const handleHashChange = () => {
       const hash = window.location.hash;
       if (!hash) return;
-
-      const element = document.querySelector(hash);
-      if (element instanceof HTMLElement) {
-        lenis.scrollTo(element, {
-          offset: window.innerWidth < 640 ? -88 : 0,
-          duration: 1.2,
-        });
-      }
+      scrollToSectionElement(hash, {
+        duration: 1.2,
+        onComplete: () => {
+          ScrollTrigger.refresh();
+        },
+      });
     };
 
     window.addEventListener("resize", handleResize);
-    window.addEventListener("hashchange", scrollToHash);
+    window.addEventListener("hashchange", handleHashChange);
 
-    const refresh = window.setTimeout(() => {
+    // Initial mount hash scroll check
+    const initialTimer = window.setTimeout(() => {
       lenis.resize();
       ScrollTrigger.refresh();
-      scrollToHash();
+
+      const initialHash = window.location.hash;
+      if (initialHash) {
+        scrollToSectionElement(initialHash, {
+          duration: 1.2,
+          onComplete: () => {
+            ScrollTrigger.refresh();
+          },
+        });
+      }
     }, 120);
 
     return () => {
-      window.clearTimeout(refresh);
+      window.clearTimeout(initialTimer);
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("hashchange", scrollToHash);
+      window.removeEventListener("hashchange", handleHashChange);
       gsap.ticker.remove(update);
       setLenisInstance(null);
       lenis.destroy();
     };
   }, []);
 
-  // Route change → scroll to top
+  // Route change handler
   useEffect(() => {
-    const lenis = getLenisInstance();
-
-    if (lenis) {
-      lenis.scrollTo(0, {
-        immediate: true,
-        force: true,
-      });
-    } else {
-      window.scrollTo(0, 0);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
     }
 
-    const t = setTimeout(() => {
+    const pending = getPendingSection();
+    const hash = window.location.hash ? window.location.hash.replace(/^#/, "") : null;
+    const targetSection = pending || hash;
+
+    if (pathname === "/" && targetSection && targetSection !== "home") {
+      setPendingSection(null);
+
+      scrollToSectionElement(targetSection, {
+        duration: 1.2,
+        onComplete: () => {
+          ScrollTrigger.refresh();
+        },
+      });
+    } else {
+      setPendingSection(null);
+
+      const lenis = getLenisInstance();
+      if (lenis) {
+        lenis.scrollTo(0, {
+          immediate: true,
+          force: true,
+        });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+
+    const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 150);
 
-    return () => clearTimeout(t);
+    return () => clearTimeout(refreshTimer);
   }, [pathname]);
 
   return null;

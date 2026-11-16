@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { setPendingSection, scrollToSectionElement } from "@/utils/lenisController";
 
 type LogoSize = "xs" | "sm" | "md" | "lg" | "xl";
 type LogoVariant = "both" | "icon-only" | "text-only";
@@ -13,6 +15,7 @@ interface LogoProps {
   variant?: LogoVariant;
   className?: string;
 }
+
 
 // Exact Vector Fallback for the Biswanath code logo (< / >)
 export const LogoIconFallback: React.FC<{ className?: string }> = ({
@@ -101,14 +104,28 @@ const Logo: React.FC<LogoProps> = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const pathname = usePathname();
 
   const scale = scaleMap[size];
   const showIcon = variant === "both" || variant === "icon-only";
   const showText = variant === "both" || variant === "text-only";
 
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      event.preventDefault();
+      scrollToSectionElement("home");
+      if (window.location.hash !== "#home") {
+        window.history.pushState(null, "", "#home");
+      }
+    } else {
+      setPendingSection("home");
+    }
+  };
+
   return (
     <Link
       href={"/"}
+      onClick={handleLogoClick}
       className="inline-flex w-max items-center justify-center origin-left"
       style={{ transform: `scale(${scale})` }}
     >
