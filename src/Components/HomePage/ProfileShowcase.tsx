@@ -206,14 +206,24 @@ const OrbitingRing: React.FC<OrbitingRingProps> = ({
       delay={0.2 + circleIdx * 0.15}
       className={`absolute inset-0 flex items-center justify-center pointer-events-none ${zIndexClass}`}
     >
-      {/* Rotating Ring Container reacting to scroll and pinwheel drag */}
+      {/* 1. Border / Ring only — has dynamic opacity + glow */}
       <motion.div
-        ref={ringRef}
         className={`absolute ${circleSizeClass} aspect-square rounded-full border border-border-color pointer-events-none`}
         style={{
           rotate: ringRotation,
           filter: ringGlow,
           opacity: ringBorderOpacity,
+          willChange: "transform",
+          transformOrigin: "center center",
+        }}
+      />
+
+      {/* 2. Icons container — always full opacity */}
+      <motion.div
+        ref={ringRef}
+        className={`button absolute ${circleSizeClass} aspect-square pointer-events-none`}
+        style={{
+          rotate: ringRotation,
           willChange: "transform",
           transformOrigin: "center center",
         }}
@@ -353,4 +363,3 @@ const ProfileShowcase = ({
 };
 
 export default ProfileShowcase;
-

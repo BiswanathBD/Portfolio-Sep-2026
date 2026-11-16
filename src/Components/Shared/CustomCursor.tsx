@@ -21,7 +21,7 @@ const CustomCursor = () => {
       ".custom-cursor-disabled, [data-cursor-disabled='true']";
 
     const interactiveSelector =
-      "a, img, button, [role='button'], input, textarea, select, label, .card, .cursor-pointer, [data-cursor-pointer]";
+      "a, img, button, [role='button'], input, textarea, select, label, .card, .cursor-pointer, [data-cursor-pointer], .button";
 
     let isVisible = false;
     let isHoveringInteractive = false;
