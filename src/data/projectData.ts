@@ -187,7 +187,7 @@ export const projectsData: ProjectItem[] = [
       },
       {
         name: "Express.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+        icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/express.svg",
       },
       {
         name: "MongoDB",
@@ -262,7 +262,7 @@ export const projectsData: ProjectItem[] = [
       },
       {
         name: "Express.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+        icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/express.svg",
       },
       {
         name: "MongoDB",
@@ -336,7 +336,7 @@ export const projectsData: ProjectItem[] = [
       },
       {
         name: "Express.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+        icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/express.svg",
       },
       {
         name: "MongoDB",

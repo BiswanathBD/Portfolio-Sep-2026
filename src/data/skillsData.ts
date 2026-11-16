@@ -76,7 +76,7 @@ export const skillCategories: SkillCategory[] = [
       },
       {
         name: "Express.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+        icon: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/express.svg",
         color: "text-gray-300",
         level: 78,
       },
